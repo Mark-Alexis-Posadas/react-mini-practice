@@ -20,7 +20,7 @@ const Root = () => {
   return (
     <>
       {/* <Greet firstName="Mark Alexis" middleName="Petrola" lastName="Posadas" /> */}
-      <Greet value={value} />
+      <Greet values={value} />
     </>
   );
 };

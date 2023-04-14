@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Root from "./components/Props/Root";
+import Root from "./components/SpreadOperator/Root";
+// import Root from "./components/Props/Root";
 
 // import ToggleElementLogicalOperators from "./components/ToggleElement/ToggleElementLogicalOperators";
 // import ToggleElementUseToggle from "./components/ToggleElement/ToggleElementUseToggle";
@@ -13,6 +14,7 @@ const App = () => {
   return (
     <div>
       {/* <Card fuckingProps={exampleOfData} /> */}
+      {/* <Root /> */}
       <Root />
     </div>
   );
