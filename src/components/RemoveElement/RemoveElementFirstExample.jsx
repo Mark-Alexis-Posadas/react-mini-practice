@@ -10,7 +10,7 @@ const DeleteElement = () => {
 
   return (
     <>
-      <h1>Delete Element</h1> // Render a heading
+      <h1>Delete Element</h1>
       {visible && <button onClick={removeElement}>Remove</button>} // Render a
       button only if visible is true. On click of the button, call the
       removeElement function.

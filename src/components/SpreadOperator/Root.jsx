@@ -11,7 +11,7 @@ const Root = () => {
 
   return (
     <div>
-      <MyComponent {...props} />
+      {/* <MyComponent {...props} /> */}
       <Map />
     </div>
   );
