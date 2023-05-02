@@ -1,0 +1,20 @@
+details {
+  border: 1px solid #ddd;
+  max-width: 900px;
+  margin: auto;
+  margin-top: 20px;
+  overflow: hidden;
+  transition: height 0.3s ease-out;
+}
+
+summary {
+  padding: 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  user-select: none;
+  font-weight: bold;
+}
+
+p {
+  padding: 20px;
+}
