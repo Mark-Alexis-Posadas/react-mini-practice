@@ -1,17 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import "./index.css";
-import Accordion from "./components/Accordion/Accordion";
-import data from "./components/Accordion/data.js";
-const App = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+import data from "./data.js";
+import JobListing from "./components/JobListing/JobListing";
 
-  const handleAccordionClick = (index) => {
-    setActiveIndex(index);
-  };
+const App = () => {
   return (
-    <>
-      <Accordion data={data} />
-    </>
+    <div>
+      <JobListing dataProps={data} />
+    </div>
   );
 };
 
