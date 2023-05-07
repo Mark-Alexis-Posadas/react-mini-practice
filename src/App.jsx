@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import "./index.css";
-import Accordion from "./components/Accordion/Accordion";
-import data from "./components/Accordion/data.js";
-const App = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+import React from "react";
 
-  const handleAccordionClick = (index) => {
-    setActiveIndex(index);
-  };
+import "./index.css";
+import Form from "./components/Forms/Form";
+import Counter from "./components/Counter/Counter";
+
+const App = () => {
   return (
     <>
-      <Accordion data={data} />
+      <Form />
+      <Counter />
     </>
   );
 };

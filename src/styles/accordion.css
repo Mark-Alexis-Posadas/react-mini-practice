@@ -1,4 +1,4 @@
-details {
+.accordion {
   border: 1px solid #ddd;
   max-width: 900px;
   margin: auto;
@@ -7,7 +7,8 @@ details {
   transition: height 0.3s ease-out;
 }
 
-summary {
+.accordion__title {
+  font-size: 1rem;
   padding: 20px;
   cursor: pointer;
   border-bottom: 1px solid #ddd;
@@ -15,6 +16,6 @@ summary {
   font-weight: bold;
 }
 
-p {
+.accordion__body {
   padding: 20px;
 }
