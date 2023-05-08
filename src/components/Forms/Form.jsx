@@ -4,15 +4,30 @@ const Form = () => {
   const [val, setVal] = useState([]);
   const inputRef = useRef(null);
 
+  useEffect(() => {
+    try {
+      const val = JSON.parse(localStorage.getItem("val"));
+      if (val) {
+        setVal(val);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   const handleClick = () => {
-    setVal([...val, inputRef.current.value]); // set value
+    const updatedVal = [...val, inputRef.current.value];
+    setVal(updatedVal); // set value
+    localStorage.setItem("val", JSON.stringify(updatedVal));
     inputRef.current.value = ""; // clear the input field
   };
 
   const handleKeydown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      setVal([...val, inputRef.current.value]); // set value
+      const updatedVal = [...val, inputRef.current.value]; // create a new array with the updated value
+      setVal(updatedVal); // set value
+      localStorage.setItem("val", JSON.stringify(updatedVal));
       inputRef.current.value = ""; // clear the input field
     }
   };
@@ -21,6 +36,7 @@ const Form = () => {
     const newValues = [...val];
     newValues.splice(index, 1);
     setVal(newValues);
+    localStorage.setItem("val", JSON.stringify(newValues));
   };
 
   return (

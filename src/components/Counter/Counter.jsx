@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Counter = () => {
   const initialState = 1;
@@ -12,21 +12,33 @@ const Counter = () => {
         <button
           type="button"
           className="btn btn-primary"
-          onClick={() => setCount(count - 1)}
+          onClick={() =>
+            setTimeout(() => {
+              setCount((prevCount) => prevCount - 1);
+            }, 1000)
+          }
         >
           &minus;
         </button>
         <button
           type="button"
           className="ms-5 btn btn-primary"
-          onClick={() => setCount(initialState)}
+          onClick={() =>
+            setTimeout(() => {
+              setCount(initialState);
+            }, 1000)
+          }
         >
           Reset
         </button>
         <button
           type="button"
           className="ms-5 btn btn-primary"
-          onClick={() => setCount(count + 1)}
+          onClick={() =>
+            setTimeout(() => {
+              setCount((prevCount) => prevCount + 1);
+            }, 1000)
+          }
         >
           &#43;
         </button>

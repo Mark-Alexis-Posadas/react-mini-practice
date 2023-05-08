@@ -1,14 +1,13 @@
 import React from "react";
 
 import "./index.css";
-import Form from "./components/Forms/Form";
-import Counter from "./components/Counter/Counter";
+
+import Root from "./hooks/UseState/Root";
 
 const App = () => {
   return (
     <>
-      <Form />
-      <Counter />
+      <Root />
     </>
   );
 };
