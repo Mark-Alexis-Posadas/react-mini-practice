@@ -1,13 +1,12 @@
 import React from "react";
 
 import "./index.css";
-
-import Root from "./hooks/UseState/Root";
+import RemoveElement from "./components/RemoveElement/RemoveElement";
 
 const App = () => {
   return (
     <>
-      <Root />
+      <RemoveElement />
     </>
   );
 };
