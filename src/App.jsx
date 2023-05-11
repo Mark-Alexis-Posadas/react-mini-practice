@@ -1,12 +1,12 @@
 import React from "react";
 
 import "./index.css";
-import RemoveElement from "./components/RemoveElement/RemoveElement";
+import Modal from "./components/Modal/Modal";
 
 const App = () => {
   return (
     <>
-      <RemoveElement />
+      <Modal />
     </>
   );
 };
