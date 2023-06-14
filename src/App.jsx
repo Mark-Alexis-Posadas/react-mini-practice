@@ -1,12 +1,13 @@
 import React from "react";
-
 import "./index.css";
-import Modal from "./components/Modal/Modal";
+import CounterOne from "./components/Hoc/CounterOne";
+import CounterTwo from "./components/Hoc/CounterTwo";
 
 const App = () => {
   return (
     <>
-      <Modal />
+      <CounterOne />
+      <CounterTwo />
     </>
   );
 };

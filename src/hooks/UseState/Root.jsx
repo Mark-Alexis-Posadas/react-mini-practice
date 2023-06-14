@@ -6,7 +6,7 @@ const Root = () => {
   return (
     <div>
       <Country />
-      {/* <Toggle /> */}
+      <Toggle />
     </div>
   );
 };
