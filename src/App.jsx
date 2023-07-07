@@ -1,13 +1,11 @@
 import React from "react";
 import "./index.css";
-import CounterOne from "./components/Hoc/CounterOne";
-import CounterTwo from "./components/Hoc/CounterTwo";
+import Accordion from "./components/Accordion/Accordion";
 
 const App = () => {
   return (
     <>
-      <CounterOne />
-      <CounterTwo />
+      <Accordion />
     </>
   );
 };

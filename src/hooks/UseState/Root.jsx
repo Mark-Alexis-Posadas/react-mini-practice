@@ -5,7 +5,7 @@ import Toggle from "./Toggle";
 const Root = () => {
   return (
     <div>
-      <Country />
+      {/* <Country /> */}
       <Toggle />
     </div>
   );
