@@ -111,3 +111,14 @@ button {
 .off {
   color: #ccc;
 }
+
+h1.active {
+  color: red;
+}
+
+.wrapper {
+  padding: 50px;
+}
+.wrapper.active {
+  background-color: #222;
+}
