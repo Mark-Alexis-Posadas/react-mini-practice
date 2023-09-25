@@ -1,13 +1,9 @@
 import React from "react";
 import "./index.css";
-import Accordion from "./components/Accordion/Accordion";
+import Form from "./components/Forms/Form";
 
 const App = () => {
-  return (
-    <>
-      <Accordion />
-    </>
-  );
+  return <Form />;
 };
 
 export default App;
