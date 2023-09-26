@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FilterTwo } from "./FilterTwo";
 import { FilterNumber } from "./FilterNumber";
+import FilterName from "./FilterName";
 
 export default function Filter() {
   // const names = ["James", "John", "Paul", "Ringo", "George"];
@@ -20,7 +21,8 @@ export default function Filter() {
       </button> */}
 
       {/* <FilterTwo /> */}
-      <FilterNumber />
+      {/* <FilterNumber /> */}
+      <FilterName />
     </>
   );
 }

@@ -20,6 +20,7 @@ export const FilterNumber = () => {
         that are greater than the user's input number.
       </p>
       <input
+        className="form-control"
         type="number"
         value={filterValue}
         onChange={handleChange}
