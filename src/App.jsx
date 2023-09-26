@@ -3,10 +3,10 @@ import "./index.css";
 import Form from "./components/Forms/Form";
 import ConditioanlRendering from "./components/ConditionalRendering/ConditioanlRendering";
 import UseReducer from "./hooks/UseReducer/UseReducer";
-import Ratings from "./components/Ratings/Ratings";
+import Filter from "./components/Filter/Filter";
 
 const App = () => {
-  return <Ratings />;
+  return <Filter />;
 };
 
 export default App;
