@@ -5,7 +5,7 @@ const Ratings = () => {
   const [hover, setHover] = useState(0);
   return (
     <div>
-      {[...Array(5)].map((star, index) => {
+      {[...Array(3)].map((_, index) => {
         return (
           <button
             type="button"

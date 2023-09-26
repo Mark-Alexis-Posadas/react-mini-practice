@@ -5,6 +5,7 @@ const reducerFunction = (state, action) => {
   switch (action.type) {
     case "INCREMENT":
       return state + action.fuckingPayload;
+
     case "DECREMENT":
       return state - action.fuckingPayload;
   }
@@ -18,7 +19,7 @@ export default function UseReducer() {
   };
 
   const handleDecrement = () => {
-    dispatch({ type: "DECREMENT", fuckingPayload: 1 });
+    dispatch({ type: "DECREMENT", fuckingPayload: 2 });
   };
 
   return (
