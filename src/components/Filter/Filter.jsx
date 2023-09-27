@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { FilterTwo } from "./FilterTwo";
 import { FilterNumber } from "./FilterNumber";
 import FilterName from "./FilterName";
+import FilterTaskList from "./FilterTaskList";
+import { FilterSorting } from "./FilterSorting";
 
 export default function Filter() {
   // const names = ["James", "John", "Paul", "Ringo", "George"];
@@ -22,7 +24,9 @@ export default function Filter() {
 
       {/* <FilterTwo /> */}
       {/* <FilterNumber /> */}
-      <FilterName />
+      {/* <FilterName /> */}
+      {/* <FilterTaskList /> */}
+      <FilterSorting />
     </>
   );
 }
