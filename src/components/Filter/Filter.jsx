@@ -4,6 +4,7 @@ import { FilterNumber } from "./FilterNumber";
 import FilterName from "./FilterName";
 import FilterTaskList from "./FilterTaskList";
 import { FilterSorting } from "./FilterSorting";
+import FilterCategory from "./FilterCategory";
 
 export default function Filter() {
   // const names = ["James", "John", "Paul", "Ringo", "George"];
@@ -26,7 +27,8 @@ export default function Filter() {
       {/* <FilterNumber /> */}
       {/* <FilterName /> */}
       {/* <FilterTaskList /> */}
-      <FilterSorting />
+      {/* <FilterSorting /> */}
+      <FilterCategory />
     </>
   );
 }
