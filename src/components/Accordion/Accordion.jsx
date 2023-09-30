@@ -20,9 +20,10 @@ export default function Accordion() {
               className={`d-flex align-items-center justify-content-between bg-primary text-white accordion__title ${
                 isActive && "active"
               }`}
+              onClick={() => toggleAccordion(data.id)}
             >
-              <h1 onClick={() => toggleAccordion(data.id)}>{data.title}</h1>
-              <span>{isActive ? "+" : "-"}</span>
+              <h1 className="h5">{data.title}</h1>
+              <span className="h2">{isActive ? "+" : "-"}</span>
             </div>
 
             {isActive && <p className="accordion__body">{data.body}</p>}
