@@ -5,9 +5,10 @@ import ConditioanlRendering from "./components/ConditionalRendering/ConditioanlR
 import UseReducer from "./hooks/UseReducer/UseReducer";
 import Filter from "./components/Filter/Filter";
 import { Palindrome } from "./components/Palindrome/Palindrome";
+import Accordion from "./components/Accordion/Accordion";
 
 const App = () => {
-  return <Palindrome />;
+  return <Accordion />;
 };
 
 export default App;

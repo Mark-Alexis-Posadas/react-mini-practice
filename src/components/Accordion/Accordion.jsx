@@ -16,14 +16,15 @@ export default function Accordion() {
 
         return (
           <div className="accordion" key={data.id}>
-            <h1
-              className={`bg-primary text-white accordion__title ${
-                isActive ? "active" : ""
+            <div
+              className={`d-flex align-items-center justify-content-between bg-primary text-white accordion__title ${
+                isActive && "active"
               }`}
-              onClick={() => toggleAccordion(data.id)}
             >
-              {data.title}
-            </h1>
+              <h1 onClick={() => toggleAccordion(data.id)}>{data.title}</h1>
+              <span>{isActive ? "+" : "-"}</span>
+            </div>
+
             {isActive && <p className="accordion__body">{data.body}</p>}
           </div>
         );
