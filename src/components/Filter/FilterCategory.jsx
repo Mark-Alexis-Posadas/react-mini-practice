@@ -33,6 +33,7 @@ const FilterCategory = () => {
 
   const toggleCategory = (category) => {
     setSelectedCategories((prevSelectedCategories) => {
+      console.log(prevSelectedCategories);
       if (prevSelectedCategories.includes(category)) {
         return prevSelectedCategories.filter((c) => c !== category);
       } else {
