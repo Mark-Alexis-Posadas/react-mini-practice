@@ -6,8 +6,10 @@ export const TodoModal = ({
   handleTitleChange,
   handleAddTask,
   inputRef,
+  todoTitle,
+  buttons,
 }) => {
-  const modalClasses = `modal fade ${show ? "show" : ""}`;
+  const modalClasses = `modal  ${show ? "show" : ""}`;
 
   return (
     <div
@@ -18,7 +20,7 @@ export const TodoModal = ({
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title ">Add TODO</h5>
+            <h5 className="modal-title ">{todoTitle}</h5>
             <button
               type="button"
               className="btn-close"
@@ -56,21 +58,18 @@ export const TodoModal = ({
             </form>
           </div>
           <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleAddTask}
-            >
-              Add Task
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-              onClick={close}
-            >
-              Cancel
-            </button>
+            {buttons.map((button) => (
+              <button
+                key={button.id}
+                type="button"
+                className={`btn ${
+                  button.id === 1 ? "btn-primary" : "btn-secondary"
+                }`}
+                onClick={button.id === 1 ? handleAddTask : close}
+              >
+                {button.text}
+              </button>
+            ))}
           </div>
         </div>
       </div>
