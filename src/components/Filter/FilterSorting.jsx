@@ -24,7 +24,6 @@ export const FilterSorting = () => {
     },
   ];
 
-  const [products, setProducts] = useState(initialProducts);
   const [filterStock, setFilterStock] = useState(false);
 
   const handleToggleStock = () => {

@@ -1,15 +1,20 @@
 export const TodoModal = ({
   show,
   handleClose,
-  handleTitleChange,
   handleAddTask,
   inputRef,
   todoTitle,
   modalButtons,
   selectedStatus,
   setSelectedStatus,
+  titleInput,
+  setTitleInput,
 }) => {
   const modalClasses = `modal  ${show ? "show" : ""}`;
+
+  const handleTitleChange = (e) => {
+    setTitleInput("");
+  };
 
   return (
     <div
@@ -35,6 +40,7 @@ export const TodoModal = ({
                 Title
                 <input
                   ref={inputRef}
+                  value={titleInput}
                   type="text"
                   id="title"
                   name="title"

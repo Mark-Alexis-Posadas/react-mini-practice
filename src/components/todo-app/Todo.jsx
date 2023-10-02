@@ -18,6 +18,7 @@ export const Todo = () => {
   const [todoTitle, setTodoTitle] = useState("Add Todo");
   const [modalButtons, setModalButtons] = useState(buttons);
   const [selectedStatus, setSelectedStatus] = useState("All");
+  const [titleInput, setTitleInput] = useState("");
 
   const [todos, setTodos] = useState(() => {
     try {
@@ -65,15 +66,19 @@ export const Todo = () => {
   };
 
   //Edit Todos
-  const handleEdit = () => {
+  const handleEdit = (index) => {
+    const editTodo = todos[index];
+    setSelectedStatus(editTodo.checked ? "Completed" : "Incomplete");
+
     handleShow();
     setTodoTitle("Update Todo");
+    setTitleInput(editTodo.text);
 
     const newBtns = modalButtons.map((b) => ({
       ...b,
       text: b.id === 1 ? "Update Task" : "Cancel",
     }));
-    setBtn(newBtns);
+    setModalButtons(newBtns);
   };
 
   //Toggle Check
@@ -89,6 +94,11 @@ export const Todo = () => {
     color: isChecked ? "#888" : "#222",
   });
 
+  //handle Filter
+  const handleFilter = (event) => {
+    setSelectedStatus(event.target.value);
+  };
+
   return (
     <div className="container mt-5">
       <div className="d-flex align-items-center justify-content-between">
@@ -98,11 +108,12 @@ export const Todo = () => {
         <select
           className="form-select w-25"
           aria-label="Default select example"
-          defaultValue="All"
+          value={selectedStatus}
+          onChange={handleFilter}
         >
           <option value="All">All</option>
-          <option value="1">Incomplete</option>
-          <option value="2">Completed</option>
+          <option value="Incomplete">Incomplete</option>
+          <option value="Completed">Completed</option>
         </select>
       </div>
       <div className="d-flex flex-column">
@@ -110,37 +121,40 @@ export const Todo = () => {
           <p className="h1">No Todos</p>
         ) : (
           <ul className="list-group mt-4">
-            {todos.map((todo, idx) => (
-              <li
-                className="list-group-item d-flex align-items-center justify-content-between"
-                key={idx}
-              >
-                <input
-                  className="form-check-input me-3 mt-0"
-                  type="checkbox"
-                  checked={todo.checked}
-                  onChange={() => toggleCheck(idx)}
-                />
+            {todos.map((todo, index) => {
+              const isVisible =
+                selectedStatus === "All" ||
+                (selectedStatus === "Completed" && todo.checked) ||
+                (selectedStatus === "Incomplete" && !todo.checked);
 
-                <span className="me-auto" style={stylesChecked(todo.checked)}>
-                  {todo.text}
-                </span>
-                <span className="d-flex align-items-center">
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleDelete(idx)}
+              return isVisible ? (
+                <li
+                  key={index}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <span
+                    style={stylesChecked(todo.checked)}
+                    onClick={() => toggleCheck(index)}
                   >
-                    Delete
-                  </button>
-                  <button
-                    className="btn btn-secondary ms-2"
-                    onClick={handleEdit}
-                  >
-                    Edit
-                  </button>
-                </span>
-              </li>
-            ))}
+                    {todo.text}
+                  </span>
+                  <div>
+                    <button
+                      className="btn btn-danger me-2"
+                      onClick={() => handleDelete(index)}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="btn btn-warning"
+                      onClick={() => handleEdit(index)}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                </li>
+              ) : null;
+            })}
           </ul>
         )}
       </div>
@@ -153,6 +167,7 @@ export const Todo = () => {
         modalButtons={modalButtons}
         selectedStatus={selectedStatus}
         setSelectedStatus={setSelectedStatus}
+        titleInput={titleInput}
       />
     </div>
   );
