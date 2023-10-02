@@ -1,8 +1,6 @@
-import { useState } from "react";
-
 export const TodoModal = ({
   show,
-  close,
+  handleClose,
   handleTitleChange,
   handleAddTask,
   inputRef,
@@ -28,7 +26,7 @@ export const TodoModal = ({
               className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
-              onClick={close}
+              onClick={handleClose}
             ></button>
           </div>
           <div className="modal-body">
@@ -53,8 +51,12 @@ export const TodoModal = ({
                   onChange={(e) => setSelectedStatus(e.target.value)}
                   id="type"
                 >
-                  <option value="Incomplete">Incomplete</option>
-                  <option value="Completed">Completed</option>
+                  <option value="Incomplete" className="text-danger">
+                    Incomplete
+                  </option>
+                  <option value="Completed" className="text-success">
+                    Completed
+                  </option>
                 </select>
               </label>
             </form>
@@ -67,7 +69,7 @@ export const TodoModal = ({
                 className={`btn ${
                   button.id === 1 ? "btn-primary" : "btn-secondary"
                 }`}
-                onClick={button.id === 1 ? handleAddTask : close}
+                onClick={button.id === 1 ? handleAddTask : handleClose}
               >
                 {button.text}
               </button>

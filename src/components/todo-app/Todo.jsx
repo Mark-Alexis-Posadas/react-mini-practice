@@ -146,7 +146,7 @@ export const Todo = () => {
       </div>
       <TodoModal
         show={show}
-        close={handleClose}
+        handleClose={handleClose}
         handleAddTask={handleAddTask}
         inputRef={inputRef}
         todoTitle={todoTitle}
