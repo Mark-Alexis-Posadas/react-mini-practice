@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect, useRef } from "react";
 import { TodoModal } from "./TodoModal";
 
 export const Todo = () => {
@@ -13,25 +13,23 @@ export const Todo = () => {
     },
   ];
 
-  const inputRef = React.useRef(null);
-  const [show, setShow] = React.useState(false);
-  const [checked, setChecked] = React.useState(false);
-  const [todoTitle, setTodoTitle] = React.useState("Add Todo");
-  const [btn, setBtn] = React.useState(buttons);
+  const inputRef = useRef(null);
+  const [show, setShow] = useState(false);
+  const [todoTitle, setTodoTitle] = useState("Add Todo");
+  const [modalButtons, setModalButtons] = useState(buttons);
+  const [selectedStatus, setSelectedStatus] = useState("All");
 
-  const [todos, setTodos] = React.useState(() => {
+  const [todos, setTodos] = useState(() => {
     try {
-      // Initialize todos with data from local storage, or an empty array if there's none
       const storedTodos = JSON.parse(localStorage.getItem("todos"));
       return storedTodos || [{ text: "Add todo", checked: false }];
-      // return storedTodos || [];
     } catch (error) {
       console.error(error);
       return [];
     }
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Save todos to local storage whenever todos change
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
@@ -43,11 +41,6 @@ export const Todo = () => {
   const handleClose = () => {
     setShow(false);
   };
-  // //Modal Title Input
-  // const handleTitleChange = (e) => {
-  //   const result = e.target.value;
-  //   console.log(result);
-  // };
 
   //Add Task Button
   const handleAddTask = (e) => {
@@ -57,22 +50,14 @@ export const Todo = () => {
       alert("Add title");
       return; // Stop the function execution if the input is empty
     }
-
-    // const updatedVal = todos.map((todo, idx) => ({
-    //   ...todo,
-    //   text: inputRef.current.value,
-    //   checked: false,
-    // }));
-
-    const updatedVal = [
-      ...todos,
-      { text: inputRef.current.value, checked: false },
-    ];
+    const checked = selectedStatus === "Completed";
+    const updatedVal = [...todos, { text: inputRef.current.value, checked }];
 
     setTodos(updatedVal);
     inputRef.current.value = "";
     handleClose();
   };
+
   //Delete Todos
   const handleDelete = (idx) => {
     const removeTodos = todos.filter((_, id) => id !== idx);
@@ -80,12 +65,11 @@ export const Todo = () => {
   };
 
   //Edit Todos
-
   const handleEdit = () => {
     handleShow();
     setTodoTitle("Update Todo");
 
-    const newBtns = btn.map((b) => ({
+    const newBtns = modalButtons.map((b) => ({
       ...b,
       text: b.id === 1 ? "Update Task" : "Cancel",
     }));
@@ -93,15 +77,16 @@ export const Todo = () => {
   };
 
   //Toggle Check
-
   const toggleCheck = (index) => {
     const updatedTodos = [...todos];
     updatedTodos[index].checked = !updatedTodos[index].checked;
     setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
   };
 
   const stylesChecked = (isChecked) => ({
     textDecoration: isChecked ? "line-through" : "none",
+    color: isChecked ? "#888" : "#222",
   });
 
   return (
@@ -133,12 +118,12 @@ export const Todo = () => {
                 <input
                   className="form-check-input me-3 mt-0"
                   type="checkbox"
-                  value={todo.checked}
+                  checked={todo.checked}
                   onChange={() => toggleCheck(idx)}
                 />
 
                 <span className="me-auto" style={stylesChecked(todo.checked)}>
-                  {todo.text} {/* Render the 'text' property */}
+                  {todo.text}
                 </span>
                 <span className="d-flex align-items-center">
                   <button
@@ -162,11 +147,12 @@ export const Todo = () => {
       <TodoModal
         show={show}
         close={handleClose}
-        // handleTitleChange={handleTitleChange}
         handleAddTask={handleAddTask}
         inputRef={inputRef}
         todoTitle={todoTitle}
-        buttons={btn}
+        modalButtons={modalButtons}
+        selectedStatus={selectedStatus}
+        setSelectedStatus={setSelectedStatus}
       />
     </div>
   );

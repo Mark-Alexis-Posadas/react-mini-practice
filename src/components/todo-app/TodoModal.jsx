@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 export const TodoModal = ({
   show,
@@ -7,7 +7,9 @@ export const TodoModal = ({
   handleAddTask,
   inputRef,
   todoTitle,
-  buttons,
+  modalButtons,
+  selectedStatus,
+  setSelectedStatus,
 }) => {
   const modalClasses = `modal  ${show ? "show" : ""}`;
 
@@ -47,18 +49,18 @@ export const TodoModal = ({
                 Status
                 <select
                   className="form-select"
-                  aria-label="Default select example"
-                  defaultValue="Incomplete"
+                  value={selectedStatus}
+                  onChange={(e) => setSelectedStatus(e.target.value)}
                   id="type"
                 >
-                  <option value="1">Incomplete</option>
-                  <option value="2">Completed</option>
+                  <option value="Incomplete">Incomplete</option>
+                  <option value="Completed">Completed</option>
                 </select>
               </label>
             </form>
           </div>
           <div className="modal-footer">
-            {buttons.map((button) => (
+            {modalButtons.map((button) => (
               <button
                 key={button.id}
                 type="button"
