@@ -5,16 +5,12 @@ export const TodoModal = ({
   inputRef,
   todoTitle,
   modalButtons,
+  titleInput,
+  handleInputChange,
   selectedStatus,
   setSelectedStatus,
-  titleInput,
-  setTitleInput,
 }) => {
-  const modalClasses = `modal  ${show ? "show" : ""}`;
-
-  const handleTitleChange = (e) => {
-    setTitleInput("");
-  };
+  const modalClasses = `modal ${show ? "show" : ""}`;
 
   return (
     <div
@@ -25,7 +21,7 @@ export const TodoModal = ({
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title ">{todoTitle}</h5>
+            <h5 className="modal-title">{todoTitle}</h5>
             <button
               type="button"
               className="btn-close"
@@ -45,7 +41,7 @@ export const TodoModal = ({
                   id="title"
                   name="title"
                   className="form-control mb-3"
-                  onChange={handleTitleChange}
+                  onChange={handleInputChange}
                 />
               </label>
 
@@ -75,7 +71,7 @@ export const TodoModal = ({
                 className={`btn ${
                   button.id === 1 ? "btn-primary" : "btn-secondary"
                 }`}
-                onClick={button.id === 1 ? handleAddTask : handleClose}
+                onClick={() => handleAddTask(selectedStatus)} // Pass the selected status
               >
                 {button.text}
               </button>
