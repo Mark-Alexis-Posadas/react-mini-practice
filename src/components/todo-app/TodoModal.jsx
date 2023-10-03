@@ -9,6 +9,7 @@ export const TodoModal = ({
   handleInputChange,
   selectedStatus,
   setSelectedStatus,
+  filterStatus,
 }) => {
   const modalClasses = `modal ${show ? "show" : ""}`;
 
@@ -42,6 +43,12 @@ export const TodoModal = ({
                   name="title"
                   className="form-control mb-3"
                   onChange={handleInputChange}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault(); // Prevent the default Enter key behavior (usually submitting forms)
+                      handleAddTask(filterStatus); // Pass the selected status
+                    }
+                  }}
                 />
               </label>
 
