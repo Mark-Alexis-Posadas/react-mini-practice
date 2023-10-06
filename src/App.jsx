@@ -1,9 +1,8 @@
-import React from "react";
 import "./index.css";
-import HoverText from "./components/ShoppingClone/HoverText";
+import Card from "./components/Card/Card";
 
 const App = () => {
-  return <HoverText />;
+  return <Card />;
 };
 
 export default App;

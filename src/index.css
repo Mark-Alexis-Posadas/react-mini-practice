@@ -122,3 +122,7 @@ h1.active {
 .wrapper.active {
   background-color: #222;
 }
+
+.card img {
+  height: 300px;
+}
