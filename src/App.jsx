@@ -1,8 +1,8 @@
-import "./index.css";
-import Card from "./components/Card/Card";
-
-const App = () => {
-  return <Card />;
-};
-
-export default App;
+import { Todo } from "./components/todo-app/Todo";
+export default function App() {
+  return (
+    <div>
+      <Todo />
+    </div>
+  );
+}

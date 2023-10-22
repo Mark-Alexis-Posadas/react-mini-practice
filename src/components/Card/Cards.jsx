@@ -18,6 +18,7 @@ export default function Cards({ cards, setCards }) {
 
   return (
     <div className="row">
+      {cards.length === 0 && <p>No tours available</p>}
       {cards.map((card, index) => (
         <div className="col-lg-4" key={card.id}>
           <div className="card">
