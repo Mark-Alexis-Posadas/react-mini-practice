@@ -1,9 +1,9 @@
 import React from "react";
 import "./index.css";
-import HoverText from "./components/ShoppingClone/HoverText";
+import Root from "./components/ReusableComponent/Root";
 
 const App = () => {
-  return <HoverText />;
+  return <Root />;
 };
 
 export default App;
