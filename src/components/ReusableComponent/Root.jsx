@@ -1,5 +1,8 @@
 import { Router, Route, Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
+
+// ... rest of your code ...
+
 import Home from "../../pages/Home";
 import Blog from "../../pages/Blog";
 import Contact from "../../pages/Contact";
