@@ -12,8 +12,6 @@ export default function Cards({ cards, setCards }) {
       ...prevShowMore,
       [id]: !prevShowMore[id],
     }));
-
-    console.log(setShowMore);
   };
 
   return (

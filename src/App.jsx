@@ -1,9 +1,10 @@
-import Root from "./components/Carousel/Root";
-
-export default function App() {
+import Counter from "./components/Counter/Counter";
+const App = () => {
   return (
-    <div>
-      <Root />
-    </div>
+    <>
+      <Counter />
+    </>
   );
-}
+};
+
+export default App;

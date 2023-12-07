@@ -25,12 +25,14 @@ export default function Carousel({ images }) {
           </div>
         ))}
       </div>
-      <button className="prev-button" onClick={goToPrevSlide}>
-        Previous
-      </button>
-      <button className="next-button" onClick={goToNextSlide}>
-        Next
-      </button>
+      <div className="d-flex align-items-center justify-content-between w-100">
+        <button className="prev-button" onClick={goToPrevSlide}>
+          Previous
+        </button>
+        <button className="next-button" onClick={goToNextSlide}>
+          Next
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Slider from "./Slider";
+import "./index.css";
 
 const Root = () => {
   const slides = [
@@ -27,6 +28,7 @@ const Root = () => {
 
   return (
     <>
+      <Slider slides={slides} />
       <Slider slides={slides} />
     </>
   );

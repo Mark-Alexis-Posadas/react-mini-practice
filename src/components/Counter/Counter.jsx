@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from "react";
 
 const Counter = () => {
-  const initialState = 1;
+  const initialState = 0;
   const [count, setCount] = useState(initialState);
+  const handleIncrement = () => {
+    if (count < 10) {
+      setCount(count + 1);
+    }
+  };
 
+  const handleDecrement = () => {
+    if (count > 0) {
+      setCount(count - 1);
+    }
+  };
+
+  const handleReset = () => {
+    setCount(initialState);
+  };
   return (
     <div className="mt-5">
       <h1 className="text-center display-4">Count - {count}</h1>
@@ -11,34 +25,22 @@ const Counter = () => {
       <div className="d-flex justify-content-center">
         <button
           type="button"
-          className="btn btn-primary"
-          onClick={() =>
-            setTimeout(() => {
-              setCount((prevCount) => prevCount - 1);
-            }, 1000)
-          }
+          className={`btn ${count > 0 ? "btn-primary" : "btn-secondary"}`}
+          onClick={handleDecrement}
         >
           &minus;
         </button>
         <button
           type="button"
           className="ms-5 btn btn-primary"
-          onClick={() =>
-            setTimeout(() => {
-              setCount(initialState);
-            }, 1000)
-          }
+          onClick={handleReset}
         >
           Reset
         </button>
         <button
           type="button"
-          className="ms-5 btn btn-primary"
-          onClick={() =>
-            setTimeout(() => {
-              setCount((prevCount) => prevCount + 1);
-            }, 1000)
-          }
+          className={`btn ms-5 ${count < 10 ? "btn-primary" : "btn-secondary"}`}
+          onClick={handleIncrement}
         >
           &#43;
         </button>
