@@ -1,9 +1,9 @@
-import Calendar from "./components/Calendar/Calendar";
+import SearchFilterTwo from "./components/SearchFilter/SearchFilterTwo";
 
 const App = () => {
   return (
     <>
-      <Calendar />
+      <SearchFilterTwo />
     </>
   );
 };
