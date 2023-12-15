@@ -1,8 +1,9 @@
-import Counter from "./components/Counter/Counter";
+import Calendar from "./components/Calendar/Calendar";
+
 const App = () => {
   return (
     <>
-      <Counter />
+      <Calendar />
     </>
   );
 };

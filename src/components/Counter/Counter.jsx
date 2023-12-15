@@ -25,7 +25,7 @@ const Counter = () => {
       <div className="d-flex justify-content-center">
         <button
           type="button"
-          className={`btn ${count > 0 ? "btn-primary" : "btn-secondary"}`}
+          className={`btn ${count > 0 ? "btn-primary" : " d-none"}`}
           onClick={handleDecrement}
         >
           &minus;
