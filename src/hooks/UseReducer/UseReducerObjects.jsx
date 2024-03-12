@@ -1,5 +1,6 @@
 import React from "react";
 
+const buttonText = ["change first name", "change last name", "change age"];
 const initialState = {
   firstName: "Mark Alexis",
   lastName: "Posadas",
@@ -9,13 +10,13 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "CHANGE_FIRST_NAME": {
-      return { ...state, firstName: action.payFuckingLoad };
+      return { ...state, firstName: action.payload };
     }
     case "CHANGE_LAST_NAME": {
-      return { ...state, lastName: action.payFuckingLoad };
+      return { ...state, lastName: action.payload };
     }
     case "CHANGE_AGE": {
-      return { ...state, age: action.payFuckingLoad };
+      return { ...state, age: action.payload };
     }
     default:
       return state;
@@ -25,17 +26,20 @@ const reducer = (state, action) => {
 export default function UseReducerObjects() {
   const [currentState, dispatch] = React.useReducer(reducer, initialState);
 
-  const handleFirstNameChange = () => {
-    // You can pass the new value as payload
-    dispatch({ type: "CHANGE_FIRST_NAME", payFuckingLoad: "Juan" });
-  };
-
-  const handleLastNameChange = () => {
-    dispatch({ type: "CHANGE_LAST_NAME", payFuckingLoad: "TAMAD" });
-  };
-
-  const handleAgeChange = () => {
-    dispatch({ type: "CHANGE_AGE", payFuckingLoad: 50 });
+  const handleClick = (type) => {
+    switch (type) {
+      case "CHANGE_FIRST_NAME":
+        dispatch({ type, payload: "Juan" });
+        break;
+      case "CHANGE_LAST_NAME":
+        dispatch({ type, payload: "TAMAD" });
+        break;
+      case "CHANGE_AGE":
+        dispatch({ type, payload: 50 });
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -48,17 +52,15 @@ export default function UseReducerObjects() {
         </li>
       </ul>
 
-      <button className="btn btn-primary" onClick={handleFirstNameChange}>
-        Change first name
-      </button>
-
-      <button className="btn btn-primary" onClick={handleLastNameChange}>
-        Change last name
-      </button>
-
-      <button className="btn btn-primary" onClick={handleAgeChange}>
-        Change age
-      </button>
+      {buttonText.map((name, idx) => (
+        <button
+          className="btn btn-primary mx-2"
+          key={idx}
+          onClick={() => handleClick(name.toUpperCase())}
+        >
+          {name}
+        </button>
+      ))}
     </div>
   );
 }

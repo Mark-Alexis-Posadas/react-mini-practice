@@ -1,10 +1,10 @@
-import SearchFilterTwo from "./components/SearchFilter/SearchFilterTwo";
+import Root from "./components/Exercises/Context/Root";
 
 const App = () => {
   return (
-    <>
-      <SearchFilterTwo />
-    </>
+    <div>
+      <Root />
+    </div>
   );
 };
 

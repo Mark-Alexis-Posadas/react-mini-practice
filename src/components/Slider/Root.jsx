@@ -12,7 +12,7 @@ const Root = () => {
     },
     {
       image:
-        "https://plus.unsplash.com/premium_photo-1681319553238-9860299dfb0f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80",
+        "https://plus.unsplash.com/prwemium_photo-1681319553238-9860299dfb0f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80",
       title: "Slide 2",
       description:
         "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
