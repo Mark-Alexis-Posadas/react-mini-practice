@@ -18,6 +18,7 @@ const data = [
     bgColor: "bg-red-600",
   },
 ];
+
 const Colors = () => {
   const [bg, setBg] = useState(() => localStorage.getItem("bg"));
 

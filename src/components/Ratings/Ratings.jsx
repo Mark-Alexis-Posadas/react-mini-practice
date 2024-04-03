@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Ratings = () => {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(
+    () => localStorage.getItem("rating") || 0
+  );
   const [hover, setHover] = useState(0);
+
+  useEffect(() => {
+    localStorage.setItem("rating", rating);
+  }, [rating]);
   return (
     <div>
-      {[...Array(3)].map((_, index) => {
+      {[...Array(5)].map((_, index) => {
         return (
           <button
             type="button"
