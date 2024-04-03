@@ -1,49 +1,74 @@
-// import { useReducer } from "react";
-
-// const initialState = {
-//   isToggleOne: false,
-//   isToggleTwo: false,
-// };
-
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case "TOGGLE":
-//       return { ...state, [action.payload]: !state[action.payload] };
-//     default:
-//       return state;
-//   }
-// };
-
-// export default function App() {
-//   const [toggle, dispatch] = useReducer(reducer, initialState);
-
-//   return (
-//     <div>
-//       <button
-//         onClick={() => dispatch({ type: "TOGGLE", payload: "isToggleOne" })}
-//       >
-//         Toggle one
-//       </button>
-//       <button
-//         onClick={() => dispatch({ type: "TOGGLE", payload: "isToggleTwo" })}
-//       >
-//         Toggle two
-//       </button>
-
-//       {toggle.isToggleOne && <div>Content one</div>}
-//       {toggle.isToggleTwo && <div>Content two</div>}
-//     </div>
-//   );
-// }
-
-import React from "react";
-import ReducerForm from "./components/Forms/ReducerForm";
+import { useState } from "react";
+import Colors from "./components/Colors/Colors";
 
 const App = () => {
+  const [state, setState] = useState("A");
+  const data = [
+    "Beer",
+    "Wine",
+    "Gins",
+    "Gin",
+    "Gin",
+    "Whiskey",
+    "Brandy",
+    "Tequila",
+  ];
+  const [search, setSearch] = useState("");
+  const handleClick = (param) => {
+    setState(param);
+  };
+  const filteredData = data.filter((item) =>
+    item.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const handleSet = (d) => {
+    setSearch(d);
+  };
+
   return (
-    <>
-      <ReducerForm />
-    </>
+    <div>
+      <h1>{state}</h1>
+      <button
+        className="text-white bg-red-400 p-2 rounded mr-2"
+        onClick={() => handleClick("A")}
+      >
+        A
+      </button>
+      <button
+        className="text-white bg-red-400 p-2 rounded mr-2"
+        onClick={() => handleClick("B")}
+      >
+        B
+      </button>
+      <button
+        className="text-white bg-red-400 p-2 rounded mr-2"
+        onClick={() => handleClick("C")}
+      >
+        C
+      </button>
+
+      <div className="mt-5 bg-slate-100 shadow-md p-5">
+        <input
+          type="text"
+          placeholder="search..."
+          className="bg-white shadow-sm p-2 rounded"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <ul className="bg-white shadow-md mt-6">
+          {filteredData.map((d, idx) => (
+            <li
+              className="border border-slate-400 rounded p-2 mb-2 cursor-pointer hover:bg-slate-50"
+              key={idx}
+              onClick={() => handleSet(d)}
+            >
+              {d}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <Colors />
+    </div>
   );
 };
 
