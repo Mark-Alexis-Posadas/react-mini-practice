@@ -39,20 +39,32 @@ const Cart = () => {
     }
   };
 
-  const decrementQuantity = (itemId) => {
+  const incrementQuantity = (itemId) => {
     const updatedCart = cart.map((item) => {
-      if (item.id === itemId && item.quantity > 1) {
-        return { ...item, quantity: item.quantity - 1 };
+      if (item.id === itemId) {
+        const updatedQuantity = item.quantity + 1;
+        const updatedTotalPrice = updatedQuantity * item.price;
+        return {
+          ...item,
+          quantity: updatedQuantity,
+          totalPrice: updatedTotalPrice,
+        };
       }
       return item;
     });
     setCart(updatedCart);
   };
 
-  const incrementQuantity = (itemId) => {
+  const decrementQuantity = (itemId) => {
     const updatedCart = cart.map((item) => {
-      if (item.id === itemId) {
-        return { ...item, quantity: item.quantity + 1 };
+      if (item.id === itemId && item.quantity > 1) {
+        const updatedQuantity = item.quantity - 1;
+        const updatedTotalPrice = updatedQuantity * item.price;
+        return {
+          ...item,
+          quantity: updatedQuantity,
+          totalPrice: updatedTotalPrice,
+        };
       }
       return item;
     });
@@ -68,8 +80,7 @@ const Cart = () => {
         setProducts,
         addToCart,
         cart,
-        decrementQuantity,
-        incrementQuantity,
+
         totalPrice,
         toggle,
         setToggle,
