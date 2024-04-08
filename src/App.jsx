@@ -1,7 +1,7 @@
-import Cart from "./components/Cart/Cart";
+import React from "react";
 
 const App = () => {
-  return <Cart />;
+  return <div>App</div>;
 };
 
 export default App;
