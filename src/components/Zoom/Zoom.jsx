@@ -1,7 +1,9 @@
 import { useState } from "react";
 
+const colors = ["red", "blue", "green", "orange", "purple"];
+
 const Zoom = () => {
-  const [size, setSize] = useState("1rem");
+  const [size, setSize] = useState("6rem");
 
   const handleClick = (index) => {
     if (index === 0) {
@@ -11,11 +13,8 @@ const Zoom = () => {
     }
   };
 
-  const colors = ["red", "blue", "green", "orange", "purple"]; // Array of colors for each letter
-
   return (
     <div className="mt-6 text-center">
-      {/* Wrap each letter in a span and Zoomly styles */}
       <h1 className="mb-2 font-bold" style={{ fontSize: size }}>
         {"hello".split("").map((letter, index) => (
           <span key={index} style={{ color: colors[index] }}>
@@ -29,6 +28,7 @@ const Zoom = () => {
       >
         zoom in
       </button>
+
       <button
         className="text-white bg-blue-700 p-2 rounded mx-2"
         onClick={() => handleClick(1)}

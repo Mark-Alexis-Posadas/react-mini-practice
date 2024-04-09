@@ -1,7 +1,12 @@
 import React from "react";
+import Colors from "./components/Colors/Colors";
 
 const App = () => {
-  return <div>App</div>;
+  return (
+    <>
+      <Colors />
+    </>
+  );
 };
 
 export default App;

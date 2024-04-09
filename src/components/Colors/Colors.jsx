@@ -32,12 +32,12 @@ const Colors = () => {
 
   return (
     <div className="mt-5">
-      <div className={`w-20 h-20 ${bg}`}></div>
+      <div className={`w-full h-[350px] ${bg}`}></div>
 
       {data.map((d) => (
         <button
           key={d.id}
-          className={`text-white w-20 h-20 ${d.bgColor} ${
+          className={`text-white w-20 h-20 mt-3 ${d.bgColor} ${
             bg === d.bgColor ? "border border-black" : ""
           }`}
           onClick={() => handleClick(d.bgColor)}

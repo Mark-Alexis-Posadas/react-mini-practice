@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { TodoModal } from "./TodoModal";
 
-export const Todo = () => {
-  const buttons = [
-    {
-      id: 1,
-      text: "Add Task",
-    },
-    {
-      id: 2,
-      text: "Cancel",
-    },
-  ];
+const buttons = [
+  {
+    id: 1,
+    text: "Add Task",
+  },
+  {
+    id: 2,
+    text: "Cancel",
+  },
+];
 
+export const Todo = () => {
   const inputRef = useRef(null);
   const [show, setShow] = useState(false);
   const [todoTitle, setTodoTitle] = useState("Add Todo");
