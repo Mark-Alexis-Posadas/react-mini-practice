@@ -1,11 +1,11 @@
 import React from "react";
-import Colors from "./components/Colors/Colors";
+import ReducerForm from "./components/Forms/ReducerForm";
 
 const App = () => {
   return (
-    <>
-      <Colors />
-    </>
+    <div>
+      <ReducerForm />
+    </div>
   );
 };
 

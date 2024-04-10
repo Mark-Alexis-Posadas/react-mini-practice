@@ -6,6 +6,11 @@ export default function HoverText() {
   const [value, setValue] = useState("Blue");
 
   const handleClick = (text) => {
+    //If green do nothing or return nothing
+    if (text === "Green") {
+      return;
+    }
+
     setValue(text);
   };
 

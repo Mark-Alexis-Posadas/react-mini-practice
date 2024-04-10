@@ -8,9 +8,9 @@ const Zoom = () => {
   const handleClick = (index) => {
     if (index === 0) {
       setSize(`${parseInt(size) + 10}rem`);
-    } else {
-      setSize(`${parseInt(size) - 10}rem`);
+      return;
     }
+    setSize(`${parseInt(size) - 10}rem`);
   };
 
   return (
