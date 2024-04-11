@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import InputComponent from "./InputComponent";
 
 const initialState = {
   firstName: "",
@@ -31,6 +32,74 @@ function reducer(state, action) {
   }
 }
 
+const data = [
+  {
+    id: 1,
+    labelText: "First Name",
+    inputType: "text",
+    inputName: "firstName",
+    value: state.firstName,
+    onChange: handleChange,
+    placeholder: "First Name",
+  },
+  {
+    id: 2,
+    labelText: "Last Name",
+    inputType: "text",
+    inputName: "lastName",
+    value: state.lastName,
+    onChange: handleChange,
+    placeholder: "Last Name",
+  },
+  {
+    id: 3,
+    labelText: "Email",
+    inputType: "email",
+    inputName: "email",
+    value: state.email,
+    onChange: handleChange,
+    placeholder: "Email",
+  },
+  {
+    id: 4,
+    labelText: "User Name",
+    inputType: "text",
+    inputName: "userName",
+    value: state.userName,
+    onChange: handleChange,
+    placeholder: "User Name",
+  },
+  {
+    id: 5,
+    labelText: "Password",
+    inputType: "password",
+    inputName: "password",
+    value: state.password,
+    onChange: handleChange,
+    placeholder: "Password",
+  },
+  {
+    id: 6,
+    labelText: "Confirm Password",
+    inputType: "password",
+    inputName: "confirmPassword",
+    value: state.confirmPassword,
+    onChange: handleChange,
+    placeholder: "Confirm Password",
+  },
+  {
+    id: 7,
+    labelText: "Gender",
+    inputType: "radio",
+    inputName: "gender",
+    options: [
+      { id: 1, value: "male", label: "Male" },
+      { id: 2, value: "female", label: "Female" },
+    ],
+    onChange: handleChange,
+  },
+];
+
 export default function ReducerForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -59,72 +128,18 @@ export default function ReducerForm() {
       }`}
     >
       <form onSubmit={handleSubmit}>
-        <div className="flex justify-center flex-col mb-3">
-          <label className="text-purple-700">First Name:</label>
-          <input
-            className="w-full p-2 bg-white shadow-md"
-            type="text"
-            name="firstName"
-            value={state.firstName}
+        {data.map((item, _) => (
+          <InputComponent
+            key={item.id}
+            value={item.value}
+            placeholder={item.placeholder}
+            inputType={inputType}
+            inputName={inputName}
+            labelText={labelText}
             onChange={handleChange}
-            placeholder="First Name"
           />
-        </div>
-        <div className="flex justify-center flex-col mb-3">
-          <label className="text-purple-700">Last Name:</label>
-          <input
-            className="w-full p-2 bg-white shadow-md"
-            type="text"
-            name="lastName"
-            value={state.lastName}
-            onChange={handleChange}
-            placeholder="Last Name"
-          />
-        </div>
-        <div className="flex justify-center flex-col mb-3">
-          <label className="text-purple-700">Email:</label>
-          <input
-            className="w-full p-2 bg-white shadow-md"
-            type="email"
-            name="email"
-            value={state.email}
-            onChange={handleChange}
-            placeholder="Email"
-          />
-        </div>
-        <div className="flex justify-center flex-col mb-3">
-          <label className="text-purple-700">User Name:</label>
-          <input
-            className="w-full p-2 bg-white shadow-md"
-            type="text"
-            name="userName"
-            value={state.userName}
-            onChange={handleChange}
-            placeholder="User Name"
-          />
-        </div>
-        <div className="flex justify-center flex-col mb-3">
-          <label className="text-purple-700">Password:</label>
-          <input
-            className="w-full p-2 bg-white shadow-md"
-            type="password"
-            name="password"
-            value={state.password}
-            onChange={handleChange}
-            placeholder="Password"
-          />
-        </div>
-        <div className="flex justify-center flex-col mb-3">
-          <label className="text-purple-700">Confirm Password:</label>
-          <input
-            className="w-full p-2 bg-white shadow-md"
-            type="password"
-            name="confirmPassword"
-            value={state.confirmPassword}
-            onChange={handleChange}
-            placeholder="Confirm Password"
-          />
-        </div>
+        ))}
+
         <div>
           <h1>Gender</h1>
           <ul className="flex item-center my-3">

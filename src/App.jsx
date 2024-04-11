@@ -1,11 +1,11 @@
 import React from "react";
-import ReducerForm from "./components/Forms/ReducerForm";
+import Theme from "./components/Theme/Theme";
 
 const App = () => {
   return (
-    <div>
-      <ReducerForm />
-    </div>
+    <>
+      <Theme />
+    </>
   );
 };
 
