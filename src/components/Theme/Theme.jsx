@@ -38,7 +38,7 @@ const Theme = () => {
         {data.map((item) => (
           <button
             key={item.id}
-            className={`text-white w-10 h-10 rounded-full mr-2 mt-3 ${item.bgColor}`}
+            className={`text-white w-10 h-10 rounded-full mr-2 ${item.bgColor}`}
             style={theme === item.bgColor ? { border: "3px solid #222" } : {}}
             onClick={() => handleClick(item.bgColor)}
           ></button>
