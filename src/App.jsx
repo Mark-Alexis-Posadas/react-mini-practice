@@ -1,11 +1,10 @@
-import React from "react";
-import Image from "./components/Image/Image";
+import { EmployeeList } from "./components/AddEmployee/EmployeeList";
 
 const App = () => {
   return (
-    <div>
-      <Image />
-    </div>
+    <>
+      <EmployeeList />
+    </>
   );
 };
 
