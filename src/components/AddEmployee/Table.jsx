@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Table() {
+export default function Table({ toggleEdit }) {
   return (
     <table className="w-full">
       <thead className="bg-slate-50">
@@ -20,7 +20,12 @@ export default function Table() {
           <td className="p-3 text-center">Posadas</td>
           <td className="p-3 text-center">Email</td>
           <td className="p-3 text-center">
-            <button className="text-white bg-blue-600 rounded p-2">Edit</button>
+            <button
+              className="text-white bg-blue-600 rounded p-2"
+              onClick={toggleEdit}
+            >
+              Edit
+            </button>
             <button className="text-white bg-red-500 rounded p-2 ml-3">
               Delete
             </button>

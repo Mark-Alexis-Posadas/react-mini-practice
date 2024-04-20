@@ -33,6 +33,7 @@ export const EmployeeList = () => {
       </header>
       <Table />
       {state.isToggle && <AddEmployeeModal state={state} />}
+      {/* {state <= 2 ? "" : <p>pagination</p>} */}
     </div>
   );
 };

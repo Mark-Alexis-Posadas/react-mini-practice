@@ -2,7 +2,12 @@ export default function AddEmployeeModal({ state }) {
   return (
     <div className="w-full h-full top-0 left-0 overflow-auto z-10 fixed bg-black bg-opacity-40 flex">
       <form className="bg-white shadow-md p-3 rounded w-[600px] m-auto">
-        <h2 className="mb-3 font-bold text-xl">Add Employee</h2>
+        <header className="flex items-center justify-between mb-3">
+          <h2 className="font-bold text-xl">Add Employee</h2>
+          <button className="rounded-full p-2 text-white bg-red-600 w-6 h-6 flex items-center justify-center">
+            x
+          </button>
+        </header>
         <div className="flex flex-col">
           <label htmlFor="firstName">First name</label>
           <input
