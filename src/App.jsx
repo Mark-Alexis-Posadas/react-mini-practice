@@ -1,9 +1,9 @@
-import { EmployeeList } from "./components/AddEmployee/EmployeeList";
+import Employee from "./components/AddEmployee/Employee";
 
 const App = () => {
   return (
     <>
-      <EmployeeList />
+      <Employee />
     </>
   );
 };

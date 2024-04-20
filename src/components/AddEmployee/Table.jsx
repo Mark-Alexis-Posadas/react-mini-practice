@@ -1,6 +1,7 @@
 import React from "react";
+import TableItem from "./TableItem";
 
-export default function Table({ toggleEdit }) {
+export default function Table({ dispatch, state }) {
   return (
     <table className="w-full">
       <thead className="bg-slate-50">
@@ -14,35 +15,7 @@ export default function Table({ toggleEdit }) {
       </thead>
 
       <tbody className="w-full">
-        <tr className="odd:bg-slate-200">
-          <td className="p-3 text-center">1</td>
-          <td className="p-3 text-center">Mark Alexis</td>
-          <td className="p-3 text-center">Posadas</td>
-          <td className="p-3 text-center">Email</td>
-          <td className="p-3 text-center">
-            <button
-              className="text-white bg-blue-600 rounded p-2"
-              onClick={toggleEdit}
-            >
-              Edit
-            </button>
-            <button className="text-white bg-red-500 rounded p-2 ml-3">
-              Delete
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td className="p-3 text-center">1</td>
-          <td className="p-3 text-center">Mark Alexis</td>
-          <td className="p-3 text-center">Posadas</td>
-          <td className="p-3 text-center">Email</td>
-          <td className="p-3 text-center">
-            <button className="text-white bg-blue-600 rounded p-2">Edit</button>
-            <button className="text-white bg-red-500 rounded p-2 ml-3">
-              Delete
-            </button>
-          </td>
-        </tr>
+        <TableItem dispatch={dispatch} state={state} />
       </tbody>
     </table>
   );

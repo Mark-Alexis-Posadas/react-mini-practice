@@ -1,10 +1,19 @@
-export default function AddEmployeeModal({ state }) {
+export default function AddEmployeeModal({
+  state,
+  handleChange,
+  handleSubmit,
+  handleClose,
+  employeeTitle,
+}) {
   return (
     <div className="w-full h-full top-0 left-0 overflow-auto z-10 fixed bg-black bg-opacity-40 flex">
       <form className="bg-white shadow-md p-3 rounded w-[600px] m-auto">
         <header className="flex items-center justify-between mb-3">
-          <h2 className="font-bold text-xl">Add Employee</h2>
-          <button className="rounded-full p-2 text-white bg-red-600 w-6 h-6 flex items-center justify-center">
+          <h2 className="font-bold text-xl">{employeeTitle} Employee</h2>
+          <button
+            className="rounded-full p-2 text-white bg-red-600 w-6 h-6 flex items-center justify-center"
+            onClick={handleClose}
+          >
             x
           </button>
         </header>
@@ -17,6 +26,7 @@ export default function AddEmployeeModal({ state }) {
             name="firstName"
             id="first_name"
             value={state.firstName}
+            onChange={handleChange}
           />
         </div>
         <div className="flex flex-col my-3">
@@ -28,6 +38,7 @@ export default function AddEmployeeModal({ state }) {
             name="lastName"
             id="last_name"
             value={state.lastName}
+            onChange={handleChange}
           />
         </div>
 
@@ -40,9 +51,14 @@ export default function AddEmployeeModal({ state }) {
             name="email"
             id="email"
             value={state.email}
+            onChange={handleChange}
           />
         </div>
-        <button className="text-white bg-blue-500 rounded p-2 w-full mt-3">
+        <button
+          type="submit"
+          onClick={handleSubmit}
+          className="text-white bg-blue-500 rounded p-2 w-full mt-3"
+        >
           Submit
         </button>
       </form>
