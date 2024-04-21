@@ -22,6 +22,19 @@ const reducer = (state, action) => {
 
     case "ADD_EMPLOYEE":
       return { ...state, [action.field]: action.value };
+
+    case "EDIT_EMPLOYEE":
+      const { index } = action;
+      const editedEmployee = state.submittedData[index];
+      return {
+        ...state,
+        isToggle: !state.isToggle,
+        employeeTitle: "Edit",
+        firstName: editedEmployee.firstName,
+        lastName: editedEmployee.lastName,
+        email: editedEmployee.email,
+      };
+
     case "SUBMIT_FORM":
       return {
         ...state,

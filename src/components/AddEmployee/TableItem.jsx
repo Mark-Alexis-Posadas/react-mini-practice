@@ -10,7 +10,7 @@ export default function TableItem({ dispatch, state }) {
           <td className="p-3 text-center">
             <button
               className="text-white bg-blue-600 rounded p-2"
-              onClick={() => dispatch({ type: "TOGGLE" })}
+              onClick={() => dispatch({ type: "EDIT_EMPLOYEE", index })}
             >
               Edit
             </button>
