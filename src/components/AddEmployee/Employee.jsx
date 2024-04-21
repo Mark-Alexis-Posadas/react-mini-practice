@@ -36,6 +36,13 @@ const reducer = (state, action) => {
         isEditing: true,
       };
 
+    case "DELETE_EMPLOYEE":
+      const { idx } = action;
+      return {
+        ...state,
+        submittedData: state.submittedData.filter((_, i) => i !== idx),
+      };
+
     case "SUBMIT_FORM":
       return {
         ...state,
@@ -58,6 +65,7 @@ const Employee = () => {
     e.preventDefault();
     dispatch({ type: "TOGGLE" });
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     dispatch({ type: "ADD_EMPLOYEE", field: name, value: value });
@@ -74,6 +82,10 @@ const Employee = () => {
     dispatch({ type: "SUBMIT_FORM" });
   };
 
+  const handleDelete = (idx) => {
+    dispatch({ type: "DELETE_EMPLOYEE", idx });
+  };
+
   return (
     <div className="rounded bg-slate-50 p-10">
       <header>
@@ -85,7 +97,7 @@ const Employee = () => {
           Add Employee
         </button>
       </header>
-      <Table dispatch={dispatch} state={state} />
+      <Table dispatch={dispatch} state={state} handleDelete={handleDelete} />
       {state.isToggle && (
         <AddEmployeeModal
           employeeTitle={state.employeeTitle}

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export default function AddEmployeeModal({
   state,
   handleChange,
@@ -5,6 +7,20 @@ export default function AddEmployeeModal({
   handleClose,
   isEditing,
 }) {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        handleSubmit(e);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleSubmit]);
+
   return (
     <div className="w-full h-full top-0 left-0 overflow-auto z-10 fixed bg-black bg-opacity-40 flex">
       <form className="bg-white shadow-md p-3 rounded w-[600px] m-auto">

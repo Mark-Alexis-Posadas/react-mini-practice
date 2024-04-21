@@ -1,7 +1,7 @@
 import React from "react";
 import TableItem from "./TableItem";
 
-export default function Table({ dispatch, state }) {
+export default function Table({ dispatch, state, handleDelete }) {
   return (
     <table className="w-full">
       <thead className="bg-slate-50">
@@ -15,7 +15,11 @@ export default function Table({ dispatch, state }) {
       </thead>
 
       <tbody className="w-full">
-        <TableItem dispatch={dispatch} state={state} />
+        <TableItem
+          dispatch={dispatch}
+          state={state}
+          handleDelete={handleDelete}
+        />
       </tbody>
     </table>
   );
