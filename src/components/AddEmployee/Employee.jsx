@@ -21,7 +21,7 @@ const reducer = (state, action) => {
       };
 
     case "ADD_EMPLOYEE":
-      return { ...state, [action.field]: action.value };
+      return { ...state, [action.field]: action.value, isEditing: true };
 
     case "EDIT_EMPLOYEE":
       const { index } = action;
@@ -33,6 +33,7 @@ const reducer = (state, action) => {
         firstName: editedEmployee.firstName,
         lastName: editedEmployee.lastName,
         email: editedEmployee.email,
+        isEditing: true,
       };
 
     case "SUBMIT_FORM":
@@ -43,6 +44,7 @@ const reducer = (state, action) => {
         firstName: "",
         lastName: "",
         email: "",
+        isEditing: false,
       };
     default:
       return state;
@@ -91,6 +93,7 @@ const Employee = () => {
           handleSubmit={handleSubmit}
           handleClose={handleClose}
           state={state}
+          isEditing={state.isEditing}
         />
       )}
     </div>

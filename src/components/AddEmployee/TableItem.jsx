@@ -1,4 +1,4 @@
-export default function TableItem({ dispatch, state }) {
+export default function TableItem({ dispatch, state, isEditing }) {
   return (
     <>
       {state.submittedData.map((item, index) => (
