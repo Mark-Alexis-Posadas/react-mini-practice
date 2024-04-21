@@ -1,11 +1,10 @@
-import React from "react";
-import Accordion from "./components/Accordion/Accordion";
+import Employee from "./components/AddEmployee/Employee";
 
 const App = () => {
   return (
-    <div>
-      <Accordion />
-    </div>
+    <>
+      <Employee />
+    </>
   );
 };
 
