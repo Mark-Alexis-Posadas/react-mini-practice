@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import AddEmployeeModal from "./AddEmployeeModal";
+import Modal from "./Modal";
 import Table from "./Table";
 
 const initialState = {
@@ -24,8 +24,8 @@ const reducer = (state, action) => {
       return { ...state, [action.field]: action.value, isEditing: true };
 
     case "EDIT_EMPLOYEE":
-      const { index } = action;
-      const editedEmployee = state.submittedData[index];
+      const { idx } = action;
+      const editedEmployee = state.submittedData[idx];
       return {
         ...state,
         isToggle: !state.isToggle,
@@ -37,10 +37,10 @@ const reducer = (state, action) => {
       };
 
     case "DELETE_EMPLOYEE":
-      const { idx } = action;
+      const { idx: deleteIdx } = action;
       return {
         ...state,
-        submittedData: state.submittedData.filter((_, i) => i !== idx),
+        submittedData: state.submittedData.filter((_, i) => i !== deleteIdx),
       };
 
     case "SUBMIT_FORM":
@@ -99,7 +99,7 @@ const Employee = () => {
       </header>
       <Table dispatch={dispatch} state={state} handleDelete={handleDelete} />
       {state.isToggle && (
-        <AddEmployeeModal
+        <Modal
           employeeTitle={state.employeeTitle}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
