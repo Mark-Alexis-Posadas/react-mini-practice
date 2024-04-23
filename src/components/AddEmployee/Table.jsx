@@ -23,7 +23,7 @@ export default function Table({ dispatch, state, handleDelete }) {
             <td className="p-3 text-center">
               <button
                 className="text-white bg-blue-600 rounded p-2"
-                onClick={() => dispatch({ type: "EDIT_EMPLOYEE", idx })}
+                onClick={() => dispatch({ type: "SET_EDIT_INDEX", idx })}
               >
                 Edit
               </button>

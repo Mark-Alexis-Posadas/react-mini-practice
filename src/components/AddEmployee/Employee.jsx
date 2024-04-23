@@ -10,6 +10,7 @@ const initialState = {
   isToggle: false,
   submittedData: [],
   isEditing: false,
+  editIndex: null,
 };
 
 const reducer = (state, action) => {
@@ -23,19 +24,6 @@ const reducer = (state, action) => {
     case "ADD_EMPLOYEE":
       return { ...state, [action.field]: action.value, isEditing: true };
 
-    case "EDIT_EMPLOYEE":
-      const { idx } = action;
-      const editedEmployee = state.submittedData[idx];
-      return {
-        ...state,
-        isToggle: !state.isToggle,
-        employeeTitle: "Edit",
-        firstName: editedEmployee.firstName,
-        lastName: editedEmployee.lastName,
-        email: editedEmployee.email,
-        isEditing: true,
-      };
-
     case "DELETE_EMPLOYEE":
       const { idx: deleteIdx } = action;
       return {
@@ -43,16 +31,35 @@ const reducer = (state, action) => {
         submittedData: state.submittedData.filter((_, i) => i !== deleteIdx),
       };
 
-    case "SUBMIT_FORM":
+    case "SET_EDIT_INDEX":
       return {
         ...state,
-        submittedData: [...state.submittedData, { ...state }],
-        isToggle: !state.isToggle,
-        firstName: "",
-        lastName: "",
-        email: "",
-        isEditing: false,
+        ...state.submittedData[action.idx],
+        editIndex: action.idx,
       };
+
+    case "SUBMIT_FORM":
+      if (state.editIndex !== null) {
+        const submittedData = [...state.submittedData];
+        submittedData[state.editIndex] = { ...state };
+        return {
+          ...state,
+          submittedData,
+          firstName: "",
+          lastName: "",
+          email: "",
+          editIndex: null, // Reset editIndex after editing
+        };
+      } else {
+        return {
+          ...state,
+          submittedData: [...state.submittedData, { ...state }],
+          firstName: "",
+          lastName: "",
+          email: "",
+          isToggle: !state.isToggle,
+        };
+      }
     default:
       return state;
   }
