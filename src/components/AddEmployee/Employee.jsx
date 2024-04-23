@@ -32,10 +32,17 @@ const reducer = (state, action) => {
       };
 
     case "SET_EDIT_INDEX":
+      const { idx } = action;
+      const editedData = state.submittedData[idx];
       return {
         ...state,
-        ...state.submittedData[action.idx],
-        editIndex: action.idx,
+        firstName: editedData.firstName,
+        lastName: editedData.lastName,
+        email: editedData.email,
+        employeeTitle: "Edit",
+        isToggle: true,
+        isEditing: true,
+        editIndex: idx,
       };
 
     case "SUBMIT_FORM":
@@ -49,6 +56,7 @@ const reducer = (state, action) => {
           lastName: "",
           email: "",
           editIndex: null, // Reset editIndex after editing
+          isToggle: false,
         };
       } else {
         return {
@@ -57,7 +65,7 @@ const reducer = (state, action) => {
           firstName: "",
           lastName: "",
           email: "",
-          isToggle: !state.isToggle,
+          isToggle: false,
         };
       }
     default:
