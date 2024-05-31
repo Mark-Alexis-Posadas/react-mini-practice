@@ -55,7 +55,7 @@ const reducer = (state, action) => {
           firstName: "",
           lastName: "",
           email: "",
-          editIndex: null, // Reset editIndex after editing
+          editIndex: null,
           isToggle: false,
         };
       } else {

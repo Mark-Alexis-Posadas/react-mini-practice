@@ -1,10 +1,9 @@
-import React from "react";
-import Employee from "./components/AddEmployee/Employee";
+import PromisesOne from "./components/Promises/PromisesOne";
 
 const App = () => {
   return (
     <div>
-      <Employee />
+      <PromisesOne />
     </div>
   );
 };
