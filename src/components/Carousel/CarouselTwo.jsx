@@ -8,14 +8,14 @@ export default function CarouselTwo() {
     if (currentSlide <= 0) {
       return;
     }
-    setCurrentSlide((currentSlide - 1 + data.length) % data.length);
+    setCurrentSlide(currentSlide - 1);
   };
 
   const handleNext = () => {
     if (currentSlide >= 2) {
       return;
     }
-    setCurrentSlide((currentSlide + 1) % data.length);
+    setCurrentSlide(currentSlide + 1);
   };
 
   const handleDotClick = (index) => {
