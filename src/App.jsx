@@ -1,5 +1,6 @@
-import { AddtoCart } from "./exercises/objects/Objects";
 //Done - Render List of Products: Render a list of products from an array of product objects. Each product object should have properties like name, price, and description.
+
+import Objects from "./exercises/objects/Objects";
 
 //Done - Filter Products: Add buttons to filter the products based on their category. Categories could be stored as a property in the product objects.
 
@@ -22,7 +23,7 @@ import { AddtoCart } from "./exercises/objects/Objects";
 const App = () => {
   return (
     <div>
-      <AddtoCart />
+      <Objects />
     </div>
   );
 };
