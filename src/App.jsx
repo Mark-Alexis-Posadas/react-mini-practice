@@ -1,28 +1,12 @@
-import React, { useState } from "react";
-import CarouselTwo from "./components/Carousel/CarouselTwo";
-const data = ["a", "b", "c"];
+import { FilterProducts } from "./exercises/objects/Objects";
 
-export default function App() {
-  const [current, setCurrent] = useState(0);
-
-  const handleClick = () => {
-    setCurrent((prevCurrent) => (prevCurrent + 1) % data.length);
-  };
-
+const App = () => {
   return (
     <div>
-      {data.map((item, index) => (
-        <div
-          className={`text-9xl ${
-            index === current ? "text-red-600" : "text-black"
-          }`}
-          key={index}
-        >
-          {item}
-        </div>
-      ))}
-      <button onClick={handleClick}>click</button>
-      <CarouselTwo />
+      {/* <RenderList /> */}
+      <FilterProducts />
     </div>
   );
-}
+};
+
+export default App;
