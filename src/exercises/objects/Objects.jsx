@@ -126,15 +126,17 @@ const products = [
 export const AddtoCart = () => {
   const [toggleCart, setToggleCart] = useState(false);
   const [cart, setCart] = useState([]);
-
+  const [cartNumber, setCartNumber] = useState(0);
   const handleAddToCart = (text) => {
     setCart((prev) => [...prev, text]);
+    setCartNumber((prev) => prev + 1);
   };
 
   const handleDelete = (index) => {
     const removeCart = cart.filter((_, idx) => idx !== index);
     setCart(removeCart);
     index === 0 && setToggleCart(false);
+    setCartNumber((prev) => prev - 1);
   };
 
   return (
@@ -145,26 +147,35 @@ export const AddtoCart = () => {
           onClick={() => setToggleCart(!toggleCart)}
         >
           <FontAwesomeIcon icon={faCartArrowDown} />
+          <small>{cartNumber}</small>
         </button>
-        {toggleCart && (
-          <ul className="bg-slate-100 shadow-md p-3 rounded">
-            {cart.map((item, index) => (
-              <li key={index} className="flex items-center gap-3 my-3">
-                <h3 className="font-bold text-blue-500">{item.name}</h3>
-                <span className="flex items-center gap-3">
-                  {item.description} -
-                  <span className="font-bold text-md">{item.price}</span>
-                  <small className="text-slate-400">{item.category}</small>
-                </span>
-                <button
-                  className="bg-red-500 text-white p-2 rounded flex items-center justify-center ml-auto"
-                  onClick={() => handleDelete(index)}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-              </li>
-            ))}
-          </ul>
+        {cart <= 0 ? (
+          <p>Cart is empty </p>
+        ) : (
+          toggleCart && (
+            <ul className="bg-slate-100 shadow-md p-3 rounded">
+              {cart.map((item, index) => (
+                <li key={index} className="flex items-center gap-3 my-3">
+                  <h3 className="font-bold text-blue-500">{item.name}</h3>
+                  <span className="flex items-center gap-3">
+                    {item.description} -
+                    <span className="font-bold text-md">{item.price}</span>
+                    <small className="text-slate-400">{item.category}</small>
+                  </span>
+                  <button
+                    className="bg-red-500 text-white p-2 rounded flex items-center justify-center ml-auto"
+                    onClick={() => handleDelete(index)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                  <div className="flex items-center">
+                    <label htmlFor="quantity">Quantity</label>
+                    <input type="number" value={index + 1} id="quantity" />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )
         )}
       </div>
 
