@@ -2,7 +2,7 @@ import { useReducer, useState } from "react";
 import TodoItem from "./TodoItem";
 const initialState = {
   todo: [],
-  active: 0,
+  active: null,
 };
 
 const reducer = (state, action) => {
@@ -15,7 +15,7 @@ const reducer = (state, action) => {
       return { ...state, todo: state.todo.filter((_, idx) => idx !== index) };
 
     case "EDIT_TODO":
-      return { ...state, active: state + action.payload };
+      return { ...state, active: action.payload };
     default:
       return state;
   }
@@ -62,6 +62,7 @@ export default function Todo() {
             key={index}
             index={index}
             handleDelete={() => handleDelete(index)}
+            isEditing={state.active === index}
             handleEditTodo={() => handleEditTodo(index)}
           />
         ))}
