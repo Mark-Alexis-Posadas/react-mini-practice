@@ -8,7 +8,11 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "SUBMIT_TODO":
-      return { ...state, todo: [...state.todo, action.payload] };
+      return {
+        ...state,
+        todo: [...state.todo, action.payload],
+        active: null,
+      };
 
     case "DELETE_TODO":
       const { payload: index } = action;
@@ -35,7 +39,7 @@ export default function Todo() {
 
   const handleEditTodo = (index) => {
     dispatch({ type: "EDIT_TODO", payload: index });
-    console.log(index);
+    setInputVal(state.todo[index]);
   };
 
   return (
