@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function ObjectsEditPrice() {
+  //Initialize active to 0
   const [active, setActive] = useState(0);
   const [product, setProduct] = useState(products);
   const [inputValue, setInputValue] = useState("");

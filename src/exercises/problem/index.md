@@ -13,3 +13,5 @@
 - Searching Array of Objects: Implement a search functionality that allows users to search for specific objects within an array based on their properties. Display the search results in real-time as the user types.
 
 - Pagination with Array of Objects: Create a component that implements pagination for an array of objects. Users should be able to navigate through different pages of objects, with each page displaying a limited number of objects.
+
+

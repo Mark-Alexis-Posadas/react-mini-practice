@@ -1,7 +1,11 @@
-import React from "react";
+import Todo from "./components/TodoReducer/Todo";
 
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div>
+      <Todo />
+    </div>
+  );
 };
 
 export default App;

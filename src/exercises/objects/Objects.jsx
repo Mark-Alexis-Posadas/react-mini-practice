@@ -1,13 +1,9 @@
-import FilteredProducts from "./FilteredProducts";
-import RenderList from "./RenderList";
-import AddToCart from "./AddToCart";
+import Search from "./Search";
 
 export default function Objects() {
   return (
     <div>
-      {/* <RenderList />
-      <FilteredProducts /> */}
-      <AddToCart />
+      <Search />
     </div>
   );
 }
