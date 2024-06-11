@@ -2,16 +2,20 @@ import { useReducer, useState } from "react";
 import TodoItem from "./TodoItem";
 const initialState = {
   todo: [],
+  currentTodo: { index: null, text: "" },
   active: null,
+  showModal: false,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "SUBMIT_TODO":
+      // const { payload: idx } = action;
       return {
         ...state,
         todo: [...state.todo, action.payload],
         active: null,
+        // todo: [...state.todo, todo[idx]],
       };
 
     case "DELETE_TODO":
@@ -19,7 +23,18 @@ const reducer = (state, action) => {
       return { ...state, todo: state.todo.filter((_, idx) => idx !== index) };
 
     case "EDIT_TODO":
-      return { ...state, active: action.payload };
+      return {
+        ...state,
+        active: action.payload,
+        showModal: true,
+      };
+
+    case "CANCEL":
+      return {
+        ...state,
+        showModal: false,
+        active: null,
+      };
     default:
       return state;
   }
@@ -42,8 +57,10 @@ export default function Todo() {
     setInputVal(state.todo[index]);
   };
 
+  // const handleUpdateTodo = () => {};
+
   return (
-    <div className="p-20 flex flex-col items-center">
+    <div className="p-20 flex flex-col items-center relative">
       <div className="flex items-center gap-3 w-full mb-3">
         <input
           type="text"
@@ -71,6 +88,28 @@ export default function Todo() {
           />
         ))}
       </ul>
+      {state.showModal && (
+        <div className="fixed bg-[rgba(0,0,0,0.4)] w-full h-screen top-0 flex items-center overflow-hidden">
+          <div className="max-w-[1000px] m-auto flex w-full gap-3">
+            <input
+              type="text"
+              placeholder="Edit..."
+              className="border flex-1 border-slate-300 p-3 rounded"
+            />
+            <div className="flex items-center gap-3">
+              <button
+                className="text-white p-3 rounded bg-red-600"
+                onClick={() => dispatch({ type: "CANCEL" })}
+              >
+                Cancel
+              </button>
+              <button className="text-white p-3 rounded bg-blue-600">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

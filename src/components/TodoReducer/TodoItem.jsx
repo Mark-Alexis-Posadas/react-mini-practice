@@ -16,11 +16,11 @@ export default function TodoItem({
     >
       {item}
       <div className="flex items-center gap-3">
-        <button onClick={handleEditTodo}>
+        <button className="text-2xl" onClick={handleEditTodo}>
           <FontAwesomeIcon icon={faPencilSquare} />
         </button>
 
-        <button onClick={handleDelete}>
+        <button className="text-2xl" onClick={handleDelete}>
           <FontAwesomeIcon icon={faTrash} />
         </button>
       </div>
