@@ -1,21 +1,21 @@
 import { useReducer, useState } from "react";
 import TodoItem from "./TodoItem";
+
 const initialState = {
   todo: [],
-  currentTodo: { index: null, text: "" },
-  active: null,
+  currentTodo: "",
+  currentIndex: null,
+  active: 0,
   showModal: false,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "SUBMIT_TODO":
-      // const { payload: idx } = action;
       return {
         ...state,
         todo: [...state.todo, action.payload],
         active: null,
-        // todo: [...state.todo, todo[idx]],
       };
 
     case "DELETE_TODO":
@@ -23,10 +23,27 @@ const reducer = (state, action) => {
       return { ...state, todo: state.todo.filter((_, idx) => idx !== index) };
 
     case "EDIT_TODO":
+      const { idx, item } = action;
       return {
         ...state,
-        active: action.payload,
+        active: idx,
+        currentIndex: idx,
+        currentTodo: item,
         showModal: true,
+      };
+
+    case "HANDLE_EDIT_CHANGE":
+      return { ...state, currentTodo: action.payload };
+
+    case "SUBMIT_EDIT":
+      const { currentIndex, currentTodo } = state;
+      const updatedTodoList = [...state.todo];
+      updatedTodoList[currentIndex] = currentTodo;
+      return {
+        ...state,
+        todo: updatedTodoList,
+        currentTodo: "",
+        currentIndex: null,
       };
 
     case "CANCEL":
@@ -34,11 +51,15 @@ const reducer = (state, action) => {
         ...state,
         showModal: false,
         active: null,
+        currentTodo: "",
+        currentIndex: null,
       };
+
     default:
       return state;
   }
 };
+
 export default function Todo() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [inputVal, setInputVal] = useState("");
@@ -52,12 +73,13 @@ export default function Todo() {
     setInputVal("");
   };
 
-  const handleEditTodo = (index) => {
-    dispatch({ type: "EDIT_TODO", payload: index });
-    setInputVal(state.todo[index]);
+  const handleEditTodo = (index, item) => {
+    dispatch({ type: "EDIT_TODO", idx: index, item });
   };
 
-  // const handleUpdateTodo = () => {};
+  const handleEditChange = (e) => {
+    dispatch({ type: "HANDLE_EDIT_CHANGE", payload: e.target.value });
+  };
 
   return (
     <div className="p-20 flex flex-col items-center relative">
@@ -84,7 +106,7 @@ export default function Todo() {
             index={index}
             handleDelete={() => handleDelete(index)}
             isEditing={state.active === index}
-            handleEditTodo={() => handleEditTodo(index)}
+            handleEditTodo={() => handleEditTodo(index, item)}
           />
         ))}
       </ul>
@@ -95,6 +117,8 @@ export default function Todo() {
               type="text"
               placeholder="Edit..."
               className="border flex-1 border-slate-300 p-3 rounded"
+              value={state.currentTodo}
+              onChange={handleEditChange}
             />
             <div className="flex items-center gap-3">
               <button
@@ -103,7 +127,16 @@ export default function Todo() {
               >
                 Cancel
               </button>
-              <button className="text-white p-3 rounded bg-blue-600">
+              <button
+                className="text-white p-3 rounded bg-blue-600"
+                onClick={() => {
+                  dispatch({
+                    type: "SUBMIT_EDIT",
+                    payload: state.currentIndex,
+                  });
+                  dispatch({ type: "CANCEL" });
+                }}
+              >
                 Submit
               </button>
             </div>
