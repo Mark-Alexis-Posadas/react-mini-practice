@@ -1,9 +1,10 @@
-import Todo from "./components/TodoReducer/Todo";
+import React from "react";
+import InstagramStoryClone from "./components/instagram-story-clone/InstagramStoryClone";
 
 const App = () => {
   return (
     <div>
-      <Todo />
+      <InstagramStoryClone />
     </div>
   );
 };
