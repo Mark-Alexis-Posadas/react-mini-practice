@@ -1,4 +1,4 @@
-import { faGreaterThan, faLessThan } from "@fortawesome/free-solid-svg-icons";
+import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Card({
@@ -9,7 +9,6 @@ export default function Card({
   handlePrev,
   showCard,
 }) {
-  console.log(idx);
   return (
     <div
       className={`${
@@ -48,16 +47,16 @@ export default function Card({
               } w-8 h-8 rounded-full p-2 flex items-center justify-center bg-slate-100 text-gray-500`}
               onClick={handlePrev}
             >
-              <FontAwesomeIcon icon={faLessThan} />
+              <FontAwesomeIcon icon={faCaretLeft} />
             </button>
 
             <button
               className={`${
                 activeImage === 2 && idx === 2 ? "hidden" : "ml-auto"
-              } w-10 h-8 rounded-full p-2 flex items-center justify-center bg-slate-100 text-gray-500`}
+              } w-8 h-8 rounded-full p-2 flex items-center justify-center bg-slate-100 text-gray-500`}
               onClick={handleNext}
             >
-              <FontAwesomeIcon icon={faGreaterThan} />
+              <FontAwesomeIcon icon={faCaretRight} />
             </button>
           </div>
         </div>

@@ -7,7 +7,7 @@ export const usersInfo = [
       "https://i.pinimg.com/564x/46/c5/47/46c547b29665bf49d4c277d768856ef3.jpg",
     name: "Kirk Hammett",
     images: [
-      "https://i.pinimg.com/736x/ea/aa/0b/eaaa0bbb06e9703e5ca41394a6934279.jpg",
+      "https://64.media.tumblr.com/tumblr_lul3xtELac1qh5mm2o1_500.png",
       "https://i.pinimg.com/736x/c5/bc/f6/c5bcf6ff55d8984dd50ba4661c5c43c9.jpg",
       "https://i.pinimg.com/564x/79/c5/20/79c520354c5197f7e3cec1e91236f945.jpg",
     ],
