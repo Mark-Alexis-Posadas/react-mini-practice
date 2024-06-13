@@ -3,9 +3,9 @@ import InstagramStoryClone from "./components/instagram-story-clone/InstagramSto
 
 const App = () => {
   return (
-    <div>
+    <>
       <InstagramStoryClone />
-    </div>
+    </>
   );
 };
 
