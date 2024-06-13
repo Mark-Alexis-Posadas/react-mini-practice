@@ -1,31 +1,35 @@
 import { useState } from "react";
 import Card from "./Card";
 import Users from "./Users";
-import { usersInfo, storyCards } from "./data";
+import { usersInfo } from "./data";
 export default function InstagramStoryClone() {
   const [activeImage, setActiveImage] = useState(0);
-  // const [showCard, setShowCard] = useState(null);
-  const handleNext = () => {
-    if (activeImage >= 2) {
-      return;
+  const [showCard, setShowCard] = useState(null);
+  const handleNext = (idx) => {
+    if (activeImage >= usersInfo[idx].images.length - 1) {
+      setShowCard((prev) => (prev === usersInfo.length - 1 ? 0 : prev + 1));
+      setActiveImage(0);
+    } else {
+      setActiveImage((prev) => prev + 1);
     }
-    setActiveImage((prev) => prev + 1);
   };
 
-  const handlePrev = () => {
+  const handlePrev = (idx) => {
     if (activeImage <= 0) {
-      return;
+      setShowCard((prev) => (prev === 0 ? usersInfo.length - 1 : prev - 1));
+      setActiveImage(usersInfo[idx].images.length - 1);
+    } else {
+      setActiveImage((prev) => prev - 1);
     }
-    setActiveImage((prev) => prev - 1);
   };
 
-  // const handleShowCard = (index) => {
-  //   setShowCard(index);
-  // };
+  const handleShowCard = (index) => {
+    setShowCard(index);
+  };
 
   return (
-    <div>
-      <h1 className="text-8xl font-bold mb-5">Instagram stroy clone</h1>
+    <div className="p-20">
+      <h1 className="text-8xl font-bold mb-5">Stories Clone</h1>
       <ul className="flex items-center gap-3">
         {usersInfo.map((item, index) => (
           <Users
@@ -37,13 +41,15 @@ export default function InstagramStoryClone() {
       </ul>
 
       <div className="flex items-center gap-3">
-        {storyCards.map((item, index) => (
+        {usersInfo.map((item, index) => (
           <Card
             cardInfo={item}
             key={item.id}
+            showCard={showCard}
             activeImage={activeImage}
-            handleNext={handleNext}
-            handlePrev={handlePrev}
+            idx={index}
+            handleNext={() => handleNext(index)}
+            handlePrev={() => handlePrev(index)}
           />
         ))}
       </div>
