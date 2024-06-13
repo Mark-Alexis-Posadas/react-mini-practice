@@ -5,14 +5,6 @@ import { usersInfo } from "./data";
 export default function InstagramStoryClone() {
   const [activeImage, setActiveImage] = useState(0);
   const [showCard, setShowCard] = useState(null);
-  const handleNext = (idx) => {
-    if (activeImage >= usersInfo[idx].images.length - 1) {
-      setShowCard((prev) => (prev === usersInfo.length - 1 ? 0 : prev + 1));
-      setActiveImage(0);
-    } else {
-      setActiveImage((prev) => prev + 1);
-    }
-  };
 
   const handlePrev = (idx) => {
     if (activeImage <= 0) {
@@ -20,6 +12,15 @@ export default function InstagramStoryClone() {
       setActiveImage(usersInfo[idx].images.length - 1);
     } else {
       setActiveImage((prev) => prev - 1);
+    }
+  };
+
+  const handleNext = (idx) => {
+    if (activeImage >= usersInfo[idx].images.length - 1) {
+      setShowCard((prev) => (prev === usersInfo.length - 1 ? 0 : prev + 1));
+      setActiveImage(0);
+    } else {
+      setActiveImage((prev) => prev + 1);
     }
   };
 

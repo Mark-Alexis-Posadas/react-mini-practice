@@ -7,9 +7,9 @@ export const usersInfo = [
       "https://i.pinimg.com/564x/46/c5/47/46c547b29665bf49d4c277d768856ef3.jpg",
     name: "Kirk Hammett",
     images: [
-      "https://i.pinimg.com/736x/cc/d5/b0/ccd5b0ea05594459d49ec2657d41c979.jpg",
-      "https://64.media.tumblr.com/4d664d02b2d7297d4943328e46773aed/8d21fbd3d7445705-a8/s2048x3072/bd06e28d5acbb1ee9426bbca9c20427ee0f79856.jpg",
-      "https://tommygirard.wordpress.com/wp-content/uploads/2020/01/gerard-way-2003.jpg",
+      "https://i.pinimg.com/736x/ea/aa/0b/eaaa0bbb06e9703e5ca41394a6934279.jpg",
+      "https://i.pinimg.com/736x/c5/bc/f6/c5bcf6ff55d8984dd50ba4661c5c43c9.jpg",
+      "https://i.pinimg.com/564x/79/c5/20/79c520354c5197f7e3cec1e91236f945.jpg",
     ],
   },
   {
@@ -29,9 +29,9 @@ export const usersInfo = [
       "https://i.pinimg.com/564x/15/df/bb/15dfbbca9c0ccf09cc0b6b7430210021.jpg",
     name: "James Hetfield",
     images: [
-      "https://media.gettyimages.com/id/112364946/photo/my-chemical-romance-visits-fuses-daily-download-november-24-2004.jpg?s=2048x2048&w=gi&k=20&c=yCgPc4NvYJp621MCr2RCuEp1UDIQoUxSlywgkZVYi9w=",
-      "https://i.pinimg.com/564x/9e/e4/80/9ee4802981e532e9280ab72904e9ecc9.jpg",
-      "https://i.pinimg.com/736x/cc/d5/b0/ccd5b0ea05594459d49ec2657d41c979.jpg",
+      "https://i.pinimg.com/564x/8b/fb/ee/8bfbee5aecccd24b3ee24f05ec923c80.jpg",
+      "https://i.pinimg.com/564x/23/9c/b6/239cb6390c60ef31daec70463875f04a.jpg",
+      "https://i.pinimg.com/564x/e0/d5/a2/e0d5a252e567449e738e0f2c8dd45702.jpg",
     ],
   },
 ];

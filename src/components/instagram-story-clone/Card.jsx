@@ -48,13 +48,13 @@ export default function Card({
               } w-8 h-8 rounded-full p-2 flex items-center justify-center bg-slate-100 text-gray-500`}
               onClick={handlePrev}
             >
-              <FontAwesomeIcon icon={faGreaterThan} />
+              <FontAwesomeIcon icon={faLessThan} />
             </button>
 
             <button
               className={`${
-                activeImage === 0 ? "ml-auto" : "ml-0"
-              } w-8 h-8 rounded-full p-2 flex items-center justify-center bg-slate-100 text-gray-500`}
+                activeImage === 2 && idx === 2 ? "hidden" : "ml-auto"
+              } w-10 h-8 rounded-full p-2 flex items-center justify-center bg-slate-100 text-gray-500`}
               onClick={handleNext}
             >
               <FontAwesomeIcon icon={faGreaterThan} />
