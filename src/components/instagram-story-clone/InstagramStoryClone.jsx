@@ -16,6 +16,14 @@ export default function InstagramStoryClone() {
   };
 
   const handleNext = (idx) => {
+    if (idx === usersInfo[idx].images.length - 1) {
+      if (activeImage === 1) {
+        setTimeout(() => {
+          setShowCard(null);
+        }, 2000);
+      }
+    }
+
     if (activeImage >= usersInfo[idx].images.length - 1) {
       setShowCard((prev) => (prev === usersInfo.length - 1 ? 0 : prev + 1));
       setActiveImage(0);
@@ -49,8 +57,8 @@ export default function InstagramStoryClone() {
             showCard={showCard}
             activeImage={activeImage}
             idx={index}
-            handleNext={() => handleNext(index)}
             handlePrev={() => handlePrev(index)}
+            handleNext={() => handleNext(index)}
           />
         ))}
       </div>
