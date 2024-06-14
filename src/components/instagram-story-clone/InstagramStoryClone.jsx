@@ -20,6 +20,9 @@ export default function InstagramStoryClone() {
       if (activeImage === 1) {
         setTimeout(() => {
           setShowCard(null);
+          setActiveImage((prev) =>
+            prev === usersInfo.length - 1 ? 0 : prev + 1
+          );
         }, 2000);
       }
     }
