@@ -1,56 +1,74 @@
-// import { useState } from "react";
-// import { products } from "./exercises/data";
-// const App = () => {
-//   const [active, setActive] = useState(null);
-
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+const products = [
+  {
+    id: 1,
+    name: "Laptop",
+    price: 999,
+    description: "A high-performance laptop for work and gaming.",
+    category: "Electronics",
+    available: true,
+  },
+  {
+    id: 2,
+    name: "Headphones",
+    price: 149,
+    description: "Wireless headphones with noise-cancellation feature.",
+    category: "Electronics",
+    available: false,
+  },
+];
 
-//   const handleClick = (index) => {
-//     setActive(index === active ? null : index);
-//   };
-
-//   return (
-//     <ul className="p-20 bg-slate-100">
-//       {products.map((item, index) => (
-//         <li
-//           key={index}
-//           className={`${
-//             index === active && "bg-white text-purple-600 shadow-md"
-//           } text-md my-3 border border-slate-300 p-3 cursor-pointer`}
-//           onClick={() => handleClick(index)}
-//         >
-//           {index === 1 && active === 1 ? "fucker" : item.name}
-//         </li>
-//       ))}
-//     </ul>
-//   );
-// };
-
-// export default App;
-
-const data = ["eat", "my", "ass"];
 const App = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const handleClick = () => {
-    setCurrentIndex((p) => (p + 1) % data.length);
+  const [arr, setArr] = useState(products);
+
+  const handleAddArray = () => {
+    const newItem = {
+      id: uuidv4(),
+      name: "Alexis",
+      price: 1000,
+      description: "pogi",
+      category: "human",
+      available: true,
+    };
+
+    setArr((prev) => {
+      const updatedArr = [...prev, newItem];
+      console.log(updatedArr);
+      return updatedArr;
+    });
+
+    //OR
+
+    // setArr((prev) => [
+    //   ...prev,
+    //   {
+    //     id: uuidv4(),
+    //     name: "Alexis",
+    //     price: 1000,
+    //     description: "pogi",
+    //     category: "human",
+    //     available: true,
+    //     //OR newItem
+    //   },
+    // ]);
   };
+
   return (
-    <div className="min-h-screen flex justify-center items-center">
-      {data.map((item, index) => (
-        <h1
-          className={`${
-            index === 0
-              ? "text-purple-500"
-              : index === 1
-              ? "text-green-500"
-              : "text-red-500"
-          } text-[400px] uppercase cursor-pointer`}
-          key={index}
-          onClick={handleClick}
-        >
-          {index === currentIndex && item}
-        </h1>
+    <div>
+      {arr.map((item, index) => (
+        <div key={index}>
+          {item.name} - {item.id} - {item.price} - {item.description} -
+          {item.category}
+        </div>
       ))}
+
+      <button
+        className="text-white bg-green-700 p-2 rounded"
+        onClick={handleAddArray}
+      >
+        Add array
+      </button>
     </div>
   );
 };

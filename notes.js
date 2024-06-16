@@ -17,6 +17,39 @@ const products = [
   },
 ];
 
+//how to add new array
+const handleAddNewArray = () => {
+  const newItem = {
+    id: uuidv4(),
+    name: "Alexis",
+    price: 1000,
+    description: "pogi",
+    category: "human",
+    available: true,
+  };
+
+  setArr((prev) => {
+    const updatedArr = [...prev, newItem];
+    console.log(updatedArr);
+    return updatedArr;
+  });
+
+  //OR
+
+  // setArr((prev) => [
+  //   ...prev,
+  //   {
+  //     id: uuidv4(),
+  //     name: "Alexis",
+  //     price: 1000,
+  //     description: "pogi",
+  //     category: "human",
+  //     available: true,
+  //     //OR newItem
+  //   },
+  // ]);
+};
+
 //how to update array of objects
 const arr = products.map((product, index) =>
   index === 0
