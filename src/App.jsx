@@ -1,7 +1,12 @@
 import React from "react";
+import Counter from "./custom-hooks/pages/Counter";
 
 const App = () => {
-  return <div>App</div>;
+  return (
+    <>
+      <Counter />
+    </>
+  );
 };
 
 export default App;
