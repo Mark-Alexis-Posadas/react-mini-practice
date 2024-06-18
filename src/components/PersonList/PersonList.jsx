@@ -78,15 +78,16 @@ export default function PersonList() {
   };
 
   const handleSubmit = () => {
-    // If activeList is not null, it means we are editing an existing person
     if (activeList !== null) {
+      // Editing existing item
       const updatedPeopleList = [...peopleList];
       updatedPeopleList[activeList] = inputVal;
       setPeopleList(updatedPeopleList);
     } else {
-      // If activeList is null, it means we are adding a new person
+      // Adding new item
       setPeopleList((prevPeopleList) => [...prevPeopleList, inputVal]);
     }
+
     // Reset input fields and state after submission
     setInputVal({
       name: "",
@@ -97,15 +98,14 @@ export default function PersonList() {
       country: "",
     });
 
-    setTimeout(() => {
-      setActiveList(null);
-    }, 3000);
+    // Reset activeList to null
+    setActiveList(null);
 
     setShowInput(false);
   };
 
   return (
-    <div className="p-5 md:p-20 relative bg-slate-50">
+    <div className="p-5 md:p-20 relative bg-slate-50 min-h-screen">
       <div className="flex items-center justify-between">
         <h1 className="font-bold text-4xl">Person List</h1>
         <button
@@ -122,7 +122,7 @@ export default function PersonList() {
             <li
               className={`${
                 index === activeList
-                  ? "bg-gray-300 text-white"
+                  ? "border border-green-700 bg-green-50 text-white"
                   : "bg-white text-black"
               } shadow-md p-2 rounded my-3 flex flex-col md:flex-row md:items-center justify-between`}
               key={index}
