@@ -36,6 +36,7 @@ export default function PersonList() {
     city: "",
     country: "",
   });
+
   const [peopleList, setPeopleList] = useState(people);
   const [showInput, setShowInput] = useState(false);
   const [activeList, setActiveList] = useState(null);
@@ -59,17 +60,16 @@ export default function PersonList() {
   };
 
   const handleCancel = () => {
+    setActiveList("");
     setShowInput(false);
-    // setInputVals({
-    //   name: "",
-    //   age: "",
-    //   gender: "",
-    //   occupation: "",
-    //   city: "",
-    //   country: "",
-    // });
-
-    setActiveList(null);
+    setInputVal({
+      name: "",
+      age: "",
+      gender: "",
+      occupation: "",
+      city: "",
+      country: "",
+    });
   };
 
   const handleDelete = (index) => {
