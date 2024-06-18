@@ -54,7 +54,7 @@ export default function PersonList() {
   };
 
   const handleEdit = (idx) => {
-    setInputVal(people[idx]);
+    setInputVal(peopleList[idx]);
     setActiveList(idx);
     setShowInput(true);
   };
@@ -105,17 +105,17 @@ export default function PersonList() {
   };
 
   return (
-    <div className="p-20 relative bg-slate-50">
+    <div className="p-5 md:p-20 relative bg-slate-50">
       <div className="flex items-center justify-between">
         <h1 className="font-bold text-4xl">Person List</h1>
         <button
-          className="bg-blue-600 text-white font-bold text-xl p-2 rounded"
+          className="bg-blue-600 text-white font-bold text-sm p-2 rounded"
           onClick={handleAdd}
         >
           Add Person
         </button>
       </div>
-      <ul>
+      <ul className="grid md:grid-cols-3 md:gap-3">
         {peopleList.map((item, index) => {
           const { name, age, gender, occupation, city, country } = item;
           return (
@@ -124,7 +124,7 @@ export default function PersonList() {
                 index === activeList
                   ? "bg-gray-300 text-white"
                   : "bg-white text-black"
-              } shadow-md p-2 rounded my-3 flex items-center justify-between`}
+              } shadow-md p-2 rounded my-3 flex flex-col md:flex-row md:items-center justify-between`}
               key={index}
             >
               <ul>
@@ -159,15 +159,15 @@ export default function PersonList() {
                   </span>
                 </li>
               </ul>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 mt-5 md:mt-0">
                 <button
-                  className="bg-blue-600 text-white font-bold text-xl p-2 rounded"
+                  className="bg-blue-600 text-white font-bold text-sm p-2 rounded"
                   onClick={() => handleEdit(index)}
                 >
                   Edit
                 </button>
                 <button
-                  className="bg-red-600 text-white font-bold text-xl p-2 rounded"
+                  className="bg-red-600 text-white font-bold text-sm p-2 rounded"
                   onClick={() => handleDelete(index)}
                 >
                   Delete
