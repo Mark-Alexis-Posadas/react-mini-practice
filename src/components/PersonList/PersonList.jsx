@@ -48,8 +48,11 @@ export default function PersonList() {
     }));
   };
 
+  const handleAdd = () => {
+    setShowInput(true);
+  };
+
   const handleEdit = (idx) => {
-    console.log(people[idx]);
     setInputVal(people[idx]);
     setActiveList(idx);
     setShowInput(true);
@@ -67,6 +70,11 @@ export default function PersonList() {
     // });
 
     setActiveList(null);
+  };
+
+  const handleDelete = (index) => {
+    const deleteItem = peopleList.filter((_, idx) => idx !== index);
+    setPeopleList(deleteItem);
   };
 
   const handleSubmit = () => {
@@ -88,12 +96,25 @@ export default function PersonList() {
       city: "",
       country: "",
     });
-    setActiveList(null);
+
+    setTimeout(() => {
+      setActiveList(null);
+    }, 3000);
+
     setShowInput(false);
   };
 
   return (
-    <div className="p-20 relative">
+    <div className="p-20 relative bg-slate-50">
+      <div className="flex items-center justify-between">
+        <h1 className="font-bold text-4xl">Person List</h1>
+        <button
+          className="bg-blue-600 text-white font-bold text-xl p-2 rounded"
+          onClick={handleAdd}
+        >
+          Add Person
+        </button>
+      </div>
       <ul>
         {peopleList.map((item, index) => {
           const { name, age, gender, occupation, city, country } = item;
@@ -102,7 +123,7 @@ export default function PersonList() {
               className={`${
                 index === activeList
                   ? "bg-gray-300 text-white"
-                  : "bg-gray-100 text-black"
+                  : "bg-white text-black"
               } shadow-md p-2 rounded my-3 flex items-center justify-between`}
               key={index}
             >
@@ -138,12 +159,20 @@ export default function PersonList() {
                   </span>
                 </li>
               </ul>
-              <button
-                className="bg-blue-600 text-white font-bold text-xl p-2 rounded"
-                onClick={() => handleEdit(index)}
-              >
-                Edit
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  className="bg-blue-600 text-white font-bold text-xl p-2 rounded"
+                  onClick={() => handleEdit(index)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="bg-red-600 text-white font-bold text-xl p-2 rounded"
+                  onClick={() => handleDelete(index)}
+                >
+                  Delete
+                </button>
+              </div>
             </li>
           );
         })}

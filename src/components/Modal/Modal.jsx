@@ -20,7 +20,7 @@ const Modal = () => {
   return (
     <>
       <div
-        className="custom-modal"
+        className="custom-modal h-20"
         style={{ display: modal ? "block" : "none" }}
         ref={modalRef}
       >

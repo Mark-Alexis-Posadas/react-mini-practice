@@ -16,7 +16,7 @@ const JsonPlaceholder = () => {
         return (
           <div key={id}>
             <h3>{name}</h3>
-            <span>{username}</span> {/* Fixed typo: userName -> username */}
+            <span>{username}</span>
             <p>{email}</p>
           </div>
         );
