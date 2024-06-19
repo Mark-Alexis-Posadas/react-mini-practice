@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Item from "./Item";
 
 let people = [
   {
@@ -82,6 +83,7 @@ export default function PersonList() {
       // Editing existing item
       const updatedPeopleList = [...peopleList];
       updatedPeopleList[activeList] = inputVal;
+      console.log(updatedPeopleList[activeList], activeList);
       setPeopleList(updatedPeopleList);
     } else {
       // Adding new item
@@ -99,7 +101,9 @@ export default function PersonList() {
     });
 
     // Reset activeList to null
-    setActiveList(null);
+    setTimeout(() => {
+      setActiveList(null);
+    }, 3000);
 
     setShowInput(false);
   };
@@ -116,66 +120,16 @@ export default function PersonList() {
         </button>
       </div>
       <ul className="grid md:grid-cols-3 md:gap-3">
-        {peopleList.map((item, index) => {
-          const { name, age, gender, occupation, city, country } = item;
-          return (
-            <li
-              className={`${
-                index === activeList
-                  ? "border border-green-700 bg-green-50 text-white"
-                  : "bg-white text-black"
-              } shadow-md p-2 rounded my-3 flex flex-col md:flex-row md:items-center justify-between`}
-              key={index}
-            >
-              <ul>
-                <li className="font-bold text-purple-600 flex items-center gap-3">
-                  Name:{" "}
-                  <span className="text-black text-sm font-light">{name}</span>
-                </li>
-                <li className="font-bold text-purple-600 flex items-center gap-3">
-                  Age:{" "}
-                  <span className="text-black text-sm font-light">{age}</span>
-                </li>
-                <li className="font-bold text-purple-600 flex items-center gap-3">
-                  Gender:{" "}
-                  <span className="text-black text-sm font-light">
-                    {gender}
-                  </span>
-                </li>
-                <li className="font-bold text-purple-600 flex items-center gap-3">
-                  Occupation:{" "}
-                  <span className="text-black text-sm font-light">
-                    {occupation}
-                  </span>
-                </li>
-                <li className="font-bold text-purple-600 flex items-center gap-3">
-                  City:{" "}
-                  <span className="text-black text-sm font-light">{city}</span>
-                </li>
-                <li className="font-bold text-purple-600 flex items-center gap-3">
-                  Country:{" "}
-                  <span className="text-black text-sm font-light">
-                    {country}
-                  </span>
-                </li>
-              </ul>
-              <div className="flex items-center gap-3 mt-5 md:mt-0">
-                <button
-                  className="bg-blue-600 text-white font-bold text-sm p-2 rounded"
-                  onClick={() => handleEdit(index)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="bg-red-600 text-white font-bold text-sm p-2 rounded"
-                  onClick={() => handleDelete(index)}
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
-          );
-        })}
+        {peopleList.map((item, index) => (
+          <Item
+            key={index}
+            index={index}
+            {...item}
+            activeList={activeList}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
+        ))}
       </ul>
 
       {showInput && (
@@ -193,7 +147,7 @@ export default function PersonList() {
             </div>
             <div className="my-3">
               <input
-                type="text"
+                type="number"
                 className="p-3 rounded text-black bg-slate-200 w-full flex-1"
                 placeholder="Age"
                 name="age"
