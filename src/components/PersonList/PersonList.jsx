@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Item from "./Item";
+import { FormInputItem } from "./FormInputItem";
 
 let people = [
   {
@@ -135,66 +136,15 @@ export default function PersonList() {
       {showInput && (
         <div className="absolute top-0 w-full min-h-screen left-0 p-20 bg-[rgba(0,0,0,0.4)] bottom-0">
           <form>
-            <div className="my-3">
-              <input
-                type="text"
-                className="p-3 rounded text-black bg-slate-200 w-full flex-1"
-                placeholder="Name"
-                name="name"
-                value={inputVal.name}
-                onChange={handleChange}
+            {Object.keys(inputVal).map((key, index) => (
+              <FormInputItem
+                key={key}
+                index={index}
+                itemKey={key}
+                itemValue={inputVal[key]}
+                handleChange={handleChange}
               />
-            </div>
-            <div className="my-3">
-              <input
-                type="number"
-                className="p-3 rounded text-black bg-slate-200 w-full flex-1"
-                placeholder="Age"
-                name="age"
-                value={inputVal.age}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="my-3">
-              <input
-                type="text"
-                className="p-3 rounded text-black bg-slate-200 w-full flex-1"
-                placeholder="Gender"
-                name="gender"
-                value={inputVal.gender}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="my-3">
-              <input
-                type="text"
-                className="p-3 rounded text-black bg-slate-200 w-full flex-1"
-                placeholder="Occupation"
-                name="occupation"
-                value={inputVal.occupation}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="my-3">
-              <input
-                type="text"
-                className="p-3 rounded text-black bg-slate-200 w-full flex-1"
-                placeholder="City"
-                name="city"
-                value={inputVal.city}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="my-3">
-              <input
-                type="text"
-                className="p-3 rounded text-black bg-slate-200 w-full flex-1"
-                placeholder="Country"
-                name="country"
-                value={inputVal.country}
-                onChange={handleChange}
-              />
-            </div>
+            ))}
           </form>
           <div className="flex items-center gap-2">
             <button
