@@ -79,7 +79,20 @@ export default function PersonList() {
     setPeopleList(deleteItem);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    if (
+      inputVal.name.trim() === "" ||
+      inputVal.age.trim() === "" ||
+      inputVal.gender.trim() === "" ||
+      inputVal.occupation.trim() === "" ||
+      inputVal.city.trim() === "" ||
+      inputVal.country.trim() === ""
+    ) {
+      alert("please fill out the inputs");
+      e.preventDefault();
+      return;
+    }
+    e.preventDefault();
     if (activeList !== null) {
       // Editing existing item
       const updatedPeopleList = [...peopleList];
@@ -134,32 +147,34 @@ export default function PersonList() {
       </ul>
 
       {showInput && (
-        <div className="absolute top-0 w-full min-h-screen left-0 p-20 bg-[rgba(0,0,0,0.4)] bottom-0">
-          <form>
-            {Object.keys(inputVal).map((key, index) => (
-              <FormInputItem
-                key={key}
-                index={index}
-                itemKey={key}
-                itemValue={inputVal[key]}
-                handleChange={handleChange}
-              />
-            ))}
+        <div className="absolute top-0 w-full min-h-screen left-0 p-10 md:p-20 bg-[rgba(0,0,0,0.4)] bottom-0">
+          <form onSubmit={handleSubmit}>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {Object.keys(inputVal).map((key, index) => (
+                <FormInputItem
+                  key={key}
+                  index={index}
+                  itemKey={key}
+                  itemValue={inputVal[key]}
+                  handleChange={handleChange}
+                />
+              ))}
+            </div>
+            <div className="flex items-center gap-2 mt-3">
+              <button
+                className="bg-red-700 p-3 rounded text-white"
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-blue-700 p-3 rounded text-white"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
           </form>
-          <div className="flex items-center gap-2">
-            <button
-              className="bg-red-700 p-3 rounded text-white"
-              onClick={handleCancel}
-            >
-              Cancel
-            </button>
-            <button
-              className="bg-blue-700 p-3 rounded text-white"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-          </div>
         </div>
       )}
     </div>
