@@ -80,19 +80,26 @@ export default function PersonList() {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
+    // Validate input values
     if (
+      typeof inputVal.name !== "string" ||
       inputVal.name.trim() === "" ||
+      typeof inputVal.age !== "string" ||
       inputVal.age.trim() === "" ||
+      typeof inputVal.gender !== "string" ||
       inputVal.gender.trim() === "" ||
+      typeof inputVal.occupation !== "string" ||
       inputVal.occupation.trim() === "" ||
+      typeof inputVal.city !== "string" ||
       inputVal.city.trim() === "" ||
+      typeof inputVal.country !== "string" ||
       inputVal.country.trim() === ""
     ) {
-      alert("please fill out the inputs");
-      e.preventDefault();
-      return;
+      alert("Please fill out all inputs correctly");
+      return; // Exit early if any field is empty or not a string
     }
-    e.preventDefault();
+
     if (activeList !== null) {
       // Editing existing item
       const updatedPeopleList = [...peopleList];
@@ -133,22 +140,26 @@ export default function PersonList() {
           Add Person
         </button>
       </div>
-      <ul className="grid md:grid-cols-3 md:gap-3">
-        {peopleList.map((item, index) => (
-          <Item
-            key={index}
-            index={index}
-            {...item}
-            activeList={activeList}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-          />
-        ))}
-      </ul>
+      {peopleList.length === 0 ? (
+        "No person list"
+      ) : (
+        <ul className="grid md:grid-cols-3 md:gap-3">
+          {peopleList.map((item, index) => (
+            <Item
+              key={index}
+              index={index}
+              {...item}
+              activeList={activeList}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          ))}
+        </ul>
+      )}
 
       {showInput && (
-        <div className="absolute top-0 w-full min-h-screen left-0 p-10 md:p-20 bg-[rgba(0,0,0,0.4)] bottom-0">
-          <form onSubmit={handleSubmit}>
+        <div className="absolute top-0 w-full min-h-screen left-0 p-10 md:p-20 bg-[rgba(0,0,0,0.4)] bottom-0 flex items-center justify-center">
+          <form onSubmit={handleSubmit} className="bg-white p-10 rounded">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
               {Object.keys(inputVal).map((key, index) => (
                 <FormInputItem

@@ -1,5 +1,7 @@
-import PersonList from "./components/PersonList/PersonList";
+import React from "react";
 
-export default function App() {
-  return <PersonList />;
-}
+const App = () => {
+  return <div>App</div>;
+};
+
+export default App;
