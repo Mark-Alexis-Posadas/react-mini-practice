@@ -1,7 +1,7 @@
 import React from "react";
-
+import Confirmation from "./components/DeleteItemWithConfirmation";
 const App = () => {
-  return <div>App</div>;
+  return <Confirmation />;
 };
 
 export default App;

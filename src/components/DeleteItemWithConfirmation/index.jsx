@@ -19,12 +19,16 @@ const products = [
   },
 ];
 
-const App = () => {
+const Confirmation = () => {
   const [data, setData] = useState(products);
-  const [visible, setVisible] = useState({ id: null, show: false });
+  const [visible, setVisible] = useState({
+    id: null,
+    show: false,
+    modalNAME: "",
+  });
 
-  const handleDelete = (id) => {
-    setVisible({ id: id, show: true });
+  const handleDelete = (id, name) => {
+    setVisible({ id: id, show: true, modalNAME: name });
   };
 
   const handleYes = () => {
@@ -42,7 +46,7 @@ const App = () => {
           <li
             key={item.id}
             className="cursor-pointer"
-            onClick={() => handleDelete(item.id)}
+            onClick={() => handleDelete(item.id, item.name)}
           >
             {item.name}
           </li>
@@ -50,7 +54,10 @@ const App = () => {
       </ul>
       {visible.show && (
         <div className="bg-black text-white w-[300px] p-10 flex items-center flex-col">
-          <p className="text-white text-md">Are you sure you want to delete?</p>
+          <p className="text-white text-md">
+            Are you sure you want to delete
+            <h3 className="font-bold text-white">{visible.modalNAME}</h3>?
+          </p>
           <div className="flex items-center gap-3">
             <button onClick={() => setVisible(false)}>cancel</button>
             <button onClick={handleYes}>yes</button>
@@ -61,4 +68,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Confirmation;
