@@ -56,7 +56,10 @@ const Confirmation = () => {
         <div className="bg-black text-white w-[300px] p-10 flex items-center flex-col">
           <p className="text-white text-md">
             Are you sure you want to delete
-            <h3 className="font-bold text-white">{visible.modalNAME}</h3>?
+            <span className="ml-3 font-bold text-white">
+              {visible.modalNAME}
+            </span>
+            ?
           </p>
           <div className="flex items-center gap-3">
             <button onClick={() => setVisible(false)}>cancel</button>
