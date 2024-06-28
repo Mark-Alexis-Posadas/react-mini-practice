@@ -15,7 +15,9 @@ export default function Edit() {
   const [current, setCurrent] = useState({ index: null, text: "" });
 
   const handleEdit = (index) => {
-    setCurrent({ index: index, title: currentVal[index].title });
+    console.log(index, currentVal[index].title);
+
+    setCurrent({ index: index, text: currentVal[index].title });
     setInput(currentVal[index].title);
     setEdit(true);
   };

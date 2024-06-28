@@ -1,7 +1,7 @@
-import React from "react";
-import Confirmation from "./components/DeleteItemWithConfirmation";
+import Edit from "./components/Edit/Edit";
+
 const App = () => {
-  return <Confirmation />;
+  return <Edit />;
 };
 
 export default App;
