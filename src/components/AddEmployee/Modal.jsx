@@ -5,7 +5,7 @@ export default function AddEmployeeModal({
   handleChange,
   handleSubmit,
   handleClose,
-  isEditing,
+  employeeTitle,
 }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -25,9 +25,7 @@ export default function AddEmployeeModal({
     <div className="w-full h-full top-0 left-0 overflow-auto z-10 fixed bg-black bg-opacity-40 flex">
       <form className="bg-white shadow-md p-3 rounded w-[600px] m-auto">
         <header className="flex items-center justify-between mb-3">
-          <h2 className="font-bold text-xl">
-            {isEditing ? "Edit" : "Add"} Employee
-          </h2>
+          <h2 className="font-bold text-xl">{employeeTitle} Employee</h2>
           <button
             className="rounded-full p-2 text-white bg-red-600 w-6 h-6 flex items-center justify-center"
             onClick={handleClose}

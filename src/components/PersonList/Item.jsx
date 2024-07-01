@@ -8,7 +8,6 @@ export default function Item({
   occupation,
   city,
   country,
-  activeList,
   handleEdit,
   handleDelete,
 }) {

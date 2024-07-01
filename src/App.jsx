@@ -1,5 +1,5 @@
-import PersonList from "./components/PersonList/PersonList";
+import Employee from "./components/AddEmployee/Employee";
 
 export default function App() {
-  return <PersonList />;
+  return <Employee />;
 }

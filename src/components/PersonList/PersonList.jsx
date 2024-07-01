@@ -2,32 +2,7 @@ import { useState } from "react";
 import Item from "./Item";
 import { FormInputItem } from "./FormInputItem";
 
-let people = [
-  {
-    name: "John Doe",
-    age: 30,
-    gender: "Male",
-    occupation: "Software Engineer",
-    city: "New York",
-    country: "USA",
-  },
-  {
-    name: "Jane Smith",
-    age: 25,
-    gender: "Female",
-    occupation: "Doctor",
-    city: "London",
-    country: "UK",
-  },
-  {
-    name: "David Brown",
-    age: 35,
-    gender: "Male",
-    occupation: "Teacher",
-    city: "Sydney",
-    country: "Australia",
-  },
-];
+import { people } from "./data";
 
 export default function PersonList() {
   const [inputVal, setInputVal] = useState({
@@ -56,6 +31,7 @@ export default function PersonList() {
   }
 
   function handleEdit(idx) {
+    console.log(peopleList[idx]);
     setInputVal(peopleList[idx]);
     setActiveList(idx);
     setShowInput(true);
@@ -81,24 +57,6 @@ export default function PersonList() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (
-      typeof inputVal.name !== "string" ||
-      inputVal.name.trim() === "" ||
-      typeof inputVal.age !== "string" ||
-      inputVal.age.trim() === "" ||
-      typeof inputVal.gender !== "string" ||
-      inputVal.gender.trim() === "" ||
-      typeof inputVal.occupation !== "string" ||
-      inputVal.occupation.trim() === "" ||
-      typeof inputVal.city !== "string" ||
-      inputVal.city.trim() === "" ||
-      typeof inputVal.country !== "string" ||
-      inputVal.country.trim() === ""
-    ) {
-      alert("Please fill out all inputs correctly");
-      return; // Exit early if any field is empty or not a string
-    }
-
     if (activeList !== null) {
       // Editing existing item
       const updatedPeopleList = [...peopleList];
@@ -174,7 +132,7 @@ export default function PersonList() {
                 index={index}
                 {...item}
                 activeList={activeList}
-                handleEdit={handleEdit}
+                handleEdit={() => handleEdit(index)}
                 handleDelete={handleDelete}
               />
             ))}

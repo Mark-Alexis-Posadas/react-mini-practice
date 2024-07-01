@@ -22,7 +22,12 @@ const reducer = (state, action) => {
       };
 
     case "ADD_EMPLOYEE":
-      return { ...state, [action.field]: action.value, isEditing: true };
+      return {
+        ...state,
+        [action.field]: action.value,
+        isEditing: true,
+        employeeTitle: "Add",
+      };
 
     case "DELETE_EMPLOYEE":
       const { idx: deleteIdx } = action;
@@ -120,7 +125,6 @@ const Employee = () => {
           handleSubmit={handleSubmit}
           handleClose={handleClose}
           state={state}
-          isEditing={state.isEditing}
         />
       )}
     </div>
