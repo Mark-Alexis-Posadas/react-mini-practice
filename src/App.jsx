@@ -1,7 +1,5 @@
-import Edit from "./components/Edit/Edit";
+import PersonList from "./components/PersonList/PersonList";
 
-const App = () => {
-  return <Edit />;
-};
-
-export default App;
+export default function App() {
+  return <PersonList />;
+}

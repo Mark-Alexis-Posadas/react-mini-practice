@@ -13,54 +13,32 @@ export default function Item({
   handleDelete,
 }) {
   return (
-    <li
-      className={`${
-        index === activeList
-          ? "border border-green-700 bg-green-50 text-white"
-          : "bg-white text-black"
-      } shadow-md p-2 rounded my-3 flex flex-col md:flex-row md:items-center justify-between`}
+    <tr
+      className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
       key={index}
     >
-      <ul>
-        <li className="font-bold text-purple-600 flex items-center gap-2">
-          Name:
-          <span className="text-black text-sm font-light">{name}</span>
-        </li>
-        <li className="font-bold text-purple-600 flex items-center gap-2">
-          Age:
-          <span className="text-black text-sm font-light">{age}</span>
-        </li>
-        <li className="font-bold text-purple-600 flex items-center gap-2">
-          Gender:
-          <span className="text-black text-sm font-light">{gender}</span>
-        </li>
-        <li className="font-bold text-purple-600 flex items-center gap-2">
-          Occupation:
-          <span className="text-black text-sm font-light">{occupation}</span>
-        </li>
-        <li className="font-bold text-purple-600 flex items-center gap-2">
-          City:
-          <span className="text-black text-sm font-light">{city}</span>
-        </li>
-        <li className="font-bold text-purple-600 flex items-center gap-2">
-          Country:
-          <span className="text-black text-sm font-light">{country}</span>
-        </li>
-      </ul>
-      <div className="flex items-center gap-3 mt-5 md:mt-0">
-        <button
-          className="bg-blue-600 text-white font-bold text-sm p-2 rounded"
-          onClick={() => handleEdit(index)}
-        >
-          Edit
-        </button>
-        <button
-          className="bg-red-600 text-white font-bold text-sm p-2 rounded"
-          onClick={() => handleDelete(index)}
-        >
-          Delete
-        </button>
-      </div>
-    </li>
+      <td className="px-6 py-4">{name}</td>
+      <td className="px-6 py-4">{age}</td>
+      <td className="px-6 py-4">{gender}</td>
+      <td className="px-6 py-4">{occupation}</td>
+      <td className="px-6 py-4">{city}</td>
+      <td className="px-6 py-4">{country}</td>
+      <td className="px-6 py-4">
+        <div className="flex item-center gap-3">
+          <button
+            className="text-blue-600 font-bold text-sm"
+            onClick={() => handleEdit(index)}
+          >
+            Edit
+          </button>
+          <button
+            className="text-red-600 font-bold text-sm"
+            onClick={() => handleDelete(index)}
+          >
+            Remove
+          </button>
+        </div>
+      </td>
+    </tr>
   );
 }

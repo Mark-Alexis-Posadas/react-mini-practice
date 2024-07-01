@@ -43,25 +43,25 @@ export default function PersonList() {
   const [showInput, setShowInput] = useState(false);
   const [activeList, setActiveList] = useState(null);
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     const { name, value } = e.target;
     setInputVal((prevValue) => ({
       ...prevValue,
       [name]: value,
     }));
-  };
+  }
 
-  const handleAdd = () => {
+  function handleAdd() {
     setShowInput(true);
-  };
+  }
 
-  const handleEdit = (idx) => {
+  function handleEdit(idx) {
     setInputVal(peopleList[idx]);
     setActiveList(idx);
     setShowInput(true);
-  };
+  }
 
-  const handleCancel = () => {
+  function handleCancel() {
     setActiveList("");
     setShowInput(false);
     setInputVal({
@@ -72,16 +72,15 @@ export default function PersonList() {
       city: "",
       country: "",
     });
-  };
+  }
 
-  const handleDelete = (index) => {
+  function handleDelete(index) {
     const deleteItem = peopleList.filter((_, idx) => idx !== index);
     setPeopleList(deleteItem);
-  };
+  }
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    // Validate input values
     if (
       typeof inputVal.name !== "string" ||
       inputVal.name.trim() === "" ||
@@ -104,7 +103,6 @@ export default function PersonList() {
       // Editing existing item
       const updatedPeopleList = [...peopleList];
       updatedPeopleList[activeList] = inputVal;
-      console.log(updatedPeopleList[activeList], activeList);
       setPeopleList(updatedPeopleList);
     } else {
       // Adding new item
@@ -127,12 +125,12 @@ export default function PersonList() {
     }, 3000);
 
     setShowInput(false);
-  };
+  }
 
   return (
-    <div className="p-5 md:p-20 relative bg-slate-50 min-h-screen">
-      <div className="flex items-center justify-between">
-        <h1 className="font-bold text-4xl">Person List</h1>
+    <div className="p-5 md:p-20 relative bg-black min-h-screen">
+      <div className="flex items-center justify-between mb-5">
+        <h1 className="font-bold text-4xl text-white">Person List</h1>
         <button
           className="bg-blue-600 text-white font-bold text-sm p-2 rounded"
           onClick={handleAdd}
@@ -143,24 +141,54 @@ export default function PersonList() {
       {peopleList.length === 0 ? (
         "No person list"
       ) : (
-        <ul className="grid md:grid-cols-3 md:gap-3">
-          {peopleList.map((item, index) => (
-            <Item
-              key={index}
-              index={index}
-              {...item}
-              activeList={activeList}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-          ))}
-        </ul>
+        <table className="table-auto w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                Name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Age
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Gender
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Occupation
+              </th>
+              <th scope="col" className="px-6 py-3">
+                City
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Country
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {peopleList.map((item, index) => (
+              <Item
+                key={index}
+                index={index}
+                {...item}
+                activeList={activeList}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            ))}
+          </tbody>
+        </table>
       )}
 
       {showInput && (
         <div className="absolute top-0 w-full min-h-screen left-0 p-10 md:p-20 bg-[rgba(0,0,0,0.4)] bottom-0 flex items-center justify-center">
-          <form onSubmit={handleSubmit} className="bg-white p-10 rounded">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <form
+            onSubmit={handleSubmit}
+            className="dark:bg-gray-800 p-10 rounded"
+          >
+            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-3">
               {Object.keys(inputVal).map((key, index) => (
                 <FormInputItem
                   key={key}
@@ -173,13 +201,13 @@ export default function PersonList() {
             </div>
             <div className="flex items-center gap-2 mt-3">
               <button
-                className="bg-red-700 p-3 rounded text-white"
+                className="bg-red-700 p-2 rounded text-white"
                 onClick={handleCancel}
               >
                 Cancel
               </button>
               <button
-                className="bg-blue-700 p-3 rounded text-white"
+                className="bg-blue-700 p-2 rounded text-white"
                 type="submit"
               >
                 Submit
