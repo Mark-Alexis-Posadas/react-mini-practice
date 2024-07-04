@@ -41,7 +41,7 @@ export default function InstagramStoryClone() {
 
   return (
     <div className="p-20">
-      <h1 className="text-8xl font-bold mb-5">Stories Clone</h1>
+      <h1 className="text-xl font-bold mb-5">Stories Clone</h1>
       <ul className="flex items-center gap-3">
         {usersInfo.map((item, index) => (
           <Users

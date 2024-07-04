@@ -5,8 +5,8 @@ import Table from "./Table";
 const initialState = {
   firstName: "",
   lastName: "",
-  employeeTitle: "Add",
   email: "",
+  employeeTitle: "Add",
   isToggle: false,
   submittedData: [],
   isEditing: false,
