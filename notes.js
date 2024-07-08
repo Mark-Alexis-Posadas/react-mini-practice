@@ -36,18 +36,18 @@ const handleAddNewArray = () => {
 
   //OR
 
-  // setArr((prev) => [
-  //   ...prev,
-  //   {
-  //     id: uuidv4(),
-  //     name: "Alexis",
-  //     price: 1000,
-  //     description: "pogi",
-  //     category: "human",
-  //     available: true,
-  //     //OR newItem
-  //   },
-  // ]);
+  setArr((prev) => [
+    ...prev,
+    {
+      id: uuidv4(),
+      name: "Alexis",
+      price: 1000,
+      description: "pogi",
+      category: "human",
+      available: true,
+      //OR newItem
+    },
+  ]);
 };
 
 //how to update array of objects
@@ -59,21 +59,4 @@ const arr = products.map((product, index) =>
       }
     : product
 );
-// console.log(arr); [
-//   {
-//     id: 1,
-//     name: 'computer',
-//     price: 999,
-//     description: 'A high-performance laptop for work and gaming.',
-//     category: 'Electronics',
-//     available: true
-//   },
-//   {
-//     id: 2,
-//     name: 'Headphones',
-//     price: 149,
-//     description: 'Wireless headphones with noise-cancellation feature.',
-//     category: 'Electronics',
-//     available: false
-//   }
-// ]
+console.log(arr);
