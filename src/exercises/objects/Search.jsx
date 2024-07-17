@@ -11,7 +11,7 @@ const productItems = [
 export default function Search() {
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState(productItems);
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(null);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);

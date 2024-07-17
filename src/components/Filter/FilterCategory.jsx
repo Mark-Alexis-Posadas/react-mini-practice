@@ -52,9 +52,9 @@ const FilterCategory = () => {
 
   return (
     <div>
-      <h1>Product List</h1>
+      <h1 className="font-bold">Product List</h1>
       {products.map((text, idx) => (
-        <label key={idx}>
+        <label key={idx} className="text-md">
           <input
             type="checkbox"
             className="form-check-input"
