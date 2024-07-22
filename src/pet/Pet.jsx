@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { products } from "./exercises/data";
+import { products } from "../exercises/data";
 export const App = () => {
   const [active, setActive] = useState(null);
 
@@ -82,14 +82,11 @@ export default function Form() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [submittedValues, setSubmittedValues] = useState("");
+  const [submittedValues, setSubmittedValues] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (firstName.trim() || mi === "") {
-      alert("please fill out the form");
-      return;
-    }
+
     setSubmittedValues([
       ...submittedValues,
       firstName,
