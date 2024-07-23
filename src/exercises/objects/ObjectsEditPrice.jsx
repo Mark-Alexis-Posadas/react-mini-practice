@@ -1,13 +1,21 @@
 import { useState } from "react";
-import { products } from "./exercises/data";
+
+import { products } from "../data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
+const initialValues = {
+  name: "",
+  description: "",
+  category: "",
+  price: "",
+  stock: "",
+};
 export default function ObjectsEditPrice() {
   //Initialize active to 0
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(null);
   const [product, setProduct] = useState(products);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(initialValues);
   const [showInput, setShowInput] = useState(false);
 
   const handleDelete = (id) => {
@@ -15,13 +23,14 @@ export default function ObjectsEditPrice() {
     setProduct(onDelete);
   };
 
-  const handleInput = (e) => {
-    setInputValue(e.target.value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputValue({ ...inputValue, [name]: value });
   };
 
   const handleEdit = (index) => {
     const currentVal = product[index]; //curent price
-    setInputValue(currentVal.price);
+    setInputValue(currentVal);
     setActive(index);
     setShowInput(true);
   };
@@ -77,15 +86,46 @@ export default function ObjectsEditPrice() {
         })}
       </ul>
       {showInput && (
-        <div className="fixed w-full h-full left-0 p-20 top-0 flex items-center justify-center bg-[rgba(0,0,0,0.4)]">
-          <div className="flex items-center gap-3">
+        <div className="fixed w-full h-full left-0 p-20 top-0 flex flex-col items-center justify-center bg-[rgba(0,0,0,0.4)]">
+          <div className="flex flex-col gap-3 w-[900px]">
             <input
               type="text"
               className="bg-slate-100 p-3 rounded flex-1"
-              placeholder="Update Price"
-              value={inputValue}
-              onChange={handleInput}
+              placeholder="Update name"
+              value={inputValue.name}
+              onChange={handleChange}
             />
+            <input
+              type="text"
+              className="bg-slate-100 p-3 rounded flex-1"
+              placeholder="Update description"
+              value={inputValue.description}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              className="bg-slate-100 p-3 rounded flex-1"
+              placeholder="Update category"
+              value={inputValue.category}
+              onChange={handleChange}
+            />
+            <input
+              type="number"
+              className="bg-slate-100 p-3 rounded flex-1"
+              placeholder="Update Price"
+              value={inputValue.price}
+              onChange={handleChange}
+            />
+            <select
+              value={inputValue.stock}
+              onChange={handleChange}
+              className="bg-slate-100 p-3 rounded flex-1"
+            >
+              <option value="in stock">In stock</option>
+              <option value="out of stock">Out stock</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-3">
             <button
               className="bg-red-600 text-white rounded p-3"
               onClick={() => setShowInput(false)}
