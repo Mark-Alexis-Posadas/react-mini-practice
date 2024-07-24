@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { products } from "../data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,13 +9,13 @@ const initialValues = {
   description: "",
   category: "",
   price: "",
-  stock: "",
+  available: false,
 };
 export default function ObjectsEditPrice() {
-  //Initialize active to 0
-  const [active, setActive] = useState(null);
   const [product, setProduct] = useState(products);
   const [inputValue, setInputValue] = useState(initialValues);
+
+  const [active, setActive] = useState(null);
   const [showInput, setShowInput] = useState(false);
 
   const handleDelete = (id) => {
@@ -28,23 +28,23 @@ export default function ObjectsEditPrice() {
     setInputValue({ ...inputValue, [name]: value });
   };
 
+  const handleStockChange = (e) => {
+    const { value } = e.target;
+    setInputValue({ ...inputValue, available: value === "true" });
+  };
+
   const handleEdit = (index) => {
-    const currentVal = product[index]; //curent price
+    const currentVal = product[index];
     setInputValue(currentVal);
     setActive(index);
     setShowInput(true);
   };
 
   const handleSubmit = () => {
-    if (inputValue.trim() === "") {
-      alert("Please add text");
-      return;
-    }
-    setProduct((currentVal) =>
-      currentVal.map((item, idx) =>
-        idx === active ? { ...item, price: inputValue } : item
-      )
-    );
+    const updateProduct = [...product];
+    updateProduct[active] = inputValue;
+    setProduct(updateProduct);
+    setInputValue("");
     setShowInput(false);
   };
   return (
@@ -87,9 +87,10 @@ export default function ObjectsEditPrice() {
       </ul>
       {showInput && (
         <div className="fixed w-full h-full left-0 p-20 top-0 flex flex-col items-center justify-center bg-[rgba(0,0,0,0.4)]">
-          <div className="flex flex-col gap-3 w-[900px]">
+          <div className="flex flex-col gap-3 w-[900px] bg-white p-3 rounded">
             <input
               type="text"
+              name="name"
               className="bg-slate-100 p-3 rounded flex-1"
               placeholder="Update name"
               value={inputValue.name}
@@ -97,6 +98,7 @@ export default function ObjectsEditPrice() {
             />
             <input
               type="text"
+              name="description"
               className="bg-slate-100 p-3 rounded flex-1"
               placeholder="Update description"
               value={inputValue.description}
@@ -104,6 +106,7 @@ export default function ObjectsEditPrice() {
             />
             <input
               type="text"
+              name="category"
               className="bg-slate-100 p-3 rounded flex-1"
               placeholder="Update category"
               value={inputValue.category}
@@ -111,33 +114,35 @@ export default function ObjectsEditPrice() {
             />
             <input
               type="number"
+              name="price"
               className="bg-slate-100 p-3 rounded flex-1"
               placeholder="Update Price"
               value={inputValue.price}
               onChange={handleChange}
             />
             <select
-              value={inputValue.stock}
-              onChange={handleChange}
+              name="stock"
+              value={inputValue.available ? "true" : "false"}
+              onChange={handleStockChange}
               className="bg-slate-100 p-3 rounded flex-1"
             >
-              <option value="in stock">In stock</option>
-              <option value="out of stock">Out stock</option>
+              <option value="true">In stock</option>
+              <option value="false">Out stock</option>
             </select>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              className="bg-red-600 text-white rounded p-3"
-              onClick={() => setShowInput(false)}
-            >
-              cancel
-            </button>
-            <button
-              className="bg-green-600 text-white rounded p-3"
-              onClick={handleSubmit}
-            >
-              submit
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                className="bg-red-600 text-white rounded p-3"
+                onClick={() => setShowInput(false)}
+              >
+                cancel
+              </button>
+              <button
+                className="bg-green-600 text-white rounded p-3"
+                onClick={handleSubmit}
+              >
+                submit
+              </button>
+            </div>
           </div>
         </div>
       )}
