@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { products } from "../data";
+import { items } from "../data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,15 +12,24 @@ const initialValues = {
   available: false,
 };
 export default function ObjectsEditPrice() {
-  const [product, setProduct] = useState(products);
+  const [products, setProducts] = useState(items);
   const [inputValue, setInputValue] = useState(initialValues);
 
   const [active, setActive] = useState(null);
   const [showInput, setShowInput] = useState(false);
+  useEffect(() => {
+    const savedProducts = JSON.parse(localStorage.getItem("products")) || [];
+    setProducts(savedProducts);
+  }, []);
+
+  // Save products to localStorage whenever products state changes
+  useEffect(() => {
+    localStorage.setItem("products", JSON.stringify(products));
+  }, [products]);
 
   const handleDelete = (id) => {
-    const onDelete = product.filter((item) => item.id !== id);
-    setProduct(onDelete);
+    const onDelete = products.filter((item) => item.id !== id);
+    setProducts(onDelete);
   };
 
   const handleChange = (e) => {
@@ -34,23 +43,23 @@ export default function ObjectsEditPrice() {
   };
 
   const handleEdit = (index) => {
-    const currentVal = product[index];
+    const currentVal = products[index];
     setInputValue(currentVal);
     setActive(index);
     setShowInput(true);
   };
 
   const handleSubmit = () => {
-    const updateProduct = [...product];
+    const updateProduct = [...products];
     updateProduct[active] = inputValue;
-    setProduct(updateProduct);
+    setProducts(updateProduct);
     setInputValue("");
     setShowInput(false);
   };
   return (
     <div className="p-10 w-[900px] m-auto relative">
       <ul>
-        {product.map((item, index) => {
+        {products.map((item, index) => {
           const { id, name, price, description, category, available } = item;
 
           return (

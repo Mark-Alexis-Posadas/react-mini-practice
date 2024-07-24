@@ -1,9 +1,9 @@
-import Search from "./Search";
+import ObjectsEditPrice from "./ObjectsEditPrice";
 
 export default function Objects() {
   return (
     <div>
-      <Search />
+      <ObjectsEditPrice />
     </div>
   );
 }

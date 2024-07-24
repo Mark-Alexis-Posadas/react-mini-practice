@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const initialState = ["apple", "banana", "orange"];
-export default function App() {
+export default function Select() {
   const [fruits, setFruits] = useState(initialState);
   const [active, setActive] = useState(0);
 
