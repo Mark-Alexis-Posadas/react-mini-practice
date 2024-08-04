@@ -26,20 +26,20 @@
 4. Form Handling
    Create a form with fields for name and email. Use useState to handle input values and display them when the form is submitted. -DONE
 
-5. Dynamic List Rendering
-   Build a component that displays a list of items. Allow users to add new items to the list and remove items from it. Manage the list of items with useState.
+5. Dynamic List Rendering -Done
+   Build a component that displays a list of items. Allow users to add new items to the list and remove items from it. Manage the list of items with useState. -D
 
-6. Counter with Input
+6. Counter with Input -Done
    Make a counter component where users can specify an increment/decrement step size through an input field. The counter should adjust by the specified step size.
 
-7. Login Form
+7. Login Form -Done
    Create a login form with fields for username and password. Use useState to handle the form's input values and show a message upon form submission.
 
-8. Theme Switcher
+8. Theme Switcher -Done
    Implement a component that switches between light and dark themes. Use useState to manage the current theme and apply different styles based on the selected theme.
 
-9. Counter with Step Size
+9. Counter with Step Size -Done
    Create a counter component where users can set a step size for incrementing and decrementing the count. The counter should update according to the step size.
 
-10. Fetch Data and Display
+10. Fetch Data and Display -Done
     Develop a component that fetches data from an API (such as JSONPlaceholder) and displays the fetched data. Use useState to manage the data and loading state.
