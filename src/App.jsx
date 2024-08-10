@@ -1,45 +1,68 @@
+import { useEffect } from "react";
 import { useState } from "react";
+import { PostRequest } from "./components/Api/PostRequest";
 
-export default function Counter() {
-  const [count, setCount] = useState(0);
-  const [stepSize, setStepSize] = useState(1);
+const App = () => {
+  const [data, setData] = useState([]);
+  const [inputFields, setInputFields] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
 
-  function handleIncrement() {
-    setCount((prevCount) => prevCount + stepSize);
-  }
+  const [submittedData, setSubmittedData] = useState([]);
 
-  function handleDecrement() {
-    setCount((prevCount) => prevCount - stepSize);
-  }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputFields((prev) => ({ ...prev, [name]: value }));
+  };
 
-  function handleStepSizeChange(e) {
-    const value = Number(e.target.value);
-    setStepSize(value);
-  }
+  useEffect(() => {
+    fetch("http://localhost:8000/data", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(submittedData),
+    })
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error(error));
+  }, [submittedData]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmittedData({ ...submittedData, inputFields });
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:8000/data")
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
-    <>
-      <h1 className="font-bold text-4xl">{count}</h1>
-      <input
-        type="number"
-        value={stepSize}
-        onChange={handleStepSizeChange}
-        className="text-black bg-slate-300 p-2 rounded mb-3"
+    <div className="p-20">
+      {data.map((item) => (
+        <li key={item.id} className="flex items-center gap-4">
+          {item.firstName} - {item.lastName} - {item.email}
+        </li>
+      ))}
+
+      {submittedData.map((item) => (
+        <li key={item.id} className="flex items-center gap-4">
+          {item.firstName} - {item.lastName} - {item.email}
+        </li>
+      ))}
+
+      <PostRequest
+        inputFields={inputFields}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
       />
-      <div className="flex items-center gap-3">
-        <button
-          className="text-white bg-blue-500 rounded p-2"
-          onClick={handleIncrement}
-        >
-          Increment
-        </button>
-        <button
-          className="text-white bg-red-500 rounded p-2"
-          onClick={handleDecrement}
-        >
-          Decrement
-        </button>
-      </div>
-    </>
+    </div>
   );
-}
+};
+
+export default App;
