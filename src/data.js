@@ -1,9 +1,8 @@
-const data = [
+export const API = [
   {
     id: 1,
     company: "Photosnap",
     logo: "src/assets/images/photosnap.svg",
-
     new: true,
     featured: true,
     position: "Senior Frontend Developer",
@@ -151,5 +150,3 @@ const data = [
     tools: ["React", "Sass"],
   },
 ];
-
-export default data;

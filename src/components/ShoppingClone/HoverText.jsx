@@ -22,7 +22,9 @@ export default function HoverText() {
         <button
           key={idx}
           type="button"
-          className="btn btn-primary me-2"
+          className={`text-white rounded p-2 bg-gray-600 ${
+            color === "Green" && "bg-red-500 cursor-not-allowed"
+          }`}
           onClick={() => handleClick(color)}
         >
           {color}

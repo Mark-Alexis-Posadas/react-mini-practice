@@ -1,16 +1,10 @@
-import { useState } from "react";
-export default function ToggleComponent() {
-  const [state, setState] = useState(false);
-
-  const handleClick = () => {
-    setState(!state);
-  };
+export default function ToggleComponent({ isToggle, handleToggle }) {
   return (
     <div>
-      <button className="btn btn-primary" onClick={handleClick}>
-        {state ? "hide" : "show"}
+      <button className="btn btn-primary" onClick={handleToggle}>
+        {isToggle ? "hide" : "show"}
       </button>
-      {state ? (
+      {isToggle ? (
         <p className="text-danger">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate
           unde veniam aperiam deleniti eius magni adipisci expedita fugiat,

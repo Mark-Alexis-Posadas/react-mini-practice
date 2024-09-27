@@ -1,4 +1,4 @@
-export const items = [
+export const REST_API = [
   {
     id: 1,
     name: "Laptop",
@@ -21,7 +21,7 @@ export const items = [
     price: 29,
     description: "Comfortable cotton t-shirt available in various colors.",
     category: "Clothing",
-    available: true,
+    available: false,
   },
   {
     id: 4,
