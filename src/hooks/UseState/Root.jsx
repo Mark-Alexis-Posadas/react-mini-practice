@@ -11,8 +11,6 @@ const Root = () => {
   );
 };
 
-export default Root;
-
 import React, { useState } from "react";
 import CarouselTwo from "./components/Carousel/CarouselTwo";
 const data = ["a", "b", "c"];

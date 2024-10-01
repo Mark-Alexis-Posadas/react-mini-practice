@@ -333,3 +333,161 @@ export const NameFiltering = () => {
     </div>
   );
 };
+
+const images = [
+  "https://64.media.tumblr.com/e03f1411edfd276553c14f1fea127d07/tumblr_pkozjmikSj1w6wy64_640.jpg",
+  "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4f3c06b9-d9cc-477c-8a58-699b9bc07e57/d5dkbaf-72d85ef9-1af4-48d7-a1f3-db18569f5f3e.jpg/v1/fit/w_469,h_679,q_70,strp/gerard_way__editted_version__by_barbaraway_d5dkbaf-375w-2x.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9Njc5IiwicGF0aCI6IlwvZlwvNGYzYzA2YjktZDljYy00NzdjLThhNTgtNjk5YjliYzA3ZTU3XC9kNWRrYmFmLTcyZDg1ZWY5LTFhZjQtNDhkNy1hMWYzLWRiMTg1NjlmNWYzZS5qcGciLCJ3aWR0aCI6Ijw9NDY5In1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.qzsNs8Vc3AneUySSVJXSlSETfm7CDCd1QZBbp1C5HSE",
+  "https://64.media.tumblr.com/f3ea975839fe431c5cd973a05706aa35/576337e07a60aec8-2e/s1280x1920/07b3a506f93035a51aa1ce3a72fac1b20b394fd4.jpg",
+];
+export const Carousel = () => {
+  const [active, setActive] = useState(0);
+
+  const handlePrev = () => {
+    if (active === 0) return;
+    setActive((prev) => prev - 1);
+  };
+
+  const handleNext = () => {
+    if (active === 2) return;
+
+    setActive((prev) => prev + 1);
+  };
+
+  const handleIndicatorClick = (index) => {
+    setActive(index);
+  };
+
+  return (
+    <div className="p-20">
+      <div className="flex items-center">
+        <button
+          onClick={handlePrev}
+          className={active === 0 ? "hidden" : "block"}
+        >
+          prev
+        </button>
+        <div className="flex flex-col">
+          {images.map((item, index) => (
+            <img
+              className={`${
+                index === active ? "block" : "hidden"
+              } rounded object-cover w-[120px] h-[120px]`}
+              src={item}
+              key={index}
+              alt="g"
+            />
+          ))}
+
+          {images.map((_, index) => (
+            <span
+              onClick={() => handleIndicatorClick(index)}
+              key={index}
+              className={`${
+                active === index ? "bg-green-500" : "bg-gray-200"
+              }  rounded-full w-10 h-10`}
+            ></span>
+          ))}
+        </div>
+        <button
+          onClick={handleNext}
+          className={active === 2 ? "hidden" : "block"}
+        >
+          next
+        </button>
+      </div>
+    </div>
+  );
+};
+
+import { useEffect, useState } from "react";
+import { REST_API } from "./exercises/data";
+export const App = () => {
+  const [data, setData] = useState(REST_API);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    if (search === "" || search === null) {
+      setData(REST_API);
+    }
+  }, [search]);
+
+  const handleSearchSubmit = () => {
+    if (!search) return;
+
+    setLoading(true);
+    setTimeout(() => {
+      const filteredData = REST_API.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+
+      setData(filteredData);
+      setLoading(false);
+    }, "5000");
+  };
+
+  const filterAvailability = () => {
+    setData((prev) => prev.filter((item) => item.available));
+  };
+
+  const sortprice = () => {
+    setData((prev) => [...prev].sort((a, b) => a.price - b.price));
+  };
+
+  const toggleAvailability = (id) => {
+    setData((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, available: !item.available } : item
+      )
+    );
+  };
+
+  return (
+    <div className="p-20">
+      <div className="flex items-center gap-3 mb-3">
+        <input
+          value={search}
+          onChange={handleSearch}
+          type="text"
+          placeholder="search"
+          className="border border-green-300 rounded  p-3"
+        />
+        <button
+          className="text-white p-2 rounded bg-blue-600"
+          onClick={handleSearchSubmit}
+        >
+          search
+        </button>
+      </div>
+      {loading ? (
+        <div className="flex items-center justify-center h-screen">
+          <div className="loader border-t-transparent border-solid border-4 border-gray-300 rounded-full w-16 h-16 animate-spin"></div>
+        </div>
+      ) : data.length === 0 ? (
+        <p>no items found </p>
+      ) : (
+        data.map((item) => (
+          <div
+            key={item.id}
+            className={`${
+              item.available ? "border-green-500" : "border-red-500"
+            } bg-slate-50 rounded p-2 shadow-md mb-3 border`}
+          >
+            <h1 className="font-bold">{item.name}</h1>
+            <p>{item.price}</p>
+            <p>{item.description}</p>
+            <p>{item.category}</p>
+          </div>
+        ))
+      )}
+      <button onClick={filterAvailability}>Filter Available</button>
+      <button onClick={sortprice}>Sort Price</button>
+      <button onClick={() => toggleAvailability(1)}>
+        Toggle availability with id with 1
+      </button>
+    </div>
+  );
+};
