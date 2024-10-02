@@ -1,7 +1,7 @@
-import ObjectsEditPrice from "./exercises/objects/ObjectsEditPrice";
+import NotesApp from "./components/NotesApp/NotesApp";
 
 const App = () => {
-  return <ObjectsEditPrice />;
+  return <NotesApp />;
 };
 
 export default App;

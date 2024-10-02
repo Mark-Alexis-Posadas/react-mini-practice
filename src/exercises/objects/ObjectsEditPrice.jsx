@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { REST_API } from "../data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,15 +17,6 @@ export default function ObjectsEditPrice() {
 
   const [active, setActive] = useState(null);
   const [showInput, setShowInput] = useState(false);
-  useEffect(() => {
-    const savedProducts = JSON.parse(localStorage.getItem("products")) || [];
-    setProducts(savedProducts);
-  }, []);
-
-  // Save products to localStorage whenever products state changes
-  useEffect(() => {
-    localStorage.setItem("products", JSON.stringify(products));
-  }, [products]);
 
   const handleDelete = (id) => {
     const onDelete = products.filter((item) => item.id !== id);
@@ -60,42 +51,47 @@ export default function ObjectsEditPrice() {
 
   return (
     <div className="p-10 w-[900px] m-auto relative">
-      <ul>
-        {products.map((item, index) => {
-          const { id, name, price, description, category, available } = item;
+      {products.length === 0 ? (
+        <h1 className="text-8xl">No Available Products!!!</h1>
+      ) : (
+        <ul>
+          {products.map((item, index) => {
+            const { id, name, price, description, category, available } = item;
 
-          return (
-            <li
-              key={id}
-              className={`${
-                index === active && "border-green-500"
-              } border flex items-center gap-3 bg-slate-100 shadow-md  my-3 p-3 rounded`}
-            >
-              <h3 className="font-bold text-green-600">{name}</h3>
-              <p className="text-slate-500 text-sm">{description}</p>
-              <p>{category}</p>
-              <p className="font-bold text-md text-black">{price}</p>
-              <p className={available ? "text-green-600" : "text-red-600"}>
-                {available ? "In Stock" : "Out of stock"}
-              </p>
-              <div className="flex items-center gap-2 ml-auto">
-                <button
-                  className="rounded-full p-2 bg-blue-600 text-white w-10 h-10 flex items-center justify-center"
-                  onClick={() => handleEdit(index)}
-                >
-                  <FontAwesomeIcon icon={faPencilSquare} />
-                </button>
-                <button
-                  className="rounded-full p-2 bg-red-600 text-white w-10 h-10 flex items-center justify-center"
-                  onClick={() => handleDelete(id)}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+            return (
+              <li
+                key={id}
+                className={`${
+                  index === active && "border-green-500"
+                } border flex items-center gap-3 bg-slate-100 shadow-md  my-3 p-3 rounded`}
+              >
+                <h3 className="font-bold text-green-600">{name}</h3>
+                <p className="text-slate-500 text-sm">{description}</p>
+                <p>{category}</p>
+                <p className="font-bold text-md text-black">{price}</p>
+                <p className={available ? "text-green-600" : "text-red-600"}>
+                  {available ? "In Stock" : "Out of stock"}
+                </p>
+                <div className="flex items-center gap-2 ml-auto">
+                  <button
+                    className="rounded-full p-2 bg-blue-600 text-white w-10 h-10 flex items-center justify-center"
+                    onClick={() => handleEdit(index)}
+                  >
+                    <FontAwesomeIcon icon={faPencilSquare} />
+                  </button>
+                  <button
+                    className="rounded-full p-2 bg-red-600 text-white w-10 h-10 flex items-center justify-center"
+                    onClick={() => handleDelete(id)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+
       {showInput && (
         <div className="fixed w-full h-full left-0 p-20 top-0 flex flex-col items-center justify-center bg-[rgba(0,0,0,0.4)]">
           <div className="flex flex-col gap-3 w-[900px] bg-white p-3 rounded">
@@ -153,7 +149,7 @@ export default function ObjectsEditPrice() {
                 className="bg-green-600 text-white rounded p-3"
                 onClick={handleSubmit}
               >
-                submit
+                update
               </button>
             </div>
           </div>
