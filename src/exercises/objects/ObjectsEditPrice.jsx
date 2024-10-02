@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { items } from "../data";
+import { REST_API } from "../data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,7 +12,7 @@ const initialValues = {
   available: false,
 };
 export default function ObjectsEditPrice() {
-  const [products, setProducts] = useState(items);
+  const [products, setProducts] = useState(REST_API);
   const [inputValue, setInputValue] = useState(initialValues);
 
   const [active, setActive] = useState(null);
@@ -50,12 +50,14 @@ export default function ObjectsEditPrice() {
   };
 
   const handleSubmit = () => {
+    setActive(null);
     const updateProduct = [...products];
     updateProduct[active] = inputValue;
     setProducts(updateProduct);
     setInputValue("");
     setShowInput(false);
   };
+
   return (
     <div className="p-10 w-[900px] m-auto relative">
       <ul>
@@ -141,7 +143,9 @@ export default function ObjectsEditPrice() {
             <div className="flex items-center gap-3">
               <button
                 className="bg-red-600 text-white rounded p-3"
-                onClick={() => setShowInput(false)}
+                onClick={() => {
+                  setShowInput(false), setActive(null);
+                }}
               >
                 cancel
               </button>

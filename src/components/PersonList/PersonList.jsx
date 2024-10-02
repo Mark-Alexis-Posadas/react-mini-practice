@@ -38,7 +38,7 @@ export default function PersonList() {
   }
 
   function handleCancel() {
-    setActiveList("");
+    setActiveList(null);
     setShowInput(false);
     setInputVal({
       name: "",
@@ -57,6 +57,17 @@ export default function PersonList() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (
+      inputVal.name === "" ||
+      inputVal.age === "" ||
+      inputVal.gender === "" ||
+      inputVal.occupation === "" ||
+      inputVal.city === "" ||
+      inputVal.country === ""
+    ) {
+      alert("please filed out the fields");
+      return;
+    }
     if (activeList !== null) {
       // Editing existing item
       const updatedPeopleList = [...peopleList];
