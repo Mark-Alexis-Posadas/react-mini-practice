@@ -17,6 +17,8 @@ const NotesApp = () => {
       text: text,
     };
     setSubmittedNotes((prev) => [...prev, notes]);
+    setTitle("");
+    setText("");
   };
 
   return (
@@ -33,13 +35,13 @@ const NotesApp = () => {
           className="border-b border-slate-300 mb-3 p-4"
           placeholder="Enter your title"
         />
-        <input
+        <textarea
           onChange={(e) => setText(e.target.value)}
           value={text}
           type="text"
           className="border-b border-slate-300 mb-3 p-4"
           placeholder="Enter your note text."
-        />
+        ></textarea>
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -66,6 +68,17 @@ const NotesApp = () => {
           </button>
         </div>
       </form>
+      {submittedNotes.length === 0 ? (
+        ""
+      ) : (
+        <button
+          className="text-white bg-red-600 rounded p-2 mt-10"
+          onClick={() => setSubmittedNotes([])}
+        >
+          {submittedNotes.length <= 1 ? "delete note" : "delete all notes"}
+        </button>
+      )}
+
       <div className="flex items-center gap-3">
         {submittedNotes.map((note, index) => (
           <NoteItem key={index} note={note} />
