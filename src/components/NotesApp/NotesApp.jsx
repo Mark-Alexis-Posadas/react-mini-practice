@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NoteItem } from "./NoteItem";
+import ConfiramationDelete from "./ConfiramationDelete";
 
 const backgroundColorData = [
   { id: 1, color: "bg-red-500" },
@@ -13,7 +14,7 @@ const NotesApp = () => {
   const [text, setText] = useState("");
   const [activeBgColor, setActiveBgColor] = useState(null);
   const [submittedNotes, setSubmittedNotes] = useState([]);
-
+  const [isDelete, setIsDelete] = useState(false);
   const handleSetBgColor = (index) => {
     setActiveBgColor(index);
   };
@@ -24,6 +25,15 @@ const NotesApp = () => {
 
   const handleTextChange = (e) => {
     setText(e.target.value);
+  };
+
+  const handleToggleDelete = () => {
+    setIsDelete(true);
+  };
+
+  const handleProceedDelete = () => {
+    setSubmittedNotes([]);
+    setIsDelete(false);
   };
 
   const handleFormSubmit = (e) => {
@@ -37,7 +47,9 @@ const NotesApp = () => {
       text: text,
       bgColor: backgroundColorData[activeBgColor].color,
     };
+
     setSubmittedNotes((prev) => [...prev, notes]);
+    console.log(notes.bgColor);
 
     setTitle("");
     setText("");
@@ -87,17 +99,23 @@ const NotesApp = () => {
       {submittedNotes.length === 0 ? null : (
         <button
           className="text-white bg-red-600 rounded p-2 mt-10"
-          onClick={() => setSubmittedNotes([])}
+          onClick={handleToggleDelete}
         >
           {submittedNotes.length <= 1 ? "Delete note" : "Delete all notes"}
         </button>
       )}
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 mt-5">
         {submittedNotes.map((note, index) => (
           <NoteItem key={index} note={note} noteBgColor={note.bgColor} />
         ))}
       </div>
+      {isDelete && (
+        <ConfiramationDelete
+          handleProceedDelete={handleProceedDelete}
+          setIsDelete={setIsDelete}
+        />
+      )}
     </div>
   );
 };
