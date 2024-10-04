@@ -1,9 +1,15 @@
 import React from "react";
 
-const ConfiramationDelete = ({ handleProceedDelete, setIsDelete }) => {
+const ConfiramationDelete = ({
+  submittedNotes,
+  handleProceedDelete,
+  setIsDelete,
+}) => {
   return (
     <div>
-      are you sure to delete this note
+      {`are you sure to delete ${
+        submittedNotes.length > 1 ? "all these notes?" : "this note?"
+      }`}
       <div className="flex items-center gap-3">
         <button
           className="text-white rounded p-2 bg-red-600"

@@ -12,19 +12,24 @@ const backgroundColorData = [
 const NotesApp = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
   const [activeBgColor, setActiveBgColor] = useState(null);
   const [submittedNotes, setSubmittedNotes] = useState([]);
   const [isDelete, setIsDelete] = useState(false);
+
   const handleSetBgColor = (index) => {
     setActiveBgColor(index);
   };
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
+    setIsDelete(false);
   };
 
   const handleTextChange = (e) => {
     setText(e.target.value);
+    setIsDelete(false);
   };
 
   const handleToggleDelete = () => {
@@ -36,20 +41,40 @@ const NotesApp = () => {
     setIsDelete(false);
   };
 
+  const handleEdit = (idx) => {
+    setEditIndex(idx);
+    console.log(editIndex, idx);
+    const inputEditVal = submittedNotes[idx];
+    setTitle(inputEditVal.title);
+    setText(inputEditVal.text);
+    setIsEditing(true);
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
     if (!title || !text || activeBgColor === null) {
       alert("Please add note and select a background color");
       return;
     }
-    const notes = {
-      title: title,
-      text: text,
-      bgColor: backgroundColorData[activeBgColor].color,
-    };
 
-    setSubmittedNotes((prev) => [...prev, notes]);
-    console.log(notes.bgColor);
+    if (isEditing) {
+      const editVal = submittedNotes.map((item, index) =>
+        index === editIndex
+          ? { title, text, bgColor: backgroundColorData[activeBgColor].color }
+          : item
+      );
+      setSubmittedNotes(editVal);
+      setIsEditing(false);
+    } else {
+      const notes = {
+        title: title,
+        text: text,
+        bgColor: backgroundColorData[activeBgColor].color,
+      };
+
+      setSubmittedNotes((prev) => [...prev, notes]);
+    }
 
     setTitle("");
     setText("");
@@ -67,13 +92,17 @@ const NotesApp = () => {
           onChange={handleTitleChange}
           value={title}
           type="text"
-          className="border-b border-slate-300 mb-3 p-4"
+          className={`${
+            isEditing ? "border-green-500" : "border-slate-300"
+          } border-b mb-3 p-4`}
           placeholder="Enter your title"
         />
         <textarea
           onChange={handleTextChange}
           value={text}
-          className="border-b border-slate-300 mb-3 p-4"
+          className={`${
+            isEditing ? "border-green-500" : "border-slate-300"
+          } border-b mb-3 p-4`}
           placeholder="Enter your note text."
         ></textarea>
 
@@ -91,7 +120,7 @@ const NotesApp = () => {
             ))}
           </div>
           <button type="submit" className="text-white p-2 rounded bg-blue-600">
-            Add
+            {isEditing ? "Update note" : "Add note"}
           </button>
         </div>
       </form>
@@ -107,12 +136,19 @@ const NotesApp = () => {
 
       <div className="flex items-center gap-3 mt-5">
         {submittedNotes.map((note, index) => (
-          <NoteItem key={index} note={note} noteBgColor={note.bgColor} />
+          <NoteItem
+            idx={index}
+            key={index}
+            note={note}
+            noteBgColor={note.bgColor}
+            handleEdit={handleEdit}
+          />
         ))}
       </div>
       {isDelete && (
         <ConfiramationDelete
           handleProceedDelete={handleProceedDelete}
+          submittedNotes={submittedNotes}
           setIsDelete={setIsDelete}
         />
       )}
