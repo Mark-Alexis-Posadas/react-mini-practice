@@ -1,24 +1,47 @@
 import { useState } from "react";
 import { NoteItem } from "./NoteItem";
 
+const backgroundColorData = [
+  { id: 1, color: "bg-red-500" },
+  { id: 2, color: "bg-blue-500" },
+  { id: 3, color: "bg-green-500" },
+  { id: 4, color: "bg-orange-500" },
+];
+
 const NotesApp = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [activeBgColor, setActiveBgColor] = useState(null);
   const [submittedNotes, setSubmittedNotes] = useState([]);
+
+  const handleSetBgColor = (index) => {
+    setActiveBgColor(index);
+  };
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleTextChange = (e) => {
+    setText(e.target.value);
+  };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (!title || !text) {
-      alert("please add note");
+    if (!title || !text || activeBgColor === null) {
+      alert("Please add note and select a background color");
       return;
     }
     const notes = {
       title: title,
       text: text,
+      bgColor: backgroundColorData[activeBgColor].color,
     };
     setSubmittedNotes((prev) => [...prev, notes]);
+
     setTitle("");
     setText("");
+    setActiveBgColor(null);
   };
 
   return (
@@ -29,59 +52,50 @@ const NotesApp = () => {
         onSubmit={handleFormSubmit}
       >
         <input
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={handleTitleChange}
           value={title}
           type="text"
           className="border-b border-slate-300 mb-3 p-4"
           placeholder="Enter your title"
         />
         <textarea
-          onChange={(e) => setText(e.target.value)}
+          onChange={handleTextChange}
           value={text}
-          type="text"
           className="border-b border-slate-300 mb-3 p-4"
           placeholder="Enter your note text."
         ></textarea>
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {Array(5)
-              .fill(null)
-              .map((_, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  className={`w-[30px] h-[30px] rounded-full ${
-                    index === 0
-                      ? "bg-red-500"
-                      : index === 1
-                      ? "bg-blue-500"
-                      : index === 2
-                      ? "bg-green-500"
-                      : "bg-orange-500"
-                  }`}
-                ></button>
-              ))}
+            {backgroundColorData.map((color, index) => (
+              <button
+                onClick={() => handleSetBgColor(index, index)}
+                key={index}
+                type="button"
+                className={`${
+                  activeBgColor === index ? "border-sky-500" : ""
+                } border w-[30px] h-[30px] rounded-full ${color.color}`}
+              ></button>
+            ))}
           </div>
           <button type="submit" className="text-white p-2 rounded bg-blue-600">
             Add
           </button>
         </div>
       </form>
-      {submittedNotes.length === 0 ? (
-        ""
-      ) : (
+
+      {submittedNotes.length === 0 ? null : (
         <button
           className="text-white bg-red-600 rounded p-2 mt-10"
           onClick={() => setSubmittedNotes([])}
         >
-          {submittedNotes.length <= 1 ? "delete note" : "delete all notes"}
+          {submittedNotes.length <= 1 ? "Delete note" : "Delete all notes"}
         </button>
       )}
 
       <div className="flex items-center gap-3">
         {submittedNotes.map((note, index) => (
-          <NoteItem key={index} note={note} />
+          <NoteItem key={index} note={note} noteBgColor={note.bgColor} />
         ))}
       </div>
     </div>
