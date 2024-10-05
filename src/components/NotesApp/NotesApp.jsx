@@ -39,14 +39,21 @@ const NotesApp = () => {
   const handleProceedDelete = () => {
     setSubmittedNotes([]);
     setIsDelete(false);
+    setIsEditing(false);
+    setTitle("");
+    setText("");
+    setActiveBgColor(null);
   };
 
   const handleEdit = (idx) => {
     setEditIndex(idx);
-    console.log(editIndex, idx);
+
     const inputEditVal = submittedNotes[idx];
+
     setTitle(inputEditVal.title);
     setText(inputEditVal.text);
+
+    handleSetBgColor(idx);
     setIsEditing(true);
   };
 
@@ -110,12 +117,13 @@ const NotesApp = () => {
           <div className="flex items-center gap-2">
             {backgroundColorData.map((color, index) => (
               <button
-                onClick={() => handleSetBgColor(index, index)}
+                onClick={() => handleSetBgColor(index)}
                 key={index}
                 type="button"
-                className={`${
-                  activeBgColor === index ? "border-sky-500" : ""
-                } border w-[30px] h-[30px] rounded-full ${color.color}`}
+                className={`w-[30px] h-[30px] rounded-full border-sky-500 border ${color.color}`}
+                style={{
+                  border: activeBgColor === index ? "2px solid #222" : "",
+                }}
               ></button>
             ))}
           </div>
