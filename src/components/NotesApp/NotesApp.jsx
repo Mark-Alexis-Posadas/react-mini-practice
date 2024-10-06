@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NoteItem } from "./NoteItem";
 import ConfiramationDelete from "./ConfiramationDelete";
 
@@ -12,6 +12,11 @@ const backgroundColorData = [
 const NotesApp = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
+  const [validationErrors, setValidationErrors] = useState({
+    title: false,
+    text: false,
+    color: false,
+  });
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [activeBgColor, setActiveBgColor] = useState(null);
@@ -19,18 +24,30 @@ const NotesApp = () => {
   const [isDelete, setIsDelete] = useState(false);
   const [editColor, setEditColor] = useState(null);
 
+  useEffect(() => {
+    const storedNotes = JSON.parse(localStorage.getItem("submittedNotes"));
+    if (storedNotes) {
+      setSubmittedNotes(storedNotes);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("submittedNotes", JSON.stringify(submittedNotes));
+  }, [submittedNotes]);
+
   const handleSetBgColor = (index) => {
     setActiveBgColor(index);
+    setValidationErrors((prev) => ({ ...prev, color: false }));
   };
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
-    setIsDelete(false);
+    setValidationErrors((prev) => ({ ...prev, title: false }));
   };
 
   const handleTextChange = (e) => {
     setText(e.target.value);
-    setIsDelete(false);
+    setValidationErrors((prev) => ({ ...prev, text: false }));
   };
 
   const handleToggleDelete = () => {
@@ -53,15 +70,22 @@ const NotesApp = () => {
     setText(inputEditVal.text);
     setIsEditing(true);
     setActiveBgColor(editColor);
+    // setActiveBgColor(
+    //   backgroundColorData.findIndex(
+    //     (color) => color.color === inputEditVal.bgColor
+    //   )
+    // );
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
-    if (!title || !text || activeBgColor === null) {
-      alert("Please add note and select a background color");
-      return;
-    }
+    const errors = {
+      title: !title,
+      text: !text,
+      color: activeBgColor === null,
+    };
+    setValidationErrors(errors);
+    if (errors.title || errors.text || errors.color) return;
 
     if (isEditing) {
       const editVal = submittedNotes.map((item, index) =>
@@ -97,22 +121,26 @@ const NotesApp = () => {
           onChange={handleTitleChange}
           value={title}
           type="text"
-          className={`${
-            isEditing ? "border-green-500" : "border-slate-300"
-          } border-b mb-3 p-4`}
+          className={`border-b mb-3 p-4 outline-none ${
+            validationErrors.title ? "border-red-500" : "border-slate-300"
+          }`}
           placeholder="Enter your title"
         />
         <textarea
           onChange={handleTextChange}
           value={text}
-          className={`${
-            isEditing ? "border-green-500" : "border-slate-300"
-          } border-b mb-3 p-4`}
+          className={`border-b mb-3 p-4 outline-none ${
+            validationErrors.text ? "border-red-500" : "border-slate-300"
+          }`}
           placeholder="Enter your note text."
         ></textarea>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div
+            className={`flex items-center gap-2 ${
+              validationErrors.color ? "border p-2 border-red-500" : ""
+            }`}
+          >
             {backgroundColorData.map((color, index) => (
               <button
                 onClick={() => {
