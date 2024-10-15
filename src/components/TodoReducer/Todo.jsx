@@ -1,5 +1,6 @@
 import { useReducer, useState } from "react";
 import TodoItem from "./TodoItem";
+import { ConfirmationDelete } from "./ConfirmationDelete";
 
 const initialState = {
   todo: [],
@@ -7,6 +8,7 @@ const initialState = {
   currentIndex: null,
   active: 0,
   showModal: false,
+  toggleDelete: false,
 };
 
 const reducer = (state, action) => {
@@ -18,9 +20,19 @@ const reducer = (state, action) => {
         active: null,
       };
 
-    case "DELETE_TODO":
+    case "TOGGLE_DELETE_TODO":
+      return {
+        ...state,
+
+        toggleDelete: true,
+      };
+    case "CONFIRM_DELETE_TODO":
       const { payload: index } = action;
-      return { ...state, todo: state.todo.filter((_, idx) => idx !== index) };
+      return {
+        ...state,
+        todo: state.todo.filter((_, idx) => idx !== index),
+        toggleDelete: false,
+      };
 
     case "EDIT_TODO":
       const { idx, item } = action;
@@ -65,7 +77,11 @@ export default function Todo() {
   const [inputVal, setInputVal] = useState("");
 
   const handleDelete = (index) => {
-    dispatch({ type: "DELETE_TODO", payload: index });
+    dispatch({ type: "TOGGLE_DELETE_TODO", payload: index });
+  };
+
+  const handleConfirmDelete = () => {
+    dispatch({ type: "CONFIRM_DELETE_TODO" });
   };
 
   const handleSubmit = () => {
@@ -147,6 +163,10 @@ export default function Todo() {
             </div>
           </div>
         </div>
+      )}
+
+      {state.toggleDelete && (
+        <ConfirmationDelete handleConfirmDelete={handleConfirmDelete} />
       )}
     </div>
   );
