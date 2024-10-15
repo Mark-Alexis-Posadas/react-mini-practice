@@ -6,6 +6,7 @@ const initialState = {
   todo: [],
   currentTodo: "",
   currentIndex: null,
+  deleteIndex: null,
   active: 0,
   showModal: false,
   toggleDelete: false,
@@ -23,24 +24,24 @@ const reducer = (state, action) => {
     case "TOGGLE_DELETE_TODO":
       return {
         ...state,
-
         toggleDelete: true,
+        deleteIndex: action.payload,
       };
+
     case "CONFIRM_DELETE_TODO":
-      const { payload: index } = action;
       return {
         ...state,
-        todo: state.todo.filter((_, idx) => idx !== index),
+        todo: state.todo.filter((_, idx) => idx !== state.deleteIndex),
         toggleDelete: false,
+        deleteIndex: null,
       };
 
     case "EDIT_TODO":
-      const { idx, item } = action;
       return {
         ...state,
-        active: idx,
-        currentIndex: idx,
-        currentTodo: item,
+        active: action.idx,
+        currentIndex: action.idx,
+        currentTodo: action.item,
         showModal: true,
       };
 
@@ -48,9 +49,8 @@ const reducer = (state, action) => {
       return { ...state, currentTodo: action.payload };
 
     case "SUBMIT_EDIT":
-      const { currentIndex, currentTodo } = state;
       const updatedTodoList = [...state.todo];
-      updatedTodoList[currentIndex] = currentTodo;
+      updatedTodoList[state.currentIndex] = state.currentTodo;
       return {
         ...state,
         todo: updatedTodoList,
@@ -65,6 +65,7 @@ const reducer = (state, action) => {
         active: null,
         currentTodo: "",
         currentIndex: null,
+        toggleDelete: false,
       };
 
     default:
@@ -151,10 +152,7 @@ export default function Todo() {
               <button
                 className="text-white p-3 rounded bg-blue-600"
                 onClick={() => {
-                  dispatch({
-                    type: "SUBMIT_EDIT",
-                    payload: state.currentIndex,
-                  });
+                  dispatch({ type: "SUBMIT_EDIT" });
                   dispatch({ type: "CANCEL" });
                 }}
               >
@@ -166,7 +164,10 @@ export default function Todo() {
       )}
 
       {state.toggleDelete && (
-        <ConfirmationDelete handleConfirmDelete={handleConfirmDelete} />
+        <ConfirmationDelete
+          handleConfirmDelete={handleConfirmDelete}
+          handleCancel={() => dispatch({ type: "CANCEL" })}
+        />
       )}
     </div>
   );
