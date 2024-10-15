@@ -14,13 +14,6 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "SUBMIT_TODO":
-      return {
-        ...state,
-        todo: [...state.todo, action.payload],
-        active: null,
-      };
-
     case "TOGGLE_DELETE_TODO":
       return {
         ...state,
@@ -68,6 +61,13 @@ const reducer = (state, action) => {
         toggleDelete: false,
       };
 
+    case "SUBMIT_TODO":
+      return {
+        ...state,
+        todo: [...state.todo, action.payload],
+        active: null,
+      };
+
     default:
       return state;
   }
@@ -76,6 +76,11 @@ const reducer = (state, action) => {
 export default function Todo() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [inputVal, setInputVal] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleEditChange = (e) => {
+    dispatch({ type: "HANDLE_EDIT_CHANGE", payload: e.target.value });
+  };
 
   const handleDelete = (index) => {
     dispatch({ type: "TOGGLE_DELETE_TODO", payload: index });
@@ -87,7 +92,7 @@ export default function Todo() {
 
   const handleSubmit = () => {
     if (inputVal.trim() === "") {
-      alert("please add text");
+      setError(true);
       return;
     }
 
@@ -99,17 +104,16 @@ export default function Todo() {
     dispatch({ type: "EDIT_TODO", idx: index, item });
   };
 
-  const handleEditChange = (e) => {
-    dispatch({ type: "HANDLE_EDIT_CHANGE", payload: e.target.value });
-  };
-
   return (
     <div className="p-20 flex flex-col items-center relative">
+      {error && <p className="text-red-500 mb-3">please add text</p>}
       <div className="flex items-center gap-3 w-full mb-3">
         <input
           type="text"
           value={inputVal}
-          onChange={(e) => setInputVal(e.target.value)}
+          onChange={(e) => {
+            setInputVal(e.target.value), setError(false);
+          }}
           placeholder="add todo..."
           className="border flex-1 border-slate-300 p-3 rounded"
         />
