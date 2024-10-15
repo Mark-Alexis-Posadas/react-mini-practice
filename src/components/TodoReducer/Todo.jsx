@@ -69,6 +69,11 @@ export default function Todo() {
   };
 
   const handleSubmit = () => {
+    if (inputVal.trim() === "") {
+      alert("please add text");
+      return;
+    }
+
     dispatch({ type: "SUBMIT_TODO", payload: inputVal });
     setInputVal("");
   };

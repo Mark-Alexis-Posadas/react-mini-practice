@@ -12,11 +12,6 @@ export default function Root() {
       <h1>Custin Carousel in React</h1>
       <div className="d-flex">
         <Carousel images={images} />
-        <Carousel images={images} />
-        <Carousel images={images} />
-        <Carousel images={images} />
-        <Carousel images={images} />
-        <Carousel images={images} />
       </div>
     </div>
   );
