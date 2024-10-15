@@ -19,6 +19,7 @@ const reducer = (state, action) => {
         ...state,
         toggleDelete: true,
         deleteIndex: action.payload,
+        currentTodo: state.todo[action.payload],
       };
 
     case "CONFIRM_DELETE_TODO":
@@ -90,6 +91,10 @@ export default function Todo() {
     dispatch({ type: "CONFIRM_DELETE_TODO" });
   };
 
+  const handleEditTodo = (index, item) => {
+    dispatch({ type: "EDIT_TODO", idx: index, item });
+  };
+
   const handleSubmit = () => {
     if (inputVal.trim() === "") {
       setError(true);
@@ -98,10 +103,6 @@ export default function Todo() {
 
     dispatch({ type: "SUBMIT_TODO", payload: inputVal });
     setInputVal("");
-  };
-
-  const handleEditTodo = (index, item) => {
-    dispatch({ type: "EDIT_TODO", idx: index, item });
   };
 
   return (
@@ -169,6 +170,7 @@ export default function Todo() {
 
       {state.toggleDelete && (
         <ConfirmationDelete
+          itemToDelete={state.currentTodo}
           handleConfirmDelete={handleConfirmDelete}
           handleCancel={() => dispatch({ type: "CANCEL" })}
         />
