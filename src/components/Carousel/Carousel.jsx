@@ -1,3 +1,5 @@
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 export default function Carousel({ images }) {
@@ -13,7 +15,7 @@ export default function Carousel({ images }) {
 
   return (
     <div className="carousel">
-      <div className="carousel-container flex flex-col">
+      <div className="carousel-container relative flex flex-col">
         {images.map((image, index) => (
           <div
             key={index}
@@ -21,28 +23,40 @@ export default function Carousel({ images }) {
               index === currentIndex ? "active" : ""
             }`}
           >
-            <img src={image} alt={`Slide ${index + 1}`} />
+            <img
+              src={image}
+              alt={`Slide ${index + 1}`}
+              className="rounded-xl h-full object-cover"
+            />
           </div>
         ))}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center w-full gap-3 absolute bottom-4">
           {images.map((_, index) => (
             <div
               onClick={() => setCurrentIndex(index)}
-              className={`w-5 h-5 rounded-full cursor-pointer ${
-                currentIndex === index ? "bg-green-400" : "bg-gray-400"
+              className={`rounded-full cursor-pointer transition-transform duration-300 ${
+                currentIndex === index
+                  ? "bg-green-400 w-3 h-3 scale-125"
+                  : "bg-gray-400 w-2 h-2"
               }`}
               key={index}
             ></div>
           ))}
         </div>
-      </div>
-      <div className="d-flex align-items-center justify-content-between w-100">
-        <button className="prev-button" onClick={goToPrevSlide}>
-          Previous
-        </button>
-        <button className="next-button" onClick={goToNextSlide}>
-          Next
-        </button>
+        <div className="flex items-center justify-between absolute w-full bottom-40 px-5">
+          <button
+            className="rounded-full w-8 h-8 flex items-center justify-center bg-white p-2 text-gray-500"
+            onClick={goToPrevSlide}
+          >
+            <FontAwesomeIcon icon={faAngleLeft} />
+          </button>
+          <button
+            className="rounded-full w-8 h-8 flex items-center justify-center bg-white p-2 text-gray-500"
+            onClick={goToNextSlide}
+          >
+            <FontAwesomeIcon icon={faAngleRight} />
+          </button>
+        </div>
       </div>
     </div>
   );
