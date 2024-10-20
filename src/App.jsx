@@ -1,12 +1,7 @@
-import React from "react";
-import Todo from "./components/TodoReducer/Todo";
+import Root from "./components/Carousel/Root";
 
 const App = () => {
-  return (
-    <div>
-      <Todo />
-    </div>
-  );
+  return <Root />;
 };
 
 export default App;
