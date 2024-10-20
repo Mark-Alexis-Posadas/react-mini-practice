@@ -43,13 +43,22 @@ export default function Carousel({ images }) {
             ></div>
           ))}
         </div>
-        <div className="flex items-center justify-between absolute w-full bottom-40 px-5">
-          <button
-            className="rounded-full w-8 h-8 flex items-center justify-center bg-white p-2 text-gray-500"
-            onClick={goToPrevSlide}
-          >
-            <FontAwesomeIcon icon={faAngleLeft} />
-          </button>
+        <div
+          className={`flex items-center ${
+            currentIndex === 0 ? "justify-end" : "justify-between"
+          } absolute w-full bottom-40 px-5`}
+        >
+          {currentIndex === 0 ? (
+            ""
+          ) : (
+            <button
+              className="rounded-full w-8 h-8 flex items-center justify-center bg-white p-2 text-gray-500"
+              onClick={goToPrevSlide}
+            >
+              <FontAwesomeIcon icon={faAngleLeft} />
+            </button>
+          )}
+
           <button
             className="rounded-full w-8 h-8 flex items-center justify-center bg-white p-2 text-gray-500"
             onClick={goToNextSlide}
