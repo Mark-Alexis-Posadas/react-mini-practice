@@ -31,7 +31,6 @@ export default function PersonList() {
   }
 
   function handleEdit(idx) {
-    console.log(peopleList[idx]);
     setInputVal(peopleList[idx]);
     setActiveList(idx);
     setShowInput(true);
@@ -70,6 +69,7 @@ export default function PersonList() {
     }
     if (activeList !== null) {
       // Editing existing item
+      console.log(activeList);
       const updatedPeopleList = [...peopleList];
       updatedPeopleList[activeList] = inputVal;
       setPeopleList(updatedPeopleList);

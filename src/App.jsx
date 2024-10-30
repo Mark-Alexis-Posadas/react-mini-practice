@@ -1,7 +1,8 @@
-import Root from "./components/Carousel/Root";
+import React from "react";
+import { FormikComponent } from "./components/Formik/Formik";
 
 const App = () => {
-  return <Root />;
+  return <FormikComponent />;
 };
 
 export default App;
