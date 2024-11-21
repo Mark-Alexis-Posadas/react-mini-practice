@@ -1,8 +1,7 @@
 import React from "react";
-import { FormikComponent } from "./components/Formik/Formik";
 
 const App = () => {
-  return <FormikComponent />;
+  return <div>App</div>;
 };
 
 export default App;

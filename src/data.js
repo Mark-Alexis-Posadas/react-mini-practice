@@ -150,3 +150,57 @@ export const API = [
     tools: ["React", "Sass"],
   },
 ];
+
+export const blogCategories = [
+  {
+    id: 1,
+    name: "Technology",
+    description:
+      "Latest trends, news, and discussions in the world of technology.",
+    slug: "technology",
+  },
+  {
+    id: 2,
+    name: "Health & Wellness",
+    description:
+      "Tips, advice, and insights on maintaining a healthy lifestyle.",
+    slug: "health-wellness",
+  },
+  {
+    id: 3,
+    name: "Lifestyle",
+    description: "Personal development, life hacks, and everyday inspiration.",
+    slug: "lifestyle",
+  },
+  {
+    id: 4,
+    name: "Travel",
+    description: "Exploring the world, adventure tips, and destination guides.",
+    slug: "travel",
+  },
+  {
+    id: 5,
+    name: "Business",
+    description: "Entrepreneurship, finance, marketing, and career advice.",
+    slug: "business",
+  },
+  {
+    id: 6,
+    name: "Food & Drink",
+    description:
+      "Recipes, cooking tips, and food culture from around the world.",
+    slug: "food-drink",
+  },
+  {
+    id: 7,
+    name: "Fashion",
+    description: "Trends, style tips, and fashion industry insights.",
+    slug: "fashion",
+  },
+  {
+    id: 8,
+    name: "Education",
+    description: "Learning resources, study tips, and academic discussions.",
+    slug: "education",
+  },
+];
