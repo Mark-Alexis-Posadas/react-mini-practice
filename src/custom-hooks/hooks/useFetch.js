@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+const axios = require("axios");
 
-export const useFetch = (url) => {
+export const useFetch = (url, method = "GET", requestData = null) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -8,12 +9,15 @@ export const useFetch = (url) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("Network response was not ok.");
+        let response;
+        if (method === "GET") {
+          response = await axios.get(url);
+        } else if (method === "POST") {
+          response = await axios.post(url, requestData);
         }
-        const json = await response.json();
-        setData(json);
+
+        setData(response.data);
+        setLoading(false);
       } catch (error) {
         setError(error);
       } finally {
@@ -22,7 +26,7 @@ export const useFetch = (url) => {
     };
 
     fetchData();
-  }, [url]);
+  }, [url, method, requestData]);
 
   return { data, loading, error };
 };
