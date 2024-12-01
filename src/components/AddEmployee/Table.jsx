@@ -29,7 +29,7 @@ export default function Table({ dispatch, state, handleDelete }) {
               </button>
               <button
                 className="text-white bg-red-500 rounded p-2 ml-3"
-                onClick={() => handleDelete(idx)}
+                onClick={toggleDelete}
               >
                 Delete
               </button>

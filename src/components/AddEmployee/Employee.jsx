@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import Modal from "./Modal";
 import Table from "./Table";
+import { ConfirmationDelete } from "./ConfirmationDelete";
 
 const initialState = {
   firstName: "",
@@ -11,6 +12,7 @@ const initialState = {
   submittedData: [],
   isEditing: false,
   editIndex: null,
+  isToggleDelete: false,
 };
 
 const reducer = (state, action) => {
@@ -27,6 +29,12 @@ const reducer = (state, action) => {
         [action.field]: action.value,
         isEditing: true,
         employeeTitle: "Add",
+      };
+
+    case "TOGGLE_CONFIRMATION_DELETE":
+      return {
+        ...state,
+        isToggleDelete: true,
       };
 
     case "DELETE_EMPLOYEE":
@@ -102,6 +110,10 @@ const Employee = () => {
     dispatch({ type: "SUBMIT_FORM" });
   };
 
+  const toggleDelete = () => {
+    dispatch({ type: "TOGGLE_CONFIRMATION_DELETE" });
+  };
+
   const handleDelete = (idx) => {
     dispatch({ type: "DELETE_EMPLOYEE", idx });
   };
@@ -117,7 +129,12 @@ const Employee = () => {
           Add Employee
         </button>
       </header>
-      <Table dispatch={dispatch} state={state} handleDelete={handleDelete} />
+      <Table
+        dispatch={dispatch}
+        state={state}
+        handleDelete={handleDelete}
+        toggleDelete={toggleDelete}
+      />
       {state.isToggle && (
         <Modal
           employeeTitle={state.employeeTitle}
@@ -127,6 +144,8 @@ const Employee = () => {
           state={state}
         />
       )}
+
+      {state.isToggleDelete && <ConfirmationDelete />}
     </div>
   );
 };
