@@ -1,7 +1,7 @@
-import Employee from "./components/AddEmployee/Employee";
+import React from "react";
 
 const App = () => {
-  return <Employee />;
+  return <div>App</div>;
 };
 
 export default App;

@@ -1,4 +1,4 @@
-export const ConfirmationDelete = () => {
+export const ConfirmationDelete = ({ handleDelete }) => {
   return (
     <div>
       <h1>are you sure want to delete this?</h1>

@@ -145,7 +145,9 @@ const Employee = () => {
         />
       )}
 
-      {state.isToggleDelete && <ConfirmationDelete />}
+      {state.isToggleDelete && (
+        <ConfirmationDelete handleDelete={handleDelete} />
+      )}
     </div>
   );
 };
