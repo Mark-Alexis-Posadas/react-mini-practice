@@ -1,15 +1,8 @@
-import { Categories } from "./pet/Categories";
-import { Filter } from "./pet/Filter";
-import { NameFiltering } from "./pet/NameFiltering";
+import React from "react";
+import Accordion from "./components/Accordion/Accordion";
 
 const App = () => {
-  return (
-    <h1>
-      <NameFiltering />
-      <Categories />
-      <Filter />
-    </h1>
-  );
+  return <Accordion />;
 };
 
 export default App;

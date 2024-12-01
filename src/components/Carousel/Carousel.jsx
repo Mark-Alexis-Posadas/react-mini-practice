@@ -3,69 +3,52 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 export default function Carousel({ images }) {
+  const itemsToDisplay = 4;
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const goToNextSlide = () => {
-    setCurrentIndex((currentIndex + 1) % images.length);
+    setCurrentIndex((currentIndex + itemsToDisplay) % images.length);
   };
-
   const goToPrevSlide = () => {
-    setCurrentIndex((currentIndex - 1 + images.length) % images.length);
+    setCurrentIndex(
+      (currentIndex - itemsToDisplay + images.length) % images.length
+    );
   };
-
+  const getSlidesToShow = () => {
+    const slides = [];
+    for (let i = 0; i < itemsToDisplay; i++) {
+      const index = (currentIndex + i) % images.length;
+      slides.push(images[index]);
+    }
+    return slides;
+    console.log(slides);
+  };
   return (
     <div className="carousel">
-      <div className="carousel-container relative flex flex-col">
-        {images.map((image, index) => (
-          <div
-            key={index}
-            className={`carousel-slide ${
-              index === currentIndex ? "active" : ""
-            }`}
-          >
-            <img
-              src={image}
-              alt={`Slide ${index + 1}`}
-              className="rounded-xl h-full object-cover"
-            />
-          </div>
-        ))}
-        <div className="flex items-center justify-center w-full gap-3 absolute bottom-4">
-          {images.map((_, index) => (
-            <div
-              onClick={() => setCurrentIndex(index)}
-              className={`rounded-full cursor-pointer transition-transform duration-300 ${
-                currentIndex === index
-                  ? "bg-green-400 w-3 h-3 scale-125"
-                  : "bg-gray-400 w-2 h-2"
-              }`}
-              key={index}
-            ></div>
+      <div className="relative flex justify-between items-center">
+        <button
+          className="rounded-full w-8 h-8 flex items-center justify-center bg-white p-2 text-gray-500"
+          onClick={goToPrevSlide}
+        >
+          <FontAwesomeIcon icon={faAngleLeft} />
+        </button>
+        <div className="flex space-x-4">
+          {getSlidesToShow().map((image, index) => (
+            <div key={index}>
+              <h1>{(currentIndex + index) % images.length}</h1>
+              <img
+                src={image}
+                alt={`Slide ${((currentIndex + index) % images.length) + 1}`}
+                className="rounded-xl object-cover w-[200px] h-[200px]"
+              />
+            </div>
           ))}
         </div>
-        <div
-          className={`flex items-center ${
-            currentIndex === 0 ? "justify-end" : "justify-between"
-          } absolute w-full bottom-40 px-5`}
+        <button
+          className="rounded-full w-8 h-8 flex items-center justify-center bg-white p-2 text-gray-500"
+          onClick={goToNextSlide}
         >
-          {currentIndex === 0 ? (
-            ""
-          ) : (
-            <button
-              className="rounded-full w-8 h-8 flex items-center justify-center bg-white p-2 text-gray-500"
-              onClick={goToPrevSlide}
-            >
-              <FontAwesomeIcon icon={faAngleLeft} />
-            </button>
-          )}
-
-          <button
-            className="rounded-full w-8 h-8 flex items-center justify-center bg-white p-2 text-gray-500"
-            onClick={goToNextSlide}
-          >
-            <FontAwesomeIcon icon={faAngleRight} />
-          </button>
-        </div>
+          <FontAwesomeIcon icon={faAngleRight} />
+        </button>
       </div>
     </div>
   );
