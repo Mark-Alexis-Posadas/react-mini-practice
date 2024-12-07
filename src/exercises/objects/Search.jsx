@@ -12,10 +12,11 @@ export default function Search() {
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState(productItems);
   const [active, setActive] = useState(null);
+  const [isVisible, setIsVisible] = useState(true);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
-
+    setIsVisible(true);
     const filterProducts = productItems.filter((item) =>
       item.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())
     );
@@ -25,6 +26,7 @@ export default function Search() {
   const handleClick = (productName, index) => {
     setSearch(productName);
     setActive(index);
+    setIsVisible(false);
   };
 
   return (
@@ -36,20 +38,22 @@ export default function Search() {
         onChange={handleSearch}
         value={search}
       />
-      <ul>
-        {products.map((product, index) => (
-          <li
-            key={product.id}
-            className={`${
-              index === active ? "bg-green-300" : "bg-white"
-            } p-4 border-2 border-green-500 my-2 cursor-pointer`}
-            onClick={() => handleClick(product.name, index)}
-          >
-            <h4 className="font-bold text-sm">{product.name}</h4>
-            <span>{product.price}</span>
-          </li>
-        ))}
-      </ul>
+      {isVisible && (
+        <ul>
+          {products.map((product, index) => (
+            <li
+              key={product.id}
+              className={`${
+                index === active ? "bg-green-300" : "bg-white"
+              } p-4 border-2 border-green-500 my-2 cursor-pointer`}
+              onClick={() => handleClick(product.name, index)}
+            >
+              <h4 className="font-bold text-sm">{product.name}</h4>
+              <span>{product.price}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

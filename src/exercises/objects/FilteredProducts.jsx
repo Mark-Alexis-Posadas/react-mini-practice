@@ -1,4 +1,4 @@
-import { products } from "../data";
+import { REST_API } from "../data";
 import { useState } from "react";
 const buttonText = [
   "Filter Electronics",
@@ -7,24 +7,24 @@ const buttonText = [
   "All",
 ];
 export default function FilteredProducts() {
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState(REST_API);
   const [current, setCurrent] = useState(3);
   const handleFilter = (index) => {
     setCurrent(index);
     if (index === 0) {
       setFilteredProducts(
-        products.filter((item) => item.category.includes("Electronics"))
+        REST_API.filter((item) => item.category.includes("Electronics"))
       );
     } else if (index === 1) {
       setFilteredProducts(
-        products.filter((item) => item.category.includes("Clothing"))
+        REST_API.filter((item) => item.category.includes("Clothing"))
       );
     } else if (index === 2) {
       setFilteredProducts(
-        products.filter((item) => item.category.includes("Accessories"))
+        REST_API.filter((item) => item.category.includes("Accessories"))
       );
     } else {
-      setFilteredProducts(products);
+      setFilteredProducts(REST_API);
     }
   };
 

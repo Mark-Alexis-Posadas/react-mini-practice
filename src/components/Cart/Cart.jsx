@@ -21,7 +21,7 @@ export const Cart = () => {
     setCart([...cart, product]);
   };
 
-  const handleDeleteProduct = (id) => {
+  const handleDeleteProduct = async (id) => {
     const deleteProduct = cart.filter((c) => c.id !== id);
     setCart(deleteProduct);
   };

@@ -1,9 +1,10 @@
-import { Cart } from "./components/Cart/Cart";
+import ObjectsEditPrice from "./exercises/objects/ObjectsEditPrice";
+import Search from "./exercises/objects/Search";
 
 const App = () => {
   return (
     <div>
-      <Cart />
+      <Search />
     </div>
   );
 };
