@@ -1,10 +1,8 @@
-import ObjectsEditPrice from "./exercises/objects/ObjectsEditPrice";
-import Search from "./exercises/objects/Search";
-
+import { Root } from "./reusable-components/Root";
 const App = () => {
   return (
-    <div>
-      <Search />
+    <div className="p-4">
+      <Root />
     </div>
   );
 };

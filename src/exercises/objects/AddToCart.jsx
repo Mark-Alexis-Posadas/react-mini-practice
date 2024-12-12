@@ -1,8 +1,8 @@
-import {products}
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartArrowDown, faTrash } from "@fortawesome/free-solid-svg-icons";
 
+import { REST_API } from "../data";
 export default function AddToCart() {
   const [toggleCart, setToggleCart] = useState(false);
   const [cart, setCart] = useState([]);
@@ -52,15 +52,6 @@ export default function AddToCart() {
                   >
                     <FontAwesomeIcon icon={faTrash} />
                   </button>
-                  <div className="flex items-center">
-                    <label htmlFor="quantity">Quantity</label>
-                    <input
-                      type="number"
-                      value={cartNumber}
-                      id="quantity"
-                      onChange={(e) => setCartNumber(e.target.value)}
-                    />
-                  </div>
                 </li>
               ))}
             </ul>
@@ -69,7 +60,7 @@ export default function AddToCart() {
       </div>
 
       <ul>
-        {products.map((item) => (
+        {REST_API.map((item) => (
           <li key={item.id} className="flex items-center gap-3 my-3">
             <h3 className="font-bold mb-3 text-blue-500">{item.name}</h3>
             <span>

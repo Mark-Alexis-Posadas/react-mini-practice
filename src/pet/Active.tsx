@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { products } from "../exercises/data";
+import { REST_API } from "../exercises/data";
 export const Active = () => {
   const [active, setActive] = useState(null);
 
@@ -9,7 +9,7 @@ export const Active = () => {
 
   return (
     <ul className="p-20 bg-slate-100">
-      {products.map((item, index) => (
+      {REST_API.map((item, index) => (
         <li
           key={index}
           className={`${

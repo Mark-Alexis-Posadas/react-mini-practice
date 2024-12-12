@@ -34,9 +34,9 @@ export default function ObjectsEditPrice() {
   };
 
   const handleEdit = (index) => {
+    setActive(index);
     const currentVal = products[index];
     setInputValue(currentVal);
-    setActive(index);
     setShowInput(true);
   };
 
@@ -44,6 +44,9 @@ export default function ObjectsEditPrice() {
     setActive(null);
     const updateProduct = [...products];
     updateProduct[active] = inputValue;
+
+    console.log(updateProduct[active]);
+
     setProducts(updateProduct);
     setInputValue("");
     setShowInput(false);
