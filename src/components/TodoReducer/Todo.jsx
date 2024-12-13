@@ -116,10 +116,10 @@ export default function Todo() {
             setInputVal(e.target.value), setError(false);
           }}
           placeholder="add todo..."
-          className="border flex-1 border-slate-300 p-3 rounded"
+          className="border flex-1 border-slate-300 p-2 rounded"
         />
         <button
-          className="bg-green-600 text-white rounded p-3"
+          className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
           onClick={handleSubmit}
         >
           Submit
@@ -155,7 +155,7 @@ export default function Todo() {
                 Cancel
               </button>
               <button
-                className="text-white p-3 rounded bg-blue-600"
+                className="bg-purple-500 hover:bg-purple-700 text-white font-bold p-2 rounded"
                 onClick={() => {
                   dispatch({ type: "SUBMIT_EDIT" });
                   dispatch({ type: "CANCEL" });
