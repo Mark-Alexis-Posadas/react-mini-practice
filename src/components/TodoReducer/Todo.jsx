@@ -1,6 +1,8 @@
 import { useReducer, useState } from "react";
 import TodoItem from "./TodoItem";
 import { ConfirmationDelete } from "./ConfirmationDelete";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const initialState = {
   todo: [],
@@ -18,6 +20,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         toggleDelete: true,
+        active: action.payload,
         deleteIndex: action.payload,
         currentTodo: state.todo[action.payload],
       };
@@ -106,7 +109,7 @@ export default function Todo() {
   };
 
   return (
-    <div className="p-20 flex flex-col items-center relative">
+    <div className="p-20 flex flex-col items-center relative max-w-[800px] m-auto">
       {error && <p className="text-red-500 mb-3">please add text</p>}
       <div className="flex items-center gap-3 w-full mb-3">
         <input
@@ -116,13 +119,13 @@ export default function Todo() {
             setInputVal(e.target.value), setError(false);
           }}
           placeholder="add todo..."
-          className="border flex-1 border-slate-300 p-2 rounded"
+          className="border-b flex-1 border-slate-300 p-2 rounded text-4xl"
         />
         <button
-          className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-full w-20 h-20 "
           onClick={handleSubmit}
         >
-          Submit
+          <FontAwesomeIcon icon={faPlus} className="text-2xl" />
         </button>
       </div>
       <ul className="w-full">
@@ -139,7 +142,7 @@ export default function Todo() {
       </ul>
       {state.showModal && (
         <div className="fixed bg-[rgba(0,0,0,0.4)] w-full h-screen top-0 flex items-center overflow-hidden">
-          <div className="max-w-[1000px] m-auto flex w-full gap-3">
+          <div className="lg:max-w-[700px] m-auto flex flex-col w-full gap-3">
             <input
               type="text"
               placeholder="Edit..."
@@ -155,7 +158,7 @@ export default function Todo() {
                 Cancel
               </button>
               <button
-                className="bg-purple-500 hover:bg-purple-700 text-white font-bold p-2 rounded"
+                className="bg-purple-500 flex items-center hover:bg-purple-700 text-white font-bold p-2 rounded"
                 onClick={() => {
                   dispatch({ type: "SUBMIT_EDIT" });
                   dispatch({ type: "CANCEL" });
