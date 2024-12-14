@@ -4,55 +4,69 @@ import { ConfirmationDelete } from "./ConfirmationDelete";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+const initialTodos = [
+  { id: 1, text: "Learn React", completed: false },
+  { id: 2, text: "Build a To-Do App", completed: false },
+  { id: 3, text: "Deploy to Production", completed: false },
+];
+
 const initialState = {
-  todo: [],
+  todo: initialTodos,
   currentTodo: "",
-  currentIndex: null,
-  deleteIndex: null,
+  currentId: null,
+  deleteId: null,
   active: 0,
   showModal: false,
   toggleDelete: false,
+  completed: true,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "TOGGLE_COMPLETE":
+      return {
+        ...state,
+        todo: state.todo.map((item) =>
+          item.id === action.payload
+            ? { ...item, completed: !item.completed }
+            : item
+        ),
+      };
+
     case "TOGGLE_DELETE_TODO":
       return {
         ...state,
         toggleDelete: true,
         active: action.payload,
-        deleteIndex: action.payload,
-        currentTodo: state.todo[action.payload],
+        deleteId: action.payload,
+        currentTodo: state.todo[action.payload].text,
       };
 
     case "CONFIRM_DELETE_TODO":
       return {
         ...state,
-        todo: state.todo.filter((_, idx) => idx !== state.deleteIndex),
+        todo: state.todo.filter((t) => t.id !== state.deleteId),
         toggleDelete: false,
-        deleteIndex: null,
+        deleteId: null,
       };
 
     case "EDIT_TODO":
       return {
         ...state,
         active: action.idx,
-        currentIndex: action.idx,
-        currentTodo: action.item,
-        showModal: true,
+        currentId: action.idx,
+        currentTodo: action.item.text,
       };
-
-    case "HANDLE_EDIT_CHANGE":
-      return { ...state, currentTodo: action.payload };
 
     case "SUBMIT_EDIT":
       const updatedTodoList = [...state.todo];
-      updatedTodoList[state.currentIndex] = state.currentTodo;
+      updatedTodoList[state.currentId] = state.currentTodo;
+
       return {
         ...state,
         todo: updatedTodoList,
         currentTodo: "",
-        currentIndex: null,
+        currentId: null,
       };
 
     case "CANCEL":
@@ -61,7 +75,7 @@ const reducer = (state, action) => {
         showModal: false,
         active: null,
         currentTodo: "",
-        currentIndex: null,
+        currentId: null,
         toggleDelete: false,
       };
 
@@ -82,20 +96,20 @@ export default function Todo() {
   const [inputVal, setInputVal] = useState("");
   const [error, setError] = useState(false);
 
-  const handleEditChange = (e) => {
-    dispatch({ type: "HANDLE_EDIT_CHANGE", payload: e.target.value });
-  };
-
-  const handleDelete = (index) => {
-    dispatch({ type: "TOGGLE_DELETE_TODO", payload: index });
+  const handleToggleDelete = (id) => {
+    dispatch({ type: "TOGGLE_DELETE_TODO", payload: id });
   };
 
   const handleConfirmDelete = () => {
     dispatch({ type: "CONFIRM_DELETE_TODO" });
   };
 
-  const handleEditTodo = (index, item) => {
-    dispatch({ type: "EDIT_TODO", idx: index, item });
+  const handleEditTodo = (id, item) => {
+    dispatch({ type: "EDIT_TODO", idx: id, item });
+  };
+
+  const handleToggleComplete = (id) => {
+    dispatch({ type: "TOGGLE_COMPLETE", payload: id });
   };
 
   const handleSubmit = () => {
@@ -104,7 +118,13 @@ export default function Todo() {
       return;
     }
 
-    dispatch({ type: "SUBMIT_TODO", payload: inputVal });
+    const newTodo = {
+      id: Date.now(),
+      text: inputVal,
+      completed: false,
+    };
+
+    dispatch({ type: "SUBMIT_TODO", payload: newTodo });
     setInputVal("");
   };
 
@@ -129,47 +149,17 @@ export default function Todo() {
         </button>
       </div>
       <ul className="w-full">
-        {state.todo.map((item, index) => (
+        {state.todo.map((item) => (
           <TodoItem
             item={item}
-            key={index}
-            index={index}
-            handleDelete={() => handleDelete(index)}
-            isEditing={state.active === index}
-            handleEditTodo={() => handleEditTodo(index, item)}
+            key={item.id}
+            handleToggleDelete={() => handleToggleDelete(item.id)}
+            isEditing={state.active === item.id}
+            handleEditTodo={() => handleEditTodo(item.id, item)}
+            handleToggleComplete={handleToggleComplete}
           />
         ))}
       </ul>
-      {state.showModal && (
-        <div className="fixed bg-[rgba(0,0,0,0.4)] w-full h-screen top-0 flex items-center overflow-hidden">
-          <div className="lg:max-w-[700px] m-auto flex flex-col w-full gap-3">
-            <input
-              type="text"
-              placeholder="Edit..."
-              className="border flex-1 border-slate-300 p-3 rounded"
-              value={state.currentTodo}
-              onChange={handleEditChange}
-            />
-            <div className="flex items-center gap-3">
-              <button
-                className="text-white p-3 rounded bg-red-600"
-                onClick={() => dispatch({ type: "CANCEL" })}
-              >
-                Cancel
-              </button>
-              <button
-                className="bg-purple-500 flex items-center hover:bg-purple-700 text-white font-bold p-2 rounded"
-                onClick={() => {
-                  dispatch({ type: "SUBMIT_EDIT" });
-                  dispatch({ type: "CANCEL" });
-                }}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       {state.toggleDelete && (
         <ConfirmationDelete
