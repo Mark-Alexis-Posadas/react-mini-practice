@@ -15,13 +15,16 @@ export default function TodoItem({
         isEditing ? "bg-green-400 text-white focus" : "bg-white"
       } border-b shadow-md border-slate-200 text-2xl p-3 rounded flex items-center justify-between mb-3`}
     >
-      <span
-        className={`${item.completed ? "line-through" : ""}`}
-        onClick={() => handleToggleComplete(item.id)}
-        style={{ cursor: "pointer" }}
-      >
-        {item.text}
-      </span>
+      <div className="flex flex-col">
+        <span
+          className={`${item.completed ? "line-through" : ""}`}
+          onClick={() => handleToggleComplete(item.id)}
+          style={{ cursor: "pointer" }}
+        >
+          {item.text}
+        </span>
+        <span className="text-sm text-gray-500">{item.date}</span>
+      </div>
 
       <div className="flex items-center gap-3">
         <button
