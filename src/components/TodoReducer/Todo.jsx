@@ -39,7 +39,7 @@ const reducer = (state, action) => {
         toggleDelete: true,
         active: action.payload,
         deleteId: action.payload,
-        currentTodo: state.todo[action.payload].text,
+        currentTodo: action.payload.text,
       };
 
     case "CONFIRM_DELETE_TODO":
@@ -48,6 +48,7 @@ const reducer = (state, action) => {
         todo: state.todo.filter((t) => t.id !== state.deleteId),
         toggleDelete: false,
         deleteId: null,
+        currentTodo: "",
       };
 
     case "EDIT_TODO":
@@ -96,8 +97,13 @@ export default function Todo() {
   const [inputVal, setInputVal] = useState("");
   const [error, setError] = useState(false);
 
-  const handleToggleDelete = (id) => {
-    dispatch({ type: "TOGGLE_DELETE_TODO", payload: id });
+  const handleToggleDelete = (item) => {
+    dispatch({
+      type: "TOGGLE_DELETE_TODO",
+      payload: item,
+    });
+
+    console.log(item.text);
   };
 
   const handleConfirmDelete = () => {
@@ -153,7 +159,7 @@ export default function Todo() {
           <TodoItem
             item={item}
             key={item.id}
-            handleToggleDelete={() => handleToggleDelete(item.id)}
+            handleToggleDelete={() => handleToggleDelete(item)}
             isEditing={state.active === item.id}
             handleEditTodo={() => handleEditTodo(item.id, item)}
             handleToggleComplete={handleToggleComplete}
