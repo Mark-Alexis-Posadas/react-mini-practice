@@ -1,9 +1,10 @@
-import { useReducer, useState } from "react";
+import { useReducer, useState, useEffect } from "react";
 import TodoItem from "./TodoItem";
 import { ConfirmationDelete } from "./ConfirmationDelete";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSave } from "@fortawesome/free-solid-svg-icons";
 
+// Initial state of the Todo list
 const initialTodos = [
   {
     id: 1,
@@ -25,6 +26,7 @@ const initialTodos = [
   },
 ];
 
+// Initial state of the app (includes todos and edit state)
 const initialState = {
   todo: initialTodos,
   currentTodo: "",
@@ -37,8 +39,20 @@ const initialState = {
   completed: true,
 };
 
+// Reducer function to handle state changes
 const reducer = (state, action) => {
   switch (action.type) {
+    case "CANCEL":
+      return {
+        ...state,
+        showModal: false,
+        active: null,
+        currentTodo: "",
+        currentId: null,
+        toggleDelete: false,
+        isEditing: false, // Reset edit mode on cancel
+      };
+
     case "TOGGLE_COMPLETE":
       return {
         ...state,
@@ -77,29 +91,19 @@ const reducer = (state, action) => {
         isEditing: true,
       };
 
+    // Update Todo item when editing
     case "SUBMIT_EDIT":
-      const updatedTodoList = [...state.todo];
-      updatedTodoList[state.currentId] = {
-        ...updatedTodoList[state.currentId],
-        text: state.currentTodo,
-      }; // Update the text of the todo
-
       return {
         ...state,
-        todo: updatedTodoList,
-        currentTodo: "",
+        todo: state.todo.map((todo) =>
+          todo.id === state.currentId
+            ? { ...todo, text: state.currentTodo } // Update the text of the edited todo
+            : todo
+        ),
+        currentTodo: "", // Clear input after edit
         currentId: null,
         active: null, // Reset active once editing is done
-      };
-
-    case "CANCEL":
-      return {
-        ...state,
-        showModal: false,
-        active: null,
-        currentTodo: "",
-        currentId: null,
-        toggleDelete: false,
+        isEditing: false, // Reset edit mode
       };
 
     case "SUBMIT_TODO":
@@ -125,6 +129,15 @@ export default function Todo() {
   const [inputVal, setInputVal] = useState("");
   const [error, setError] = useState(false);
 
+  // Sync inputVal with currentTodo when in editing mode
+  useEffect(() => {
+    if (state.isEditing) {
+      setInputVal(state.currentTodo);
+    } else {
+      setInputVal(""); // Clear input when not editing
+    }
+  }, [state.isEditing, state.currentTodo]);
+
   const handleToggleDelete = (id, item) => {
     dispatch({
       type: "TOGGLE_DELETE_TODO",
@@ -138,7 +151,6 @@ export default function Todo() {
 
   const handleEditTodo = (id, item) => {
     dispatch({ type: "EDIT_TODO", idx: id, item });
-    setInputVal(state.currentTodo);
   };
 
   const handleToggleComplete = (id) => {
@@ -151,27 +163,34 @@ export default function Todo() {
       return;
     }
 
-    const newTodo = {
-      id: Date.now(),
-      text: inputVal,
-      completed: false,
-    };
+    if (state.isEditing) {
+      // Submit the edit action
+      dispatch({ type: "SUBMIT_EDIT" });
+    } else {
+      const newTodo = {
+        id: Date.now(),
+        text: inputVal,
+        completed: false,
+      };
+      // Add new Todo
+      dispatch({ type: "SUBMIT_TODO", payload: newTodo });
+    }
 
-    dispatch({ type: "SUBMIT_TODO", payload: newTodo });
-    setInputVal("");
+    setInputVal(""); // Clear input after submitting
   };
 
   return (
     <div className="p-20 flex flex-col items-center relative max-w-[800px] m-auto">
-      {error && <p className="text-red-500 mb-3">please add text</p>}
+      {error && <p className="text-red-500 mb-3">Please add text</p>}
       <div className="flex items-center gap-3 w-full mb-3">
         <input
           type="text"
           value={inputVal}
           onChange={(e) => {
-            setInputVal(e.target.value), setError(false);
+            setInputVal(e.target.value);
+            setError(false);
           }}
-          placeholder="add todo..."
+          placeholder="Add todo..."
           className="border-b flex-1 border-slate-300 p-2 rounded text-4xl"
         />
         <button
@@ -189,16 +208,20 @@ export default function Todo() {
         </button>
       </div>
       <ul className="w-full">
-        {state.todo.map((item) => (
-          <TodoItem
-            item={item}
-            key={item.id}
-            handleToggleDelete={() => handleToggleDelete(item.id, item)}
-            isEditing={state.active === item.id}
-            handleEditTodo={() => handleEditTodo(item.id, item)}
-            handleToggleComplete={handleToggleComplete}
-          />
-        ))}
+        {state.todo.length === 0 ? (
+          <p>No todo left</p>
+        ) : (
+          state.todo.map((item) => (
+            <TodoItem
+              item={item}
+              key={item.id}
+              handleToggleDelete={() => handleToggleDelete(item.id, item)}
+              isEditing={state.active === item.id}
+              handleEditTodo={() => handleEditTodo(item.id, item)}
+              handleToggleComplete={handleToggleComplete}
+            />
+          ))
+        )}
       </ul>
 
       {state.toggleDelete && (
