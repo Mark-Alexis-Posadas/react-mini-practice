@@ -52,12 +52,7 @@ export const NameFiltering = () => {
       {isExist && (
         <span className="text-red-400">{`${addValue} already exists`}</span>
       )}
-      <input
-        type="text"
-        placeholder="add"
-        value={addValue}
-        onChange={handleAddChange}
-      />
+
       <input
         type="text"
         placeholder="search"
