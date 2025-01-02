@@ -22,7 +22,6 @@ export const Categories = () => {
     <div className="p-6">
       <h2 className="mb-4 text-xl font-semibold">Select Blog Categories</h2>
 
-      {/* Display selected categories as chips */}
       <div className="flex flex-wrap gap-2 mb-4">
         {selectedCategories.map((categoryId) => {
           const category = blogCategories.find((cat) => cat.id === categoryId);
@@ -33,7 +32,7 @@ export const Categories = () => {
             >
               {category.name}
               <span
-                onClick={() => handleCheckboxChange(categoryId)} // Deselect when clicking the chip
+                onClick={() => handleCheckboxChange(categoryId)}
                 className="ml-2 cursor-pointer text-red-500"
               >
                 &times;
@@ -43,7 +42,6 @@ export const Categories = () => {
         })}
       </div>
 
-      {/* Display available categories with checkboxes */}
       <ul>
         {blogCategories.map((item) => (
           <li
@@ -55,8 +53,11 @@ export const Categories = () => {
               checked={selectedCategories.includes(item.id)}
               onChange={() => handleCheckboxChange(item.id)}
               className="mr-3"
+              name={item.id}
             />
-            <label className="flex-grow">{item.name}</label>
+            <label className="flex-grow" for={item.id}>
+              {item.name}
+            </label>
           </li>
         ))}
       </ul>

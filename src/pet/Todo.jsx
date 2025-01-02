@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Todo = () => {
   const [inputValue, setInputValue] = useState("");
@@ -14,6 +14,13 @@ export const Todo = () => {
   const [isTodos, setIsTodos] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const [isDeleteSuccess, setIsDeleteSuccess] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsDeleteSuccess(false);
+    }, 3000);
+  }, [todos]);
 
   const handleStatus = (status) => {
     if (status === "completed") {
@@ -44,6 +51,8 @@ export const Todo = () => {
     setAllTodos(updatedTodos);
     setTodos(updatedTodos);
     setIsDelete(false);
+
+    setIsDeleteSuccess(true);
   };
 
   const handleCancelDelete = () => {
@@ -89,24 +98,28 @@ export const Todo = () => {
   };
 
   return (
-    <div className="p-10 bg-slate-50 shadow-custom-shadow rounded flex flex-col justify-center items-center max-w-[1000px] m-auto">
+    <div className="p-10 bg-slate-50 shadow-custom-shadow rounded flex flex-col justify-center items-center max-w-[1000px] m-auto mt-10">
       {isDelete && (
-        <div className="w-full flex items-center flex-col">
-          <div className="flex items-center gap-2">
+        <div className="w-full  flex-col h-full overflow-hidden fixed top-0 left-0 flex items-center justify-center bg-[rgba(0,0,0,0.4)]">
+          <div className="flex items-center gap-2 bg-white p-5 rounded flex-wrap">
             Are you sure you want to delete
             <span className="text-bold text-4xl block">
               "{allTodos.find((todo) => todo.id === todoId)?.text}"
             </span>
-          </div>
-          <div className="flex items-center justify-center gap-4">
-            <button className="text-green-600" onClick={handleConfirmDelete}>
-              Yes
-            </button>
-            <button className="text-red-600" onClick={handleCancelDelete}>
-              Cancel
-            </button>
+            <div className="flex items-center justify-center gap-4">
+              <button className="text-green-600" onClick={handleConfirmDelete}>
+                Yes
+              </button>
+              <button className="text-red-600" onClick={handleCancelDelete}>
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
+      )}
+
+      {isDeleteSuccess && (
+        <p className="text-green-600 mb-5">Todo has been deleted!</p>
       )}
 
       <ul className="flex items-center gap-4 mb-5">

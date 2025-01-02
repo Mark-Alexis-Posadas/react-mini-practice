@@ -48,8 +48,8 @@ export const Cart = () => {
       {isToggleCart &&
         cart.map((item) => (
           <div key={item.id}>
-            <img className="w-[100px]" src={item.image} alt={item.title} />
-            <h3>{item.title}</h3>
+            <img className="w-[100px] mb-5" src={item.image} alt={item.title} />
+            <h3 className="font-bold text-md">{item.title}</h3>
             <p>{item.category}</p>
             <div className="flex items-center gap-3">
               <small>{item.quantity}</small>
