@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { TodoModal } from "./TodoModal";
+import { TodoItem } from "./TodoItem";
 
 const buttons = [
   {
@@ -25,7 +26,12 @@ export const Todo = () => {
   const [todos, setTodos] = useState(() => {
     try {
       const storedTodos = JSON.parse(localStorage.getItem("todos"));
-      return storedTodos || [{ text: "Add todo", checked: false }];
+      return (
+        storedTodos || [
+          { text: "Add todo", checked: false },
+          { text: "fuckers", checked: false },
+        ]
+      );
     } catch (error) {
       console.error(error);
       return [];
@@ -45,6 +51,7 @@ export const Todo = () => {
   // Close Modal
   const handleClose = () => {
     setShow(false);
+    setTodoTitle("Add Todo");
   };
 
   // Handle Input Change
@@ -57,7 +64,7 @@ export const Todo = () => {
     // Check if the input value is empty
     if (titleInput.trim() === "") {
       alert("Add title");
-      return; // Stop the function execution if the input is empty
+      return;
     }
 
     if (todoTitle === "Add Todo") {
@@ -69,11 +76,11 @@ export const Todo = () => {
       updatedTodos[indexToUpdate].text = titleInput;
       updatedTodos[indexToUpdate].checked = modalSelectedStatus === "Completed";
       setTodos(updatedTodos);
-      setIndexToUpdate(null); // Reset the index after updating
+      setIndexToUpdate(null);
     }
 
     setTitleInput("");
-    setModalSelectedStatus("Incomplete"); // Reset the modal selected status to "Incomplete"
+    setModalSelectedStatus("Incomplete");
     handleClose();
   };
 
@@ -169,36 +176,14 @@ export const Todo = () => {
                 (selectedStatus === "Incomplete" && !todo.checked);
 
               return isVisible ? (
-                <li
+                <TodoItem
+                  stylesChecked={stylesChecked}
                   key={index}
-                  className="list-group-item d-flex justify-content-between align-items-center"
-                >
-                  <input
-                    type="checkbox"
-                    checked={todo.checked}
-                    onChange={() => toggleCheck(index)}
-                  />
-                  <span
-                    style={stylesChecked(todo.checked)}
-                    onClick={() => toggleCheck(index)}
-                  >
-                    {todo.text}
-                  </span>
-                  <div>
-                    <button
-                      className="btn btn-danger me-2"
-                      onClick={() => handleDelete(index)}
-                    >
-                      Delete
-                    </button>
-                    <button
-                      className="btn btn-warning"
-                      onClick={() => handleEdit(index)}
-                    >
-                      Edit
-                    </button>
-                  </div>
-                </li>
+                  todo={todo}
+                  handleDelete={handleDelete}
+                  handleEdit={handleEdit}
+                  index={index}
+                />
               ) : null;
             })}
           </ul>
