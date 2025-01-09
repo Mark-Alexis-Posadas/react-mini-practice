@@ -1,4 +1,4 @@
-export const TodoModal = ({
+export const AddTodo = ({
   show,
   handleClose,
   handleAddTask,

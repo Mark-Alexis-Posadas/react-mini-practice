@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { TodoModal } from "./TodoModal";
+import { AddTodo } from "./AddTodo";
 import { TodoItem } from "./TodoItem";
 
 const buttons = [
@@ -13,7 +13,7 @@ const buttons = [
   },
 ];
 
-export const Todo = () => {
+export const TodoList = () => {
   const inputRef = useRef(null);
   const [show, setShow] = useState(false);
   const [todoTitle, setTodoTitle] = useState("Add Todo");
@@ -182,6 +182,7 @@ export const Todo = () => {
                   todo={todo}
                   handleDelete={handleDelete}
                   handleEdit={handleEdit}
+                  toggleCheck={toggleCheck}
                   index={index}
                 />
               ) : null;
@@ -189,7 +190,7 @@ export const Todo = () => {
           </ul>
         )}
       </div>
-      <TodoModal
+      <AddTodo
         show={show}
         handleInputChange={handleInputChange}
         handleClose={handleClose}
