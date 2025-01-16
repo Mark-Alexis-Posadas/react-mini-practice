@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { AddTodo } from "./AddTodo";
 import { TodoItem } from "./TodoItem";
+import { ConfirmDelete } from "./ConfirmDelete";
 
 const buttons = [
   {
@@ -202,6 +203,8 @@ export const TodoList = () => {
         setSelectedStatus={setModalSelectedStatus}
         titleInput={titleInput}
       />
+
+      <ConfirmDelete />
     </div>
   );
 };

@@ -1,8 +1,9 @@
-import React from "react";
-import { TodoList } from "./components/todo-app/TodoList";
+import EditTwo from "./components/Edit/EditTwo";
+import PersonList from "./components/PersonList/PersonList";
+import ProductList from "./pet/ProductList";
 
 const App = () => {
-  return <TodoList />;
+  return <ProductList />;
 };
 
 export default App;

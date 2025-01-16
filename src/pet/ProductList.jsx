@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { REST_API } from "./exercises/data";
+import { REST_API } from "../exercises/data";
 
 const ProductList = () => {
   const [data, setData] = useState(REST_API);
