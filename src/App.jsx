@@ -1,9 +1,11 @@
-import EditTwo from "./components/Edit/EditTwo";
-import PersonList from "./components/PersonList/PersonList";
-import ProductList from "./pet/ProductList";
+import { SearchResult } from "./booking-components/search-result";
 
 const App = () => {
-  return <ProductList />;
+  return (
+    <>
+      <SearchResult />
+    </>
+  );
 };
 
 export default App;

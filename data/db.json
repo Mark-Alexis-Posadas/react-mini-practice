@@ -1,48 +1,82 @@
 {
-  "status": "success",
   "data": [
     {
-      "id": "1",
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
-      "createdAt": "2023-01-15T12:34:56Z"
+      "name": "Blue Orchid Resort",
+      "price": 12000,
+      "location": "Boracay",
+      "features": [
+        "Beachfront",
+        "Spacious rooms",
+        "Family-friendly",
+        "Great food"
+      ]
     },
     {
-      "id": "2",
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "email": "jane.smith@example.com",
-      "createdAt": "2023-02-20T09:22:11Z"
+      "name": "Holiday Inn Galleria Manila",
+      "price": 5000,
+      "location": "Manila",
+      "features": [
+        "Deluxe room",
+        "Breakfast and dinner included",
+        "Access to facilities"
+      ]
     },
     {
-      "id": "3",
-      "firstName": "Emily",
-      "lastName": "Johnson",
-      "email": "emily.johnson@example.com",
-      "createdAt": "2023-03-30T14:10:45Z"
+      "name": "Planet Dive",
+      "price": 5000,
+      "location": "Anilao, Batangas",
+      "features": [
+        "Beachfront",
+        "Scuba diving facilities",
+        "Air-conditioned rooms"
+      ]
     },
     {
-      "id": "5f0f",
-      "firstName": "mark alexis posadas",
-      "lastName": "petroal",
-      "email": "jake@gmail.com"
+      "name": "Acacia Hotel Manila",
+      "price": 5000,
+      "location": "Muntinlupa",
+      "features": [
+        "5-star luxury",
+        "Deluxe room",
+        "Breakfast included",
+        "Upgrade to suite"
+      ]
     },
     {
-      "id": "6af3"
+      "name": "Laresio Lake Resort",
+      "price": 7000,
+      "location": "Laguna",
+      "features": ["Lakeside activities", "Extreme sports", "Family-friendly"]
     },
     {
-      "id": "81d8"
+      "name": "Red Planet Hotels",
+      "price": 8000,
+      "location": "Various locations",
+      "features": ["Budget-friendly", "Comfortable rooms", "Free Wi-Fi"]
     },
     {
-      "id": "f1b8",
-      "name": "alexis",
-      "firstName": "mark alexis",
-      "midName": "petrola",
-      "lastName": "posadas",
-      "email": "markalexisposadas@gmail.com",
-      "gender": "male",
-      "status": "single"
+      "name": "OYO Hotels",
+      "price": 6000,
+      "location": "Various locations",
+      "features": ["Budget-friendly", "Clean rooms", "Basic amenities"]
+    },
+    {
+      "name": "RedDoorz Hotels",
+      "price": 5500,
+      "location": "Various locations",
+      "features": ["Budget-friendly", "Clean rooms", "Basic amenities"]
+    },
+    {
+      "name": "Astoria Current",
+      "price": 10000,
+      "location": "Boracay",
+      "features": ["Spacious rooms", "Great food", "Friendly staff"]
+    },
+    {
+      "name": "Holiday Inn Express",
+      "price": 15000,
+      "location": "Newport City",
+      "features": ["Superior room", "Breakfast included", "Food credits"]
     }
   ]
 }
