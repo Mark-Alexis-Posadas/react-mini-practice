@@ -51,22 +51,24 @@ const FilterCategory = () => {
       : products;
 
   return (
-    <div>
-      <h1 className="font-bold">Product List</h1>
-      {products.map((text, idx) => (
-        <label key={idx} className="text-md">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            checked={selectedCategories.includes(text.category)}
-            onChange={() => toggleCategory(text.category)}
-          />
-          {text.category}
-        </label>
-      ))}
-      <ul>
+    <div className="flex gap-3 p-10">
+      <div className="flex flex-col gap-3">
+        <h1 className="font-bold">Product List</h1>
+        {products.map((text, idx) => (
+          <label key={idx} className="text-md flex items-center gap-2">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              checked={selectedCategories.includes(text.category)}
+              onChange={() => toggleCategory(text.category)}
+            />
+            {text.category}
+          </label>
+        ))}
+      </div>
+      <ul className="p-5 mt-3">
         {filteredProducts.map((product, idx) => (
-          <li key={idx}>
+          <li key={idx} className="my-3 shadow-custom-shadow p-3">
             {product.productName} - {product.category} ({product.stock} in
             stock)
           </li>

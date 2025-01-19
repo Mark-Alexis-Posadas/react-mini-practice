@@ -1,9 +1,8 @@
-import { SearchResult } from "./booking-components/search-result";
-
+import FilterCategory from "./components/Filter/FilterCategory";
 const App = () => {
   return (
     <>
-      <SearchResult />
+      <FilterCategory />
     </>
   );
 };
