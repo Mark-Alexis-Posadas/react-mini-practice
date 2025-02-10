@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import { blogCategories } from "../data";
 
 export const Categories = () => {
-  // State to track selected categories
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  // Handle category selection/deselection
   const handleCheckboxChange = (categoryId) => {
-    // If the category is already selected, remove it
     if (selectedCategories.includes(categoryId)) {
       setSelectedCategories(
         selectedCategories.filter((id) => id !== categoryId)
       );
     } else {
-      // Otherwise, add it to the selected categories
       setSelectedCategories([...selectedCategories, categoryId]);
     }
   };

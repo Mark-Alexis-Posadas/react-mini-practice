@@ -112,3 +112,65 @@ export default function CounterStepSize() {
     </>
   );
 }
+
+import { useState } from "react";
+
+const REST_API = [
+  {
+    id: 1,
+    name: "Laptop",
+    price: 999,
+    description: "A high-performance laptop for work and gaming.",
+    category: "Electronics",
+    available: true,
+  },
+  {
+    id: 2,
+    name: "Headphones",
+    price: 149,
+    description: "Wireless headphones with noise-cancellation feature.",
+    category: "Electronics",
+    available: false,
+  },
+  {
+    id: 3,
+    name: "T-shirt",
+    price: 29,
+    description: "Comfortable cotton t-shirt available in various colors.",
+    category: "Clothing",
+    available: false,
+  },
+  {
+    id: 4,
+    name: "Backpack",
+    price: 79,
+    description: "Durable backpack with multiple compartments.",
+    category: "Accessories",
+    available: true,
+  },
+];
+
+export const ClickActive = () => {
+  const [state, setState] = useState(REST_API);
+  const [active, setActive] = useState(null);
+
+  const handleClick = (index) => {
+    setActive((prev) => (prev === index ? !index : index));
+  };
+
+  return (
+    <>
+      {state.map((item, index) => (
+        <div
+          onClick={() => handleClick(index)}
+          key={item.id}
+          className={`${
+            active === index ? "text-green-500" : "text-gray-500"
+          } cursor-pointer my-3`}
+        >
+          {item.name}
+        </div>
+      ))}
+    </>
+  );
+};
