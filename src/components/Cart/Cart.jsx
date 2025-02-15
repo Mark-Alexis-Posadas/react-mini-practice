@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ProductCard } from "./components/ProductCard";
 import { CartModal } from "./CartModal";
+
 export const Cart = () => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -26,10 +27,10 @@ export const Cart = () => {
 
   const handleAddToCart = (product) => {
     const existingItem = cart.findIndex((c) => c.id === product.id);
-    console.log(existingItem);
     if (existingItem !== -1) {
       const updatedCart = [...cart];
       updatedCart[existingItem].quantity += 1;
+      setCart(updatedCart); // Update the state with the new cart
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
     }
@@ -40,6 +41,12 @@ export const Cart = () => {
     setCart(deleteProduct);
   };
 
+  // Calculate total quantity of items in the cart
+  const totalItemsInCart = cart.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
+
   if (isLoading) {
     return <p>Loading....</p>;
   }
@@ -47,10 +54,16 @@ export const Cart = () => {
   return (
     <div>
       <div className="flex items-center justify-end py-10 px-20">
-        <button onClick={() => setIsToggleCart(!isToggleCart)}>Cart</button>
+        <button onClick={() => setIsToggleCart(!isToggleCart)}>
+          Cart ({totalItemsInCart}) {/* Show total quantity */}
+        </button>
       </div>
       {isToggleCart && (
-        <CartModal cart={cart} handleDeleteProduct={handleDeleteProduct} />
+        <CartModal
+          cart={cart}
+          handleDeleteProduct={handleDeleteProduct}
+          setIsToggleCart={setIsToggleCart}
+        />
       )}
       <div className="grid grid-cols-4 gap-4 p-20">
         {products.map((product) => (
