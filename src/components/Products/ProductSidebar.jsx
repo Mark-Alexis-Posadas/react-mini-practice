@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const ProductSidebar = ({ products, setFilteredProducts }) => {
   const [inputValue, setInputValue] = useState("");
+  const [activeCategory, setActiveCategory] = useState(0);
 
   const handleChange = (e) => {
     const searchTerm = e.target.value;
@@ -12,6 +13,10 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
     );
 
     setFilteredProducts(searchProducts);
+  };
+
+  const handleSetCategory = (index) => {
+    setActiveCategory(index);
   };
 
   return (
@@ -28,12 +33,61 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
       <div className="mb-4">
         <h1 className="text-xl font-semibold mb-2">Browse</h1>
         <ul className="space-y-2">
-          <li className="hover:text-blue-500 cursor-pointer">All</li>
-          <li className="hover:text-blue-500 cursor-pointer">Electronics</li>
-          <li className="hover:text-blue-500 cursor-pointer">Jewelry</li>
-          <li className="hover:text-blue-500 cursor-pointer">Men's Clothing</li>
-          <li className="hover:text-blue-500 cursor-pointer">
-            Women's Clothing
+          <li
+            className={`${
+              activeCategory === 0 ? "text-blue-500" : "text-gray-500"
+            } hover:text-blue-500 cursor-pointer`}
+            onClick={() => handleSetCategory(0)}
+          >
+            All
+          </li>
+          <li
+            className={`${
+              activeCategory === 1 ? "text-blue-500" : "text-gray-500"
+            } hover:text-blue-500 cursor-pointer`}
+            onClick={() => handleSetCategory(1)}
+          >
+            Electronics
+          </li>
+          <li
+            className={`${
+              activeCategory === 2 ? "text-blue-500" : "text-gray-500"
+            } hover:text-blue-500 cursor-pointer`}
+            onClick={() => handleSetCategory(2)}
+          >
+            Accessories
+          </li>
+          <li
+            className={`${
+              activeCategory === 3 ? "text-blue-500" : "text-gray-500"
+            } hover:text-blue-500 cursor-pointer`}
+            onClick={() => handleSetCategory(3)}
+          >
+            Home
+          </li>
+          <li
+            className={`${
+              activeCategory === 4 ? "text-blue-500" : "text-gray-500"
+            } hover:text-blue-500 cursor-pointer`}
+            onClick={() => handleSetCategory(4)}
+          >
+            Storage
+          </li>
+          <li
+            className={`${
+              activeCategory === 5 ? "text-blue-500" : "text-gray-500"
+            } hover:text-blue-500 cursor-pointer`}
+            onClick={() => handleSetCategory(5)}
+          >
+            Furniture
+          </li>
+          <li
+            className={`${
+              activeCategory === 6 ? "text-blue-500" : "text-gray-500"
+            } hover:text-blue-500 cursor-pointer`}
+            onClick={() => handleSetCategory(6)}
+          >
+            Wearable
           </li>
         </ul>
       </div>
