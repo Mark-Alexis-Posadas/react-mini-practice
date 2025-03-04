@@ -15,8 +15,16 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
     setFilteredProducts(searchProducts);
   };
 
-  const handleSetCategory = (index) => {
+  const handleSetCategory = (category, index) => {
     setActiveCategory(index);
+    if (category === "All") {
+      setFilteredProducts(products);
+    } else {
+      const catProducts = products.filter((product) =>
+        product.category.toLowerCase().includes(category.toLowerCase())
+      );
+      setFilteredProducts(catProducts);
+    }
   };
 
   return (
@@ -37,7 +45,7 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
             className={`${
               activeCategory === 0 ? "text-blue-500" : "text-gray-500"
             } hover:text-blue-500 cursor-pointer`}
-            onClick={() => handleSetCategory(0)}
+            onClick={() => handleSetCategory("All", 0)}
           >
             All
           </li>
@@ -45,7 +53,7 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
             className={`${
               activeCategory === 1 ? "text-blue-500" : "text-gray-500"
             } hover:text-blue-500 cursor-pointer`}
-            onClick={() => handleSetCategory(1)}
+            onClick={() => handleSetCategory("Electronics", 1)}
           >
             Electronics
           </li>
@@ -53,7 +61,7 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
             className={`${
               activeCategory === 2 ? "text-blue-500" : "text-gray-500"
             } hover:text-blue-500 cursor-pointer`}
-            onClick={() => handleSetCategory(2)}
+            onClick={() => handleSetCategory("Accessories", 2)}
           >
             Accessories
           </li>
@@ -61,7 +69,7 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
             className={`${
               activeCategory === 3 ? "text-blue-500" : "text-gray-500"
             } hover:text-blue-500 cursor-pointer`}
-            onClick={() => handleSetCategory(3)}
+            onClick={() => handleSetCategory("Home", 3)}
           >
             Home
           </li>
@@ -69,7 +77,7 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
             className={`${
               activeCategory === 4 ? "text-blue-500" : "text-gray-500"
             } hover:text-blue-500 cursor-pointer`}
-            onClick={() => handleSetCategory(4)}
+            onClick={() => handleSetCategory("Storage", 4)}
           >
             Storage
           </li>
@@ -77,7 +85,7 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
             className={`${
               activeCategory === 5 ? "text-blue-500" : "text-gray-500"
             } hover:text-blue-500 cursor-pointer`}
-            onClick={() => handleSetCategory(5)}
+            onClick={() => handleSetCategory("Furniture", 5)}
           >
             Furniture
           </li>
@@ -85,7 +93,7 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
             className={`${
               activeCategory === 6 ? "text-blue-500" : "text-gray-500"
             } hover:text-blue-500 cursor-pointer`}
-            onClick={() => handleSetCategory(6)}
+            onClick={() => handleSetCategory("Wearable", 6)}
           >
             Wearable
           </li>
@@ -95,7 +103,7 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
         <label className="block mb-2 text-sm font-medium text-gray-700">
           Showing all 20 results
         </label>
-        {/* <select
+        <select
           id="countries"
           className="w-full p-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
@@ -104,7 +112,7 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
           <option value="CA">Sort by name (Z-A)</option>
           <option value="FR">Sort by price (low to high)</option>
           <option value="DE">Sort by price (high to low)</option>
-        </select> */}
+        </select>
       </div>
     </aside>
   );

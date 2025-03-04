@@ -27,9 +27,13 @@ const Products = () => {
         setFilteredProducts={setFilteredProducts}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-[16rem] gap-6 px-10">
-        {filteredProducts.map((product) => (
-          <ProductCard product={product} key={product.id} />
-        ))}
+        {filteredProducts.length === 0 ? (
+          <p>Products Not found</p>
+        ) : (
+          filteredProducts.map((product) => (
+            <ProductCard product={product} key={product.id} />
+          ))
+        )}
       </div>
     </div>
   );
