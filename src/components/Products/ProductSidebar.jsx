@@ -1,8 +1,25 @@
-const ProductSidebar = () => {
+import { useState } from "react";
+
+const ProductSidebar = ({ products, setFilteredProducts }) => {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleChange = (e) => {
+    const searchTerm = e.target.value;
+    setInputValue(searchTerm);
+
+    const searchProducts = products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    setFilteredProducts(searchProducts);
+  };
+
   return (
     <aside className="p-4 w-64 bg-white shadow-md rounded-lg fixed">
       <div className="mb-4">
         <input
+          value={inputValue}
+          onChange={handleChange}
           type="text"
           placeholder="Search products"
           className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
@@ -24,7 +41,7 @@ const ProductSidebar = () => {
         <label className="block mb-2 text-sm font-medium text-gray-700">
           Showing all 20 results
         </label>
-        <select
+        {/* <select
           id="countries"
           className="w-full p-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
@@ -33,7 +50,7 @@ const ProductSidebar = () => {
           <option value="CA">Sort by name (Z-A)</option>
           <option value="FR">Sort by price (low to high)</option>
           <option value="DE">Sort by price (high to low)</option>
-        </select>
+        </select> */}
       </div>
     </aside>
   );

@@ -4,12 +4,14 @@ import ProductSidebar from "./ProductSidebar";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch("http://localhost:5000/products");
         const data = await response.json();
         setProducts(data);
+        setFilteredProducts(data);
       } catch (error) {
         console.log(error);
       }
@@ -20,9 +22,12 @@ const Products = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 flex">
-      <ProductSidebar />
+      <ProductSidebar
+        products={products}
+        setFilteredProducts={setFilteredProducts}
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-[16rem] gap-6 px-10">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <ProductCard product={product} key={product.id} />
         ))}
       </div>
