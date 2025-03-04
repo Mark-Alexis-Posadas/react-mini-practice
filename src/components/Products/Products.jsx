@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import ProductSidebar from "./ProductSidebar";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -18,8 +19,9 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="container mx-auto px-4 py-8 flex">
+      <ProductSidebar />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-[16rem] gap-6 px-10">
         {products.map((product) => (
           <ProductCard product={product} key={product.id} />
         ))}
