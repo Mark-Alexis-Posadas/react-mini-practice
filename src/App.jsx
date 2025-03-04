@@ -1,7 +1,7 @@
-import { Cart } from "./components/Cart/Cart";
+import Products from "./components/Products/Products";
 
 const App = () => {
-  return <Cart />;
+  return <Products />;
 };
 
 export default App;
