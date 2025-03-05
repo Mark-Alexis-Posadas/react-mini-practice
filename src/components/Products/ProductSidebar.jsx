@@ -3,6 +3,7 @@ import { useState } from "react";
 const ProductSidebar = ({ products, setFilteredProducts }) => {
   const [inputValue, setInputValue] = useState("");
   const [activeCategory, setActiveCategory] = useState(0);
+  const [sortValue, setSortValue] = useState("");
 
   const handleChange = (e) => {
     const searchTerm = e.target.value;
@@ -25,6 +26,25 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
       );
       setFilteredProducts(catProducts);
     }
+  };
+
+  const handleSort = (e) => {
+    const sortTerm = e.target.value;
+    setSortValue(sortTerm);
+
+    let sortedProducts = [...products];
+
+    if (sortTerm === "sort_a_to_z") {
+      sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortTerm === "sort_z_to_a") {
+      sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
+    } else if (sortTerm === "low_to_high") {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (sortTerm === "high_to_low") {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    }
+
+    setFilteredProducts(sortedProducts);
   };
 
   return (
@@ -101,17 +121,19 @@ const ProductSidebar = ({ products, setFilteredProducts }) => {
       </div>
       <div>
         <label className="block mb-2 text-sm font-medium text-gray-700">
-          Showing all 20 results
+          Showing all {products.length} results
         </label>
         <select
+          value={sortValue}
+          onChange={handleSort}
           id="countries"
           className="w-full p-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option selected>Default Sorting</option>
-          <option value="US">Sort by name (A-Z)</option>
-          <option value="CA">Sort by name (Z-A)</option>
-          <option value="FR">Sort by price (low to high)</option>
-          <option value="DE">Sort by price (high to low)</option>
+          <option value="">Default Sorting</option>
+          <option value="sort_a_to_z">Sort by name (A-Z)</option>
+          <option value="sort_z_to_a">Sort by name (Z-A)</option>
+          <option value="low_to_high">Sort by price (low to high)</option>
+          <option value="high_to_low">Sort by price (high to low)</option>
         </select>
       </div>
     </aside>

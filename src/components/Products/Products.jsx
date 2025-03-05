@@ -4,6 +4,7 @@ import ProductSidebar from "./ProductSidebar";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [filteredProducts, setFilteredProducts] = useState([]);
   useEffect(() => {
     const fetchProducts = async () => {
@@ -14,6 +15,8 @@ const Products = () => {
         setFilteredProducts(data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -26,6 +29,7 @@ const Products = () => {
         products={products}
         setFilteredProducts={setFilteredProducts}
       />
+      {isLoading && <p>Loading...</p>}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-[16rem] gap-6 px-10">
         {filteredProducts.length === 0 ? (
           <p>Products Not found</p>
