@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
-import ProductSidebar from "./ProductSidebar";
+import ProductCard from "./components/ProductCard";
+import ProductSidebar from "./components/ProductSidebar";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -24,13 +24,14 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8 flex">
+    <div className="container mx-auto px-4 py-8 flex gap-5">
       <ProductSidebar
         products={products}
         setFilteredProducts={setFilteredProducts}
+        filteredProducts={filteredProducts}
       />
       {isLoading && <p>Loading...</p>}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-[16rem] gap-6 px-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-[16rem] gap-6 flex-1">
         {filteredProducts.length === 0 ? (
           <p>Products Not found</p>
         ) : (
