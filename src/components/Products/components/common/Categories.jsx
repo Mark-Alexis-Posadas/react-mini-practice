@@ -1,6 +1,11 @@
 import React from "react";
 
-export default function Categories({ category, activeCategory, index }) {
+export default function Categories({
+  handleSetCategory,
+  category,
+  activeCategory,
+  index,
+}) {
   return (
     <li
       key={category}

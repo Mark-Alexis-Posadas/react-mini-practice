@@ -24,14 +24,14 @@ const Products = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8 flex gap-5">
+    <div className="container mx-auto px-4 py-8 flex">
       <ProductSidebar
         products={products}
         setFilteredProducts={setFilteredProducts}
         filteredProducts={filteredProducts}
       />
       {isLoading && <p>Loading...</p>}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-[16rem] gap-6 flex-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ml-[16rem] gap-6 flex-1 pl-6">
         {filteredProducts.length === 0 ? (
           <p>Products Not found</p>
         ) : (

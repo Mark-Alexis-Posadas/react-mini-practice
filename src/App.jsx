@@ -1,7 +1,5 @@
-import Products from "./components/Products/Products";
-
 const App = () => {
-  return <Products />;
+  return <div>App</div>;
 };
 
 export default App;

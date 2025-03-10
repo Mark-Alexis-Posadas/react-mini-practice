@@ -86,6 +86,7 @@ const ProductSidebar = ({
         <ul className="space-y-2">
           {categories.map((category, index) => (
             <Categories
+              handleSetCategory={handleSetCategory}
               key={index}
               index={index}
               category={category}
