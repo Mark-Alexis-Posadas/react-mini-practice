@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ProductCard from "./components/ProductCard";
 import ProductSidebar from "./components/ProductSidebar";
 
-const Products = () => {
+export const Products = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -43,5 +43,3 @@ const Products = () => {
     </div>
   );
 };
-
-export default Products;
