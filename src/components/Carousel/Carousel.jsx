@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 export default function Carousel({ images }) {
-  const itemsToDisplay = 4;
+  const itemsToDisplay = 2;
   const [currentIndex, setCurrentIndex] = useState(0);
   const goToNextSlide = () => {
     setCurrentIndex((currentIndex + itemsToDisplay) % images.length);

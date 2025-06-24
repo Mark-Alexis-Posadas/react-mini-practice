@@ -26,7 +26,6 @@ const initialTodos = [
   },
 ];
 
-// Initial state of the app (includes todos and edit state)
 const initialState = {
   todo: initialTodos,
   currentTodo: "",
@@ -39,7 +38,6 @@ const initialState = {
   completed: true,
 };
 
-// Reducer function to handle state changes
 const reducer = (state, action) => {
   switch (action.type) {
     case "CANCEL":
@@ -111,7 +109,7 @@ const reducer = (state, action) => {
         id: Date.now(),
         text: action.payload.text,
         completed: false,
-        date: new Date().toLocaleString(), // Set the date when the todo is created
+        date: new Date().toLocaleString(),
       };
       return {
         ...state,
