@@ -20,12 +20,14 @@ export default function Details() {
     );
 
   return (
-    <div className="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-lg mt-10 border border-gray-100">
+    <div className="max-w-xl mx-auto bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg mt-10 border border-gray-100">
       <div className="flex items-center mb-6">
         <UserIcon className="w-6 h-6 text-blue-500 mr-2" />
-        <h1 className="text-3xl font-bold text-gray-800">{user.name}</h1>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+          {user.name}
+        </h1>
       </div>
-      <div className="text-gray-700 space-y-3 text-base">
+      <div className="text-gray-700 dark:text-gray-300 space-y-3 text-base">
         <div className="flex items-center">
           <CalendarIcon className="w-5 h-5 text-gray-400 mr-2" />
           Age: {user.age}
@@ -43,7 +45,7 @@ export default function Details() {
             <HeartIcon className="w-5 h-5 text-gray-400 mr-2" />
             Hobbies:
           </div>
-          <ul className="list-disc list-inside ml-7 text-sm text-gray-600">
+          <ul className="list-disc list-inside ml-7 text-sm text-gray-600 dark:text-gray-400">
             {user.hobbies.map((hobby, idx) => (
               <li key={idx}>{hobby}</li>
             ))}

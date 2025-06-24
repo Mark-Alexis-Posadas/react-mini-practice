@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-white">
         User Directory
       </h1>
 
@@ -51,15 +51,15 @@ export default function Home() {
           {users.map((user) => (
             <div
               key={user.id}
-              className="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition duration-300 border border-gray-100"
+              className="bg-white dark:bg-slate-800 shadow-lg rounded-2xl p-6 hover:shadow-xl transition duration-300 border border-gray-100  dark:border-slate-700"
             >
               <div className="flex items-center mb-4">
                 <UserIcon className="w-6 h-6 text-blue-500 mr-2" />
-                <h2 className="text-xl font-semibold text-gray-800">
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
                   {user.name}
                 </h2>
               </div>
-              <div className="text-gray-600 space-y-1 text-sm">
+              <div className="text-gray-600 dark:text-gray-300 space-y-1 text-sm">
                 <div className="flex items-center">
                   <CalendarIcon className="w-4 h-4 mr-2 text-gray-400" />
                   Age: {user.age}
@@ -87,8 +87,8 @@ export default function Home() {
       {/* Table View */}
       {view === "table" && (
         <div className="overflow-x-auto mt-4">
-          <table className="w-full text-sm border border-gray-200 rounded-xl overflow-hidden shadow">
-            <thead className="bg-gray-100 text-gray-700 text-left">
+          <table className="w-full text-sm border border-gray-200 rounded-xl overflow-hidden shadow dark:border-gray-700">
+            <thead className="bg-gray-100 text-gray-700 text-left dark:bg-slate-700 dark:text-white">
               <tr>
                 <th className="p-3">Name</th>
                 <th className="p-3">Age</th>
@@ -99,7 +99,10 @@ export default function Home() {
             </thead>
             <tbody>
               {users.map((user) => (
-                <tr key={user.id} className="border-t hover:bg-gray-50">
+                <tr
+                  key={user.id}
+                  className="border-t hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-slate-800"
+                >
                   <td className="p-3">{user.name}</td>
                   <td className="p-3">{user.age}</td>
                   <td className="p-3">{user.gender}</td>
