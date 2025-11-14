@@ -113,3 +113,39 @@ These projects will help you practice and improve your React skills. Feel free t
 ---
 
 Feel free to adjust the content as needed. Save this text in a file named `markdown.md`. If you need any further assistance or more examples, let me know! 😊
+
+1. Add a Price Increment Button - `Done`
+
+Add a button next to each product to increase its price by 10. When clicked, it should increase the price of that specific product.
+
+2. Remove a Product - `Done`
+
+Add a "Remove" button next to each product that allows you to remove a product from the list by its id.
+
+3. Add a New Product - `Done`
+
+Implement a form with two inputs (id and price) and a button to add a new product to the products list. After adding, the new product should show up in the list.
+
+4. Sort Products by Price - `Done`
+
+Add a button that sorts the products by price in ascending or descending order when clicked.
+
+5. Change Product Price to a Random Value
+
+Add a button that will set the price of each product to a random value between 1 and 1000 when clicked.
+
+6. Filter Products by Price
+
+Add a filter (input field) that allows the user to enter a minimum price. The list should only show products that are priced greater than or equal to that value.
+
+7. Highlight Expensive Products
+
+Change the background color of products that have a price greater than 500. You can do this using inline styles or CSS classes.
+
+8. Price History (Bonus)
+
+Store the history of price changes for each product (use an array of previous prices). Display the last 3 price changes for each product.
+
+9. Product Categories
+
+Add a category key to each product and implement functionality to filter products by category.

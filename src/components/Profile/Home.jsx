@@ -101,7 +101,7 @@ export default function Home() {
               {users.map((user) => (
                 <tr
                   key={user.id}
-                  className="border-t hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-slate-800"
+                  className="border-t hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-slate-800 dark:text-white"
                 >
                   <td className="p-3">{user.name}</td>
                   <td className="p-3">{user.age}</td>

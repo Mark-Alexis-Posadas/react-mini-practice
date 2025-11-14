@@ -11,10 +11,11 @@ const initialValues = {
   price: "",
   available: false,
 };
+
 export default function ObjectsEditPrice() {
   const [products, setProducts] = useState(REST_API);
   const [inputValue, setInputValue] = useState(initialValues);
-
+  const [updatingProduct, setUpdatingProduct] = useState(false);
   const [active, setActive] = useState(null);
   const [showInput, setShowInput] = useState(false);
 
@@ -38,22 +39,38 @@ export default function ObjectsEditPrice() {
     const currentVal = products[index];
     setInputValue(currentVal);
     setShowInput(true);
+    setUpdatingProduct(true);
   };
 
-  const handleSubmit = () => {
-    setActive(null);
-    const updateProduct = [...products];
-    updateProduct[active] = inputValue;
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent page reload on submit
+    if (updatingProduct) {
+      setActive(null);
+      const updateProduct = [...products];
+      updateProduct[active] = inputValue;
 
-    console.log(updateProduct[active]);
-
-    setProducts(updateProduct);
-    setInputValue("");
-    setShowInput(false);
+      setProducts(updateProduct);
+      // Reset states after updating
+      setInputValue(initialValues);
+      setShowInput(false);
+      setUpdatingProduct(false);
+    } else {
+      setProducts((prev) => [...prev, inputValue]);
+      // Reset states after adding
+      setInputValue(initialValues);
+      setShowInput(false);
+    }
   };
 
   return (
     <div className="p-10 w-[900px] m-auto relative">
+      <button
+        className="text-white bg-green-600 p-2 rounded"
+        onClick={() => setShowInput(!showInput)}
+      >
+        add product
+      </button>
+
       {products.length === 0 ? (
         <h1 className="text-8xl">No Available Products!!!</h1>
       ) : (
@@ -66,7 +83,7 @@ export default function ObjectsEditPrice() {
                 key={id}
                 className={`${
                   index === active && "border-green-500"
-                } border flex items-center gap-3 bg-slate-100 shadow-md  my-3 p-3 rounded`}
+                } border flex items-center gap-3 bg-slate-100 shadow-md my-3 p-3 rounded`}
               >
                 <h3 className="font-bold text-green-600">{name}</h3>
                 <p className="text-slate-500 text-sm">{description}</p>
@@ -96,13 +113,16 @@ export default function ObjectsEditPrice() {
       )}
 
       {showInput && (
-        <div className="fixed w-full h-full left-0 p-20 top-0 flex flex-col items-center justify-center bg-[rgba(0,0,0,0.4)]">
+        <form
+          className="fixed w-full h-full left-0 p-20 top-0 flex flex-col items-center justify-center bg-[rgba(0,0,0,0.4)]"
+          onSubmit={handleSubmit} // Using form submission
+        >
           <div className="flex flex-col gap-3 w-[900px] bg-white p-3 rounded">
             <input
               type="text"
               name="name"
               className="bg-slate-100 p-3 rounded flex-1"
-              placeholder="Update name"
+              placeholder={updatingProduct ? "Update name" : "Add name"}
               value={inputValue.name}
               onChange={handleChange}
             />
@@ -110,7 +130,9 @@ export default function ObjectsEditPrice() {
               type="text"
               name="description"
               className="bg-slate-100 p-3 rounded flex-1"
-              placeholder="Update description"
+              placeholder={
+                updatingProduct ? "Update description" : "Add description"
+              }
               value={inputValue.description}
               onChange={handleChange}
             />
@@ -118,7 +140,7 @@ export default function ObjectsEditPrice() {
               type="text"
               name="category"
               className="bg-slate-100 p-3 rounded flex-1"
-              placeholder="Update category"
+              placeholder={updatingProduct ? "Update category" : "Add category"}
               value={inputValue.category}
               onChange={handleChange}
             />
@@ -126,10 +148,11 @@ export default function ObjectsEditPrice() {
               type="number"
               name="price"
               className="bg-slate-100 p-3 rounded flex-1"
-              placeholder="Update Price"
+              placeholder={updatingProduct ? "Update Price" : "Add Price"}
               value={inputValue.price}
               onChange={handleChange}
             />
+
             <select
               name="stock"
               value={inputValue.available ? "true" : "false"}
@@ -137,26 +160,30 @@ export default function ObjectsEditPrice() {
               className="bg-slate-100 p-3 rounded flex-1"
             >
               <option value="true">In stock</option>
-              <option value="false">Out stock</option>
+              <option value="false">Out of stock</option>
             </select>
             <div className="flex items-center gap-3">
               <button
                 className="bg-red-600 text-white rounded p-3"
                 onClick={() => {
-                  setShowInput(false), setActive(null);
+                  setShowInput(false);
+                  setActive(null);
+                  setUpdatingProduct(false);
+                  setInputValue(initialValues); // Reset form on cancel
                 }}
+                type="button"
               >
                 cancel
               </button>
               <button
                 className="bg-green-600 text-white rounded p-3"
-                onClick={handleSubmit}
+                type="submit"
               >
-                update
+                {updatingProduct ? "Update" : "Add"}
               </button>
             </div>
           </div>
-        </div>
+        </form>
       )}
     </div>
   );
