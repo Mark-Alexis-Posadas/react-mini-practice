@@ -23,7 +23,7 @@ const ArrayManipulation = () => {
   const active = users.filter((user) => user.status === "active").length;
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="p-6">
       <Navbar
         value={value}
         handleChange={handleChange}
@@ -33,9 +33,11 @@ const ArrayManipulation = () => {
       />
       <FormModal setFilteredActiveUser={setFilteredActiveUser} />
       <div className="grid grid-cols-3 gap-4">
-        {filteredActiveUser.map((user) => (
-          <Card key={user.id} user={user} />
-        ))}
+        {filteredActiveUser.length === 0 ? (
+          <p>No user found</p>
+        ) : (
+          filteredActiveUser.map((user) => <Card key={user.id} user={user} />)
+        )}
       </div>
     </div>
   );

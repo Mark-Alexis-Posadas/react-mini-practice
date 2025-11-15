@@ -35,7 +35,7 @@ const FormModal = ({ setFilteredActiveUser }) => {
   };
 
   return (
-    <>
+    <div className="my-5">
       <button
         onClick={() => setOpen(true)}
         className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-md hover:shadow-purple-500/30 transition font-semibold"
@@ -106,7 +106,7 @@ const FormModal = ({ setFilteredActiveUser }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
