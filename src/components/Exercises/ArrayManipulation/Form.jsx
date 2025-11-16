@@ -1,16 +1,13 @@
-import { useState } from "react";
-
-const initialValues = {
-  name: "",
-  age: "",
-  gender: "female",
-  status: "active",
-};
-
-const FormModal = ({ setFilteredActiveUser }) => {
-  const [open, setOpen] = useState(false);
-  const [formValues, setFormValues] = useState(initialValues);
-
+const FormModal = ({
+  setFilteredActiveUser,
+  open,
+  setOpen,
+  formValues,
+  initialValues,
+  setFormValues,
+  isEditing,
+  setIsEditing,
+}) => {
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prev) => ({ ...prev, [name]: value }));
@@ -30,14 +27,15 @@ const FormModal = ({ setFilteredActiveUser }) => {
       },
     ]);
 
-    setFormValues(initialValues);
     setOpen(false);
   };
 
   return (
     <div className="my-5">
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => (
+          setOpen(true), setIsEditing(false), setFormValues(initialValues)
+        )}
         className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl shadow-md hover:shadow-purple-500/30 transition font-semibold"
       >
         Add User
@@ -82,6 +80,9 @@ const FormModal = ({ setFilteredActiveUser }) => {
                 onChange={handleFormChange}
                 className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-purple-500 transition"
               >
+                <option disabled value="">
+                  Select gender
+                </option>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
               </select>
@@ -92,6 +93,9 @@ const FormModal = ({ setFilteredActiveUser }) => {
                 onChange={handleFormChange}
                 className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-purple-500 transition"
               >
+                <option disabled value="">
+                  Select status
+                </option>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select>
@@ -100,7 +104,7 @@ const FormModal = ({ setFilteredActiveUser }) => {
                 type="submit"
                 className="w-full py-3 rounded-lg bg-purple-600 hover:bg-purple-700 transition text-white font-semibold tracking-wide shadow-md hover:shadow-purple-500/30"
               >
-                SUBMIT
+                {isEditing ? "Update" : "Submit"}
               </button>
             </form>
           </div>

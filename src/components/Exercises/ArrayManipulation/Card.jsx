@@ -1,4 +1,4 @@
-const Card = ({ user }) => {
+const Card = ({ user, onEdit, onDelete, onView }) => {
   return (
     <div
       key={user.id}
@@ -8,10 +8,12 @@ const Card = ({ user }) => {
         <h1 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
           {user.name}
         </h1>
+
         <div className="flex items-center gap-3 mt-1 text-sm text-gray-500 dark:text-gray-400">
           <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 rounded-full">
             {user.gender}
           </span>
+
           <span
             className={`px-2 py-0.5 rounded-full text-white ${
               user.status === "active"
@@ -23,8 +25,32 @@ const Card = ({ user }) => {
           >
             {user.status}
           </span>
+
           <span>{user.age}</span>
         </div>
+      </div>
+
+      <div className="flex items-center gap-2 mt-4 sm:mt-0">
+        <button
+          onClick={() => onView(user)}
+          className="px-3 py-1 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+        >
+          View
+        </button>
+
+        <button
+          onClick={() => onEdit(user)}
+          className="px-3 py-1 text-sm bg-yellow-500 hover:bg-yellow-600 text-white rounded-md"
+        >
+          Edit
+        </button>
+
+        <button
+          onClick={() => onDelete(user.id)}
+          className="px-3 py-1 text-sm bg-red-500 hover:bg-red-600 text-white rounded-md"
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
