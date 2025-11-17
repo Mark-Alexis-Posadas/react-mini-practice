@@ -7,6 +7,8 @@ const FormModal = ({
   setFormValues,
   isEditing,
   setIsEditing,
+  editId,
+  filteredActiveUser,
 }) => {
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -16,16 +18,23 @@ const FormModal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setFilteredActiveUser((prev) => [
-      ...prev,
-      {
-        id: prev.length + 1,
-        name: formValues.name,
-        age: formValues.age,
-        gender: formValues.gender,
-        status: formValues.status,
-      },
-    ]);
+    const formData = {
+      id: isEditing ? editId : filteredActiveUser.length + 1,
+      name: formValues.name,
+      age: formValues.age,
+      gender: formValues.gender,
+      status: formValues.status,
+    };
+
+    if (isEditing) {
+      setFilteredActiveUser((prev) =>
+        prev.map((item) =>
+          item.id === editId ? { ...item, ...formData } : item
+        )
+      );
+    } else {
+      setFilteredActiveUser((prev) => [...prev, formData]);
+    }
 
     setOpen(false);
   };

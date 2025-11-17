@@ -4,6 +4,7 @@ import Card from "./Card";
 import Navbar from "./Navbar";
 import FormModal from "./Form";
 import ViewUser from "./ViewUser";
+import ConfirmationDelete from "./ConfirmationDelete";
 
 const initialValues = {
   name: "",
@@ -14,13 +15,15 @@ const initialValues = {
 
 const ArrayManipulation = () => {
   const [formValues, setFormValues] = useState(initialValues);
-  const [open, setOpen] = useState(false);
-  const [isToggleViewUser, setIsToggleViewUser] = useState(false);
-  const [filteredActiveUser, setFilteredActiveUser] = useState(users);
-  const [isEditing, setIsEditing] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [value, setValue] = useState("all");
-
+  const [open, setOpen] = useState(false);
+  const [isToggleViewUser, setIsToggleViewUser] = useState(false);
+  const [isToggleDelete, setIsToggleDelete] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [filteredActiveUser, setFilteredActiveUser] = useState(users);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editId, setEditId] = useState(null);
   const handleChange = (e) => {
     const selectedStatus = e.target.value;
     setValue(selectedStatus);
@@ -40,7 +43,7 @@ const ArrayManipulation = () => {
       ...user,
       gender: user.gender.toLowerCase(),
     };
-
+    setEditId(user.id);
     setFormValues(normalizedUser);
     setOpen(true);
     setIsEditing(true);
@@ -49,6 +52,19 @@ const ArrayManipulation = () => {
   const handleToggleViewUser = (user) => {
     setIsToggleViewUser(true);
     setSelectedUser(user);
+  };
+
+  const handleToggleDelete = (id) => {
+    setIsToggleDelete(true);
+    setDeleteId(id);
+  };
+
+  const handleProceedDelete = () => {
+    const deleteItem = filteredActiveUser.filter(
+      (user) => user.id !== deleteId
+    );
+    setFilteredActiveUser(deleteItem);
+    setIsToggleDelete(false);
   };
 
   return (
@@ -60,6 +76,14 @@ const ArrayManipulation = () => {
         filteredActiveUser={filteredActiveUser}
         setFilteredActiveUser={setFilteredActiveUser}
       />
+      {isToggleDelete && (
+        <ConfirmationDelete
+          onProceed={handleProceedDelete}
+          onCancel={() => {
+            setIsToggleDelete(false), setDeleteId(null);
+          }}
+        />
+      )}
 
       <FormModal
         setFilteredActiveUser={setFilteredActiveUser}
@@ -70,6 +94,8 @@ const ArrayManipulation = () => {
         isEditing={isEditing}
         setIsEditing={setIsEditing}
         initialValues={initialValues}
+        editId={editId}
+        filteredActiveUser={filteredActiveUser}
       />
       {isToggleViewUser && (
         <ViewUser
@@ -88,6 +114,7 @@ const ArrayManipulation = () => {
               user={user}
               onEdit={handleToggleEdit}
               onView={handleToggleViewUser}
+              onDelete={handleToggleDelete}
             />
           ))
         )}
