@@ -8,6 +8,7 @@ export const Cart = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isToggleCart, setIsToggleCart] = useState(false);
 
+  console.log(cart.price);
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -1,9 +1,9 @@
-const ConfirmationDelete = ({ onProceed, onCancel }) => {
+const ConfirmationDelete = ({ onProceed, onCancel, displayName }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/70 backdrop-blur-sm z-50">
       <div className="bg-gradient-to-b from-gray-800 to-gray-900 border border-red-600 shadow-[0_0_20px_rgba(255,0,0,0.7)] rounded-lg p-6 w-80 text-center">
         <h2 className="text-red-500 text-2xl font-extrabold tracking-wider mb-4 drop-shadow-[0_0_6px_rgba(255,0,0,0.8)]">
-          Delete Item?
+          Delete {displayName} ?
         </h2>
 
         <p className="text-gray-300 mb-6 text-sm">

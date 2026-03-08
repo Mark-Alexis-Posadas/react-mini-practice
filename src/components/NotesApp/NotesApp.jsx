@@ -91,7 +91,7 @@ const NotesApp = () => {
       const editVal = submittedNotes.map((item, index) =>
         index === editIndex
           ? { title, text, bgColor: backgroundColorData[activeBgColor].color }
-          : item
+          : item,
       );
       setSubmittedNotes(editVal);
       setIsEditing(false);
@@ -144,7 +144,7 @@ const NotesApp = () => {
             {backgroundColorData.map((color, index) => (
               <button
                 onClick={() => {
-                  handleSetBgColor(index), setEditColor(index);
+                  (handleSetBgColor(index), setEditColor(index));
                 }}
                 key={index}
                 type="button"

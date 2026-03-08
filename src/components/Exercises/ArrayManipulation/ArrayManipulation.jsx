@@ -1,124 +1,107 @@
 import { useState } from "react";
-import { users } from "./data";
-import Card from "./Card";
-import Navbar from "./Navbar";
-import FormModal from "./Form";
-import ViewUser from "./ViewUser";
-import ConfirmationDelete from "./ConfirmationDelete";
+import Navbar from "./components/Navbar";
+import Card from "./components/Card";
+import FormModal from "./components/Form";
+import ViewUser from "./components/ViewUser";
+import ConfirmationDelete from "./components/ConfirmationDelete";
 
-const initialValues = {
-  name: "",
-  age: "",
-  gender: "",
-  status: "",
-};
+import { useUsers } from "./hooks/useUsers";
+import { useFilters } from "./hooks/useFilters";
+import { useModal } from "./hooks/useModal";
 
 const ArrayManipulation = () => {
-  const [formValues, setFormValues] = useState(initialValues);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [value, setValue] = useState("all");
-  const [open, setOpen] = useState(false);
-  const [isToggleViewUser, setIsToggleViewUser] = useState(false);
-  const [isToggleDelete, setIsToggleDelete] = useState(false);
-  const [deleteId, setDeleteId] = useState(null);
-  const [filteredActiveUser, setFilteredActiveUser] = useState(users);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editId, setEditId] = useState(null);
-  const handleChange = (e) => {
-    const selectedStatus = e.target.value;
-    setValue(selectedStatus);
+  const [filteredActiveUsers, setFilteredActiveUser] = useState([]);
 
-    if (selectedStatus === "all") {
-      setFilteredActiveUser(users);
-    } else {
-      const result = users.filter((user) => user.status === selectedStatus);
-      setFilteredActiveUser(result);
-    }
-  };
+  const {
+    users,
+    selectedUser,
+    setSelectedUser,
+    addUser,
+    updateUser,
+    deleteUser,
+  } = useUsers();
 
-  const active = users.filter((user) => user.status === "active").length;
+  const {
+    filteredUsers,
+    search,
+    setSearch,
+    gender,
+    setGender,
+    status,
+    setStatus,
+    sort,
+    setSort,
+  } = useFilters(users);
 
-  const handleToggleEdit = (user) => {
-    const normalizedUser = {
-      ...user,
-      gender: user.gender.toLowerCase(),
-    };
-    setEditId(user.id);
-    setFormValues(normalizedUser);
-    setOpen(true);
-    setIsEditing(true);
-  };
-
-  const handleToggleViewUser = (user) => {
-    setIsToggleViewUser(true);
-    setSelectedUser(user);
-  };
-
-  const handleToggleDelete = (id) => {
-    setIsToggleDelete(true);
-    setDeleteId(id);
-  };
-
-  const handleProceedDelete = () => {
-    const deleteItem = filteredActiveUser.filter(
-      (user) => user.id !== deleteId
-    );
-    setFilteredActiveUser(deleteItem);
-    setIsToggleDelete(false);
-  };
+  const {
+    isFormOpen,
+    setIsFormOpen,
+    isViewOpen,
+    setIsViewOpen,
+    isDeleteOpen,
+    setIsDeleteOpen,
+  } = useModal();
 
   return (
     <div className="p-6">
       <Navbar
-        value={value}
-        handleChange={handleChange}
-        active={active}
-        filteredActiveUser={filteredActiveUser}
+        search={search}
+        setSearch={setSearch}
+        gender={gender}
+        setGender={setGender}
+        status={status}
+        setStatus={setStatus}
+        sort={sort}
+        setSort={setSort}
+        active={users.filter((u) => u.status === "active").length}
         setFilteredActiveUser={setFilteredActiveUser}
       />
-      {isToggleDelete && (
-        <ConfirmationDelete
-          onProceed={handleProceedDelete}
-          onCancel={() => {
-            setIsToggleDelete(false), setDeleteId(null);
-          }}
-        />
-      )}
-
-      <FormModal
-        setFilteredActiveUser={setFilteredActiveUser}
-        open={open}
-        setOpen={setOpen}
-        formValues={formValues}
-        setFormValues={setFormValues}
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
-        initialValues={initialValues}
-        editId={editId}
-        filteredActiveUser={filteredActiveUser}
-      />
-      {isToggleViewUser && (
-        <ViewUser
-          selectedUser={selectedUser}
-          setIsToggleViewUser={setIsToggleViewUser}
-        />
-      )}
 
       <div className="grid grid-cols-3 gap-4">
-        {filteredActiveUser.length === 0 ? (
-          <p>No user found</p>
-        ) : (
-          filteredActiveUser.map((user) => (
-            <Card
-              key={user.id}
-              user={user}
-              onEdit={handleToggleEdit}
-              onView={handleToggleViewUser}
-              onDelete={handleToggleDelete}
-            />
-          ))
-        )}
+        {filteredUsers.map((user) => (
+          <Card
+            key={user.id}
+            user={user}
+            onView={() => {
+              setSelectedUser(user);
+              setIsViewOpen(true);
+            }}
+            onEdit={() => {
+              setSelectedUser(user);
+              setIsFormOpen(true);
+            }}
+            onDelete={() => {
+              setSelectedUser(user);
+              setIsDeleteOpen(true);
+            }}
+          />
+        ))}
       </div>
+
+      {isFormOpen && (
+        <FormModal
+          user={selectedUser}
+          onClose={() => setIsFormOpen(false)}
+          onSubmit={(data) =>
+            selectedUser ? updateUser(selectedUser.id, data) : addUser(data)
+          }
+        />
+      )}
+
+      {isViewOpen && (
+        <ViewUser user={selectedUser} onClose={() => setIsViewOpen(false)} />
+      )}
+
+      {isDeleteOpen && (
+        <ConfirmationDelete
+          displayName={selectedUser?.name}
+          onProceed={() => {
+            deleteUser(selectedUser.id);
+            setIsDeleteOpen(false);
+          }}
+          onCancel={() => setIsDeleteOpen(false)}
+        />
+      )}
     </div>
   );
 };

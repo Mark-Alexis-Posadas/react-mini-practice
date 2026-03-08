@@ -2,15 +2,13 @@ const Card = ({ user, onEdit, onDelete, onView }) => {
   return (
     <div
       key={user.id}
-      className="bg-white dark:bg-gray-800 shadow-md rounded-2xl p-4 mb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between transition-all hover:shadow-lg"
+      className="bg-white shadow-md p-4 rounded-lg border border-gray-100 hover:shadow-lg transition-shadow"
     >
-      <div>
-        <h1 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-          {user.name}
-        </h1>
+      <div className="mb-3">
+        <h1 className="text-lg font-semibold text-gray-800">{user.name}</h1>
 
-        <div className="flex items-center gap-3 mt-1 text-sm text-gray-500 dark:text-gray-400">
-          <span className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 rounded-full">
+        <div className="flex items-center gap-3 mt-2 text-sm text-gray-600">
+          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">
             {user.gender}
           </span>
 
@@ -30,10 +28,10 @@ const Card = ({ user, onEdit, onDelete, onView }) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-2 mt-4 sm:mt-0">
+      <div className="flex items-center gap-2 mt-4">
         <button
           onClick={() => onView(user)}
-          className="px-3 py-1 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+          className="px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md"
         >
           View
         </button>

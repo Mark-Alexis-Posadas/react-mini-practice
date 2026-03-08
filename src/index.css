@@ -41,3 +41,21 @@
 .shake {
   animation: shake 0.5s;
 }
+
+@layer utilities {
+  .metal-border {
+    @apply border border-gray-700/80 shadow-[0_0_8px_#4a4a4a,inset_0_0_10px_#1a1a1a];
+  }
+
+  .neon-purple {
+    text-shadow: 0 0 8px #a855f7, 0 0 15px #9333ea;
+  }
+
+  .neon-red {
+    text-shadow: 0 0 8px #ef4444, 0 0 15px #dc2626;
+  }
+
+  .neon-cyan {
+    text-shadow: 0 0 8px #06b6d4, 0 0 15px #0891b2;
+  }
+}
